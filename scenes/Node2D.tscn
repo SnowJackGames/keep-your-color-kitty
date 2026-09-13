@@ -1,0 +1,286 @@
+[gd_scene format=3 uid="uid://bvivttt157co2"]
+
+[ext_resource type="PackedScene" uid="uid://cdr8jgfxou2vs" path="res://scenes/player.tscn" id="1_req00"]
+[ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/wall.tscn" id="2_iweij"]
+
+[node name="Node2D" type="Node2D" unique_id=1141408967]
+
+[node name="Elements" type="Node" parent="." unique_id=863767842]
+
+[node name="Player" parent="Elements" unique_id=1727976728 instance=ExtResource("1_req00")]
+position = Vector2(160, 272)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Elements/Player" unique_id=439446228]
+remote_path = NodePath("../../../Camera2D")
+
+[node name="Walls" type="Node2D" parent="Elements" unique_id=941633441]
+
+[node name="Wall" parent="Elements/Walls" unique_id=34819834 instance=ExtResource("2_iweij")]
+position = Vector2(0, 112)
+
+[node name="Wall2" parent="Elements/Walls" unique_id=1467326679 instance=ExtResource("2_iweij")]
+position = Vector2(0, 96)
+
+[node name="Wall3" parent="Elements/Walls" unique_id=1869753478 instance=ExtResource("2_iweij")]
+position = Vector2(0, 80)
+
+[node name="Wall4" parent="Elements/Walls" unique_id=1629543131 instance=ExtResource("2_iweij")]
+position = Vector2(0, 64)
+
+[node name="Wall5" parent="Elements/Walls" unique_id=2006624537 instance=ExtResource("2_iweij")]
+position = Vector2(0, 48)
+
+[node name="Wall6" parent="Elements/Walls" unique_id=402114513 instance=ExtResource("2_iweij")]
+position = Vector2(0, 32)
+
+[node name="Wall7" parent="Elements/Walls" unique_id=1493262896 instance=ExtResource("2_iweij")]
+position = Vector2(0, 16)
+
+[node name="Wall8" parent="Elements/Walls" unique_id=2057112403 instance=ExtResource("2_iweij")]
+
+[node name="Wall9" parent="Elements/Walls" unique_id=246639627 instance=ExtResource("2_iweij")]
+position = Vector2(16, 0)
+
+[node name="Wall10" parent="Elements/Walls" unique_id=1086159295 instance=ExtResource("2_iweij")]
+position = Vector2(32, 0)
+
+[node name="Wall11" parent="Elements/Walls" unique_id=101844750 instance=ExtResource("2_iweij")]
+position = Vector2(48, 0)
+
+[node name="Wall12" parent="Elements/Walls" unique_id=79701289 instance=ExtResource("2_iweij")]
+position = Vector2(64, 0)
+
+[node name="Wall13" parent="Elements/Walls" unique_id=1055959612 instance=ExtResource("2_iweij")]
+position = Vector2(80, 0)
+
+[node name="Wall14" parent="Elements/Walls" unique_id=32487809 instance=ExtResource("2_iweij")]
+position = Vector2(96, 0)
+
+[node name="Wall15" parent="Elements/Walls" unique_id=1254649187 instance=ExtResource("2_iweij")]
+position = Vector2(112, 0)
+
+[node name="Wall16" parent="Elements/Walls" unique_id=1758449830 instance=ExtResource("2_iweij")]
+position = Vector2(128, 0)
+
+[node name="Wall17" parent="Elements/Walls" unique_id=1170690918 instance=ExtResource("2_iweij")]
+position = Vector2(144, 0)
+
+[node name="Wall37" parent="Elements/Walls" unique_id=312628213 instance=ExtResource("2_iweij")]
+position = Vector2(144, 272)
+
+[node name="Wall38" parent="Elements/Walls" unique_id=1447846538 instance=ExtResource("2_iweij")]
+position = Vector2(176, 272)
+
+[node name="Wall39" parent="Elements/Walls" unique_id=742144262 instance=ExtResource("2_iweij")]
+position = Vector2(192, 272)
+
+[node name="Wall40" parent="Elements/Walls" unique_id=2046372176 instance=ExtResource("2_iweij")]
+position = Vector2(208, 272)
+
+[node name="Wall41" parent="Elements/Walls" unique_id=2129358049 instance=ExtResource("2_iweij")]
+position = Vector2(224, 272)
+
+[node name="Wall42" parent="Elements/Walls" unique_id=783149502 instance=ExtResource("2_iweij")]
+position = Vector2(240, 272)
+
+[node name="Wall43" parent="Elements/Walls" unique_id=434918128 instance=ExtResource("2_iweij")]
+position = Vector2(256, 272)
+
+[node name="Wall44" parent="Elements/Walls" unique_id=1335436364 instance=ExtResource("2_iweij")]
+position = Vector2(272, 272)
+
+[node name="Wall45" parent="Elements/Walls" unique_id=622352666 instance=ExtResource("2_iweij")]
+position = Vector2(288, 272)
+
+[node name="Wall46" parent="Elements/Walls" unique_id=1419604843 instance=ExtResource("2_iweij")]
+position = Vector2(304, 128)
+
+[node name="Wall47" parent="Elements/Walls" unique_id=1799628797 instance=ExtResource("2_iweij")]
+position = Vector2(304, 112)
+
+[node name="Wall48" parent="Elements/Walls" unique_id=359963579 instance=ExtResource("2_iweij")]
+position = Vector2(304, 96)
+
+[node name="Wall49" parent="Elements/Walls" unique_id=820617946 instance=ExtResource("2_iweij")]
+position = Vector2(304, 80)
+
+[node name="Wall50" parent="Elements/Walls" unique_id=652027484 instance=ExtResource("2_iweij")]
+position = Vector2(304, 64)
+
+[node name="Wall51" parent="Elements/Walls" unique_id=1588980359 instance=ExtResource("2_iweij")]
+position = Vector2(304, 48)
+
+[node name="Wall52" parent="Elements/Walls" unique_id=1786089538 instance=ExtResource("2_iweij")]
+position = Vector2(304, 32)
+
+[node name="Wall53" parent="Elements/Walls" unique_id=2031246519 instance=ExtResource("2_iweij")]
+position = Vector2(304, 16)
+
+[node name="Wall54" parent="Elements/Walls" unique_id=1791113922 instance=ExtResource("2_iweij")]
+position = Vector2(304, 0)
+
+[node name="Wall64" parent="Elements/Walls" unique_id=1173333588 instance=ExtResource("2_iweij")]
+position = Vector2(304, 272)
+
+[node name="Wall65" parent="Elements/Walls" unique_id=1145789992 instance=ExtResource("2_iweij")]
+position = Vector2(304, 256)
+
+[node name="Wall66" parent="Elements/Walls" unique_id=2026410398 instance=ExtResource("2_iweij")]
+position = Vector2(304, 240)
+
+[node name="Wall67" parent="Elements/Walls" unique_id=250082568 instance=ExtResource("2_iweij")]
+position = Vector2(304, 224)
+
+[node name="Wall68" parent="Elements/Walls" unique_id=1635400388 instance=ExtResource("2_iweij")]
+position = Vector2(304, 208)
+
+[node name="Wall69" parent="Elements/Walls" unique_id=1565954489 instance=ExtResource("2_iweij")]
+position = Vector2(304, 192)
+
+[node name="Wall70" parent="Elements/Walls" unique_id=984604331 instance=ExtResource("2_iweij")]
+position = Vector2(304, 176)
+
+[node name="Wall71" parent="Elements/Walls" unique_id=11353597 instance=ExtResource("2_iweij")]
+position = Vector2(304, 160)
+
+[node name="Wall72" parent="Elements/Walls" unique_id=1311975031 instance=ExtResource("2_iweij")]
+position = Vector2(304, 144)
+
+[node name="Wall74" parent="Elements/Walls" unique_id=479034916 instance=ExtResource("2_iweij")]
+position = Vector2(240, 48)
+
+[node name="Wall75" parent="Elements/Walls" unique_id=30069909 instance=ExtResource("2_iweij")]
+position = Vector2(240, 160)
+
+[node name="Wall76" parent="Elements/Walls" unique_id=229375014 instance=ExtResource("2_iweij")]
+position = Vector2(240, 144)
+
+[node name="Wall77" parent="Elements/Walls" unique_id=588854825 instance=ExtResource("2_iweij")]
+position = Vector2(240, 128)
+
+[node name="Wall78" parent="Elements/Walls" unique_id=999174597 instance=ExtResource("2_iweij")]
+position = Vector2(240, 112)
+
+[node name="Wall79" parent="Elements/Walls" unique_id=1328023922 instance=ExtResource("2_iweij")]
+position = Vector2(240, 96)
+
+[node name="Wall80" parent="Elements/Walls" unique_id=457947343 instance=ExtResource("2_iweij")]
+position = Vector2(240, 80)
+
+[node name="Wall81" parent="Elements/Walls" unique_id=46557147 instance=ExtResource("2_iweij")]
+position = Vector2(240, 64)
+
+[node name="Wall82" parent="Elements/Walls" unique_id=114534666 instance=ExtResource("2_iweij")]
+position = Vector2(80, 128)
+
+[node name="Wall83" parent="Elements/Walls" unique_id=298647955 instance=ExtResource("2_iweij")]
+position = Vector2(80, 240)
+
+[node name="Wall84" parent="Elements/Walls" unique_id=843830364 instance=ExtResource("2_iweij")]
+position = Vector2(80, 224)
+
+[node name="Wall85" parent="Elements/Walls" unique_id=169303056 instance=ExtResource("2_iweij")]
+position = Vector2(80, 208)
+
+[node name="Wall86" parent="Elements/Walls" unique_id=40836783 instance=ExtResource("2_iweij")]
+position = Vector2(80, 192)
+
+[node name="Wall87" parent="Elements/Walls" unique_id=1518004122 instance=ExtResource("2_iweij")]
+position = Vector2(80, 176)
+
+[node name="Wall88" parent="Elements/Walls" unique_id=876152933 instance=ExtResource("2_iweij")]
+position = Vector2(80, 160)
+
+[node name="Wall89" parent="Elements/Walls" unique_id=1204213929 instance=ExtResource("2_iweij")]
+position = Vector2(80, 144)
+
+[node name="Wall55" parent="Elements/Walls" unique_id=558278240 instance=ExtResource("2_iweij")]
+position = Vector2(288, 0)
+
+[node name="Wall56" parent="Elements/Walls" unique_id=1989512884 instance=ExtResource("2_iweij")]
+position = Vector2(272, 0)
+
+[node name="Wall57" parent="Elements/Walls" unique_id=710820378 instance=ExtResource("2_iweij")]
+position = Vector2(256, 0)
+
+[node name="Wall58" parent="Elements/Walls" unique_id=1261270357 instance=ExtResource("2_iweij")]
+position = Vector2(240, 0)
+
+[node name="Wall59" parent="Elements/Walls" unique_id=518010295 instance=ExtResource("2_iweij")]
+position = Vector2(224, 0)
+
+[node name="Wall60" parent="Elements/Walls" unique_id=1954423239 instance=ExtResource("2_iweij")]
+position = Vector2(208, 0)
+
+[node name="Wall61" parent="Elements/Walls" unique_id=1403018349 instance=ExtResource("2_iweij")]
+position = Vector2(192, 0)
+
+[node name="Wall62" parent="Elements/Walls" unique_id=201818038 instance=ExtResource("2_iweij")]
+position = Vector2(176, 0)
+
+[node name="Wall63" parent="Elements/Walls" unique_id=1408267295 instance=ExtResource("2_iweij")]
+position = Vector2(160, 0)
+
+[node name="Wall25" parent="Elements/Walls" unique_id=577547463 instance=ExtResource("2_iweij")]
+position = Vector2(160, 288)
+
+[node name="Wall26" parent="Elements/Walls" unique_id=463812164 instance=ExtResource("2_iweij")]
+position = Vector2(128, 272)
+
+[node name="Wall27" parent="Elements/Walls" unique_id=637948336 instance=ExtResource("2_iweij")]
+position = Vector2(112, 272)
+
+[node name="Wall28" parent="Elements/Walls" unique_id=1626720894 instance=ExtResource("2_iweij")]
+position = Vector2(96, 272)
+
+[node name="Wall29" parent="Elements/Walls" unique_id=633797710 instance=ExtResource("2_iweij")]
+position = Vector2(80, 272)
+
+[node name="Wall30" parent="Elements/Walls" unique_id=1738669351 instance=ExtResource("2_iweij")]
+position = Vector2(64, 272)
+
+[node name="Wall31" parent="Elements/Walls" unique_id=1199046412 instance=ExtResource("2_iweij")]
+position = Vector2(48, 272)
+
+[node name="Wall32" parent="Elements/Walls" unique_id=1916833889 instance=ExtResource("2_iweij")]
+position = Vector2(32, 272)
+
+[node name="Wall35" parent="Elements/Walls" unique_id=664295226 instance=ExtResource("2_iweij")]
+position = Vector2(16, 272)
+
+[node name="Wall36" parent="Elements/Walls" unique_id=2062648921 instance=ExtResource("2_iweij")]
+position = Vector2(0, 272)
+
+[node name="Wall33" parent="Elements/Walls" unique_id=982038562 instance=ExtResource("2_iweij")]
+position = Vector2(0, 128)
+
+[node name="Wall18" parent="Elements/Walls" unique_id=349061599 instance=ExtResource("2_iweij")]
+position = Vector2(0, 224)
+
+[node name="Wall19" parent="Elements/Walls" unique_id=375496895 instance=ExtResource("2_iweij")]
+position = Vector2(0, 208)
+
+[node name="Wall20" parent="Elements/Walls" unique_id=2124170225 instance=ExtResource("2_iweij")]
+position = Vector2(0, 192)
+
+[node name="Wall21" parent="Elements/Walls" unique_id=839101706 instance=ExtResource("2_iweij")]
+position = Vector2(0, 176)
+
+[node name="Wall22" parent="Elements/Walls" unique_id=1878707927 instance=ExtResource("2_iweij")]
+position = Vector2(0, 160)
+
+[node name="Wall23" parent="Elements/Walls" unique_id=1763821353 instance=ExtResource("2_iweij")]
+position = Vector2(0, 144)
+
+[node name="Wall34" parent="Elements/Walls" unique_id=1989003227 instance=ExtResource("2_iweij")]
+position = Vector2(0, 240)
+
+[node name="Wall73" parent="Elements/Walls" unique_id=1562313152 instance=ExtResource("2_iweij")]
+position = Vector2(0, 256)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=768179103]
+position = Vector2(160, 272)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 288

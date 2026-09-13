@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
+@onready var ray = $RayCast2D
+@onready var sprite = $AnimatedSprite2D
 var grid_size = 16
+
+
+
 var inputs = {
 	'ui_up': Vector2.UP,
 	'ui_down': Vector2.DOWN,
@@ -16,14 +21,19 @@ var directional_walk_animations = {
 }
 
 func _unhandled_input(event: InputEvent) -> void:
-	$AnimatedSprite2D.play()
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			move(dir)
+			var vector_pos = inputs[dir] * grid_size
+			move(vector_pos)
 			animation(dir)
 
-func move(dir):
-	position += inputs[dir] * grid_size
+func move(vector_pos):
+	ray.target_position = vector_pos
+	ray.force_raycast_update()
+	if !ray.is_colliding():
+		position += vector_pos
 
 func animation(dir):
-	$AnimatedSprite2D.play(directional_walk_animations[dir])
+	sprite.frame = (sprite.frame + 1) % 2
+	sprite.animation = directional_walk_animations[dir]
+	
