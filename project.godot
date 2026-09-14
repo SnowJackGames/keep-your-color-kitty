@@ -16,6 +16,10 @@ boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
+[autoload]
+
+Debug="*uid://i8q3nygdq8fy"
+
 [display]
 
 window/size/viewport_width=160
