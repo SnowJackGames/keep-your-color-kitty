@@ -82,7 +82,6 @@ func _process (_delta: float):
 			Debug.say("Impossible state")
 	
 	if (can_move == false) && (can_action == false):
-		Debug.say("Finished turn")
 		FinishedTurn.emit()
 
 #region Move
@@ -123,6 +122,7 @@ func attempt_slash():
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir):
 					facing = directional_facing[dir]
+					sprite.animation = directional_walk_animations[dir]
 					slash_hint(true)
 			# Reduce speed of loop waiting for key release
 			await get_tree().create_timer(0.1).timeout
@@ -145,7 +145,7 @@ func slash_hint(shouldload: bool = false):
 		pass
 
 func slash():
-	Debug.say("Slash!")
+	Debug.say("Slash " + facing + " !")
 	FinishedAction.emit()
 	end_turn()
 #endregion
@@ -164,10 +164,10 @@ func attempt_pounce():
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir):
 					facing = directional_facing[dir]
-					print(facing)
+					sprite.animation = directional_walk_animations[dir]
 					pounce_hint(true)
 			# Reduce speed of loop waiting for key release
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.05).timeout
 		pounce()
 
 	# Combat
@@ -187,7 +187,7 @@ func pounce_hint(shouldload: bool = false):
 		pass
 	
 func pounce():
-	Debug.say("Pounce!")
+	Debug.say("Pounce " + facing + " !")
 	FinishedAction.emit()
 	end_turn()
 #endregion

@@ -12,7 +12,6 @@ func next_turn ():
 		return
 	if current_character != null:
 		current_character.end_turn()
-		Debug.say("was not null")
 	if (current_character == ai_character) or (current_character == null) or (ai_character == null):
 		current_character = player_character
 		Debug.say("set current character to player")
@@ -31,11 +30,11 @@ func next_turn ():
 	if current_character == player_character:
 		# Exploration
 		if Globals.game_mode == 1:
-			Debug.say("Exploring, don't need UI")
+			pass
 			# If UI is up, hide it
 		# Combat
 		elif Globals.game_mode == 2:
-			Debug.say("Combat, don't need UI")
+			Debug.say("Combat, need UI")
 			# If UI is not up, show it
 	else:
 		Debug.say("enemy turn")
