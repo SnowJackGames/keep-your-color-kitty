@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c1k51mno8dg0j"]
+
+[ext_resource type="Script" uid="uid://b6ulkrygrjmy8" path="res://scenes/floor.gd" id="1_whr1e"]
+[ext_resource type="Texture2D" uid="uid://bmu2sln3by8dn" path="res://art/Tiles2/Tile1.png" id="2_kuqtn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kuqtn"]
+texture = ExtResource("2_kuqtn")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_nish5"]
+sources/1 = SubResource("TileSetAtlasSource_kuqtn")
+
+[node name="Floor" type="Node2D" unique_id=949866119]
+script = ExtResource("1_whr1e")
+possible_source_ids = Array[int]([1])
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1219947328]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")

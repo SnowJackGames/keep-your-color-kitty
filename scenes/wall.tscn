@@ -1,19 +1,27 @@
 [gd_scene format=3 uid="uid://cy1feuedew32n"]
 
-[ext_resource type="Script" uid="uid://76rudammlp05" path="res://scenes/wall.gd" id="1_2ktk7"]
-[ext_resource type="Texture2D" uid="uid://bws0pf2g0m8xr" path="res://art/Wall_Placeholder.png" id="1_xxgf6"]
+[ext_resource type="Script" uid="uid://76rudammlp05" path="res://scripts/wall.gd" id="1_2ktk7"]
+[ext_resource type="Texture2D" uid="uid://b14wkppt8xxx6" path="res://art/Tiles2/GroundTile2.png" id="2_2ktk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
+resource_local_to_scene = true
 size = Vector2(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e00m8"]
+texture = ExtResource("2_2ktk7")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_nish5"]
+sources/1 = SubResource("TileSetAtlasSource_e00m8")
 
 [node name="Wall" type="StaticBody2D" unique_id=34819834]
 script = ExtResource("1_2ktk7")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1899505814]
-texture_repeat = 2
-texture = ExtResource("1_xxgf6")
-centered = false
+possible_source_ids = Array[int]([1])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=582183977]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nish5")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1255325750]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")

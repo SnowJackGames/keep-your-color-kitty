@@ -19,13 +19,24 @@ func next_turn ():
 	else:
 		current_character = ai_character
 
+	# Check game mode
+	# if there are no enemies then:
+	Globals.game_mode = 1
+	# else game_mode = 2
+	
 	Debug.say("beginning turn")
 	current_character.begin_turn()
 
+	# Player's turn
 	if current_character == player_character:
-		pass
-		Debug.say("player UI stuff")
-		# enable and set player ui
+		# Exploration
+		if Globals.game_mode == 1:
+			Debug.say("Exploring, don't need UI")
+			# If UI is up, hide it
+		# Combat
+		elif Globals.game_mode == 2:
+			Debug.say("Combat, don't need UI")
+			# If UI is not up, show it
 	else:
 		Debug.say("enemy turn")
 		#disable player ui
@@ -34,7 +45,7 @@ func next_turn ():
 		await get_tree().create_timer(0.5).timeout
 		
 	await current_character.FinishedTurn
-	Debug.say("finished turn")
+	Debug.say("game_manager saw finished turn\n--------")
 	next_turn()
 
 # Called when the node enters the scene tree for the first time.
@@ -43,5 +54,5 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
