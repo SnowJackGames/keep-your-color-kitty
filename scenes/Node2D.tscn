@@ -2,97 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cvlrsnc0vhmnh" path="res://scripts/game_manager.gd" id="1_iweij"]
 [ext_resource type="PackedScene" uid="uid://cdr8jgfxou2vs" path="res://scenes/player.tscn" id="1_req00"]
-[ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="2_iweij"]
-[ext_resource type="PackedScene" uid="uid://c1k51mno8dg0j" path="res://scenes/floor.tscn" id="3_60lig"]
-[ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="5_74qev"]
+[ext_resource type="PackedScene" uid="uid://cb2kdlv5tdnkm" path="res://scenes/levels.tscn" id="6_ab5sx"]
 
 [node name="Node2D" type="Node2D" unique_id=1141408967]
 script = ExtResource("1_iweij")
 
-[node name="Elements" type="Node" parent="." unique_id=863767842]
+[node name="Player" parent="." unique_id=1727976728 instance=ExtResource("1_req00")]
 
-[node name="Floor" parent="Elements" unique_id=949866119 instance=ExtResource("3_60lig")]
-position = Vector2(-32, -32)
-floor_size = Vector2(400, 400)
-
-[node name="Sludges" type="Node2D" parent="Elements" unique_id=1417335600]
-
-[node name="Sludge" parent="Elements/Sludges" unique_id=369884562 instance=ExtResource("5_74qev")]
-position = Vector2(192, 16)
-atlas_source_id = 5
-
-[node name="Sludge2" parent="Elements/Sludges" unique_id=1864561191 instance=ExtResource("5_74qev")]
-position = Vector2(192, 32)
-atlas_source_id = 2
-tile_rotation_steps = 3
-
-[node name="Sludge3" parent="Elements/Sludges" unique_id=600562855 instance=ExtResource("5_74qev")]
-position = Vector2(176, 32)
-atlas_source_id = 4
-tile_rotation_steps = 1
-
-[node name="Sludge4" parent="Elements/Sludges" unique_id=1155225996 instance=ExtResource("5_74qev")]
-position = Vector2(160, 32)
-atlas_source_id = 5
-tile_rotation_steps = 3
-
-[node name="Sludge5" parent="Elements/Sludges" unique_id=1877099162 instance=ExtResource("5_74qev")]
-position = Vector2(208, 32)
-atlas_source_id = 5
-tile_rotation_steps = 1
-
-[node name="Sludge6" parent="Elements/Sludges" unique_id=1228734102 instance=ExtResource("5_74qev")]
-position = Vector2(240, 16)
-atlas_source_id = 6
-
-[node name="Walls" type="Node2D" parent="Elements" unique_id=941633441]
-
-[node name="RandomWall" parent="Elements/Walls" unique_id=1186156670 instance=ExtResource("2_iweij")]
-wall_size = Vector2(320, 16)
-
-[node name="RandomWall2" parent="Elements/Walls" unique_id=456130550 instance=ExtResource("2_iweij")]
-position = Vector2(176, 272)
-wall_size = Vector2(144, 16)
-
-[node name="RandomWall3" parent="Elements/Walls" unique_id=433030151 instance=ExtResource("2_iweij")]
-position = Vector2(0, 272)
-wall_size = Vector2(160, 16)
-
-[node name="RandomWall4" parent="Elements/Walls" unique_id=553890014 instance=ExtResource("2_iweij")]
-position = Vector2(160, 288)
-
-[node name="RandomWall5" parent="Elements/Walls" unique_id=887405349 instance=ExtResource("2_iweij")]
-position = Vector2(0, 16)
-wall_size = Vector2(16, 256)
-
-[node name="RandomWall6" parent="Elements/Walls" unique_id=452091646 instance=ExtResource("2_iweij")]
-position = Vector2(304, 16)
-wall_size = Vector2(16, 256)
-
-[node name="RandomWall7" parent="Elements/Walls" unique_id=1840830247 instance=ExtResource("2_iweij")]
-position = Vector2(64, 48)
-wall_size = Vector2(16, 160)
-
-[node name="RandomWall8" parent="Elements/Walls" unique_id=448065792 instance=ExtResource("2_iweij")]
-position = Vector2(256, 96)
-wall_size = Vector2(16, 160)
-
-[node name="RandomWall9" parent="Elements/Walls" unique_id=2070889724 instance=ExtResource("2_iweij")]
-position = Vector2(176, 80)
-wall_size = Vector2(64, 64)
-
-[node name="Player" parent="Elements" unique_id=1727976728 instance=ExtResource("1_req00")]
-position = Vector2(160, 272)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Elements/Player" unique_id=439446228]
-position = Vector2(16, 0)
-remote_path = NodePath("../../../Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=768179103]
-position = Vector2(176, 272)
-limit_left = 0
-limit_top = 0
-limit_right = 320
-limit_bottom = 288
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=439446228]
 
 [node name="UI" type="Node2D" parent="." unique_id=1879375070]
+
+[node name="Levels" parent="." unique_id=272764069 instance=ExtResource("6_ab5sx")]
+visible = false

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cb2kdlv5tdnkm"]
+
+[ext_resource type="Script" uid="uid://cfi1juxgyacbt" path="res://scripts/levels.gd" id="1_hk6qi"]
+[ext_resource type="PackedScene" uid="uid://y3sogwged16r" path="res://scenes/level.tscn" id="2_5ekxl"]
+[ext_resource type="PackedScene" uid="uid://c1k51mno8dg0j" path="res://scenes/floor.tscn" id="3_jj4e6"]
+[ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="4_byla0"]
+[ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="5_r44b6"]
+
+[node name="Levels" type="Node2D" unique_id=272764069]
+script = ExtResource("1_hk6qi")
+
+[node name="Level1" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
+set_player_start_position = Vector2(160, 272)
+
+[node name="Elements" type="Node2D" parent="Level1" unique_id=1363058128]
+
+[node name="Floor" parent="Level1/Elements" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
+position = Vector2(-32, -32)
+floor_size = Vector2(400, 400)
+
+[node name="Sludges" type="Node2D" parent="Level1/Elements" unique_id=1991053369]
+
+[node name="Sludge" parent="Level1/Elements/Sludges" unique_id=369884562 instance=ExtResource("4_byla0")]
+position = Vector2(192, 16)
+atlas_source_id = 5
+
+[node name="Sludge2" parent="Level1/Elements/Sludges" unique_id=507092621 instance=ExtResource("4_byla0")]
+position = Vector2(192, 32)
+atlas_source_id = 2
+tile_rotation_steps = 3
+
+[node name="Sludge3" parent="Level1/Elements/Sludges" unique_id=1245797641 instance=ExtResource("4_byla0")]
+position = Vector2(176, 32)
+atlas_source_id = 4
+tile_rotation_steps = 1
+
+[node name="Sludge4" parent="Level1/Elements/Sludges" unique_id=463355083 instance=ExtResource("4_byla0")]
+position = Vector2(160, 32)
+atlas_source_id = 5
+tile_rotation_steps = 3
+
+[node name="Sludge5" parent="Level1/Elements/Sludges" unique_id=691602304 instance=ExtResource("4_byla0")]
+position = Vector2(208, 32)
+atlas_source_id = 5
+tile_rotation_steps = 1
+
+[node name="Sludge6" parent="Level1/Elements/Sludges" unique_id=1374232916 instance=ExtResource("4_byla0")]
+position = Vector2(240, 16)
+atlas_source_id = 6
+
+[node name="Walls" type="Node2D" parent="Level1/Elements" unique_id=1676055644]
+
+[node name="RandomWall" parent="Level1/Elements/Walls" unique_id=34819834 instance=ExtResource("5_r44b6")]
+wall_size = Vector2(320, 16)
+
+[node name="RandomWall2" parent="Level1/Elements/Walls" unique_id=480542630 instance=ExtResource("5_r44b6")]
+position = Vector2(176, 272)
+wall_size = Vector2(144, 16)
+
+[node name="RandomWall3" parent="Level1/Elements/Walls" unique_id=1262406176 instance=ExtResource("5_r44b6")]
+position = Vector2(0, 272)
+wall_size = Vector2(160, 16)
+
+[node name="RandomWall4" parent="Level1/Elements/Walls" unique_id=94187108 instance=ExtResource("5_r44b6")]
+position = Vector2(160, 288)
+
+[node name="RandomWall5" parent="Level1/Elements/Walls" unique_id=1896470206 instance=ExtResource("5_r44b6")]
+position = Vector2(0, 16)
+wall_size = Vector2(16, 256)
+
+[node name="RandomWall6" parent="Level1/Elements/Walls" unique_id=404402410 instance=ExtResource("5_r44b6")]
+position = Vector2(304, 16)
+wall_size = Vector2(16, 256)
+
+[node name="RandomWall7" parent="Level1/Elements/Walls" unique_id=48521201 instance=ExtResource("5_r44b6")]
+position = Vector2(64, 48)
+wall_size = Vector2(16, 160)
+
+[node name="RandomWall8" parent="Level1/Elements/Walls" unique_id=820952295 instance=ExtResource("5_r44b6")]
+position = Vector2(256, 96)
+wall_size = Vector2(16, 160)
+
+[node name="RandomWall9" parent="Level1/Elements/Walls" unique_id=679823655 instance=ExtResource("5_r44b6")]
+position = Vector2(176, 80)
+wall_size = Vector2(64, 64)
+
+[node name="Camera2D" type="Camera2D" parent="Level1" unique_id=2138641104]
+position = Vector2(160, 272)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 288
+
+[node name="Level2" parent="." unique_id=1108138394 instance=ExtResource("2_5ekxl")]
+visible = false
+set_player_start_position = Vector2(160, 192)
+
+[node name="Floor" parent="Level2" unique_id=1298709385 instance=ExtResource("3_jj4e6")]
+position = Vector2(16, 32)
+floor_size = Vector2(320, 320)

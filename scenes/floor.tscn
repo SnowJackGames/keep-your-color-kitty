@@ -15,6 +15,7 @@ texture = ExtResource("2_kuqtn")
 sources/1 = SubResource("TileSetAtlasSource_kuqtn")
 
 [node name="Floor" type="StaticBody2D" unique_id=1357818769]
+z_index = -1
 script = ExtResource("1_whr1e")
 possible_source_ids = Array[int]([1])
 

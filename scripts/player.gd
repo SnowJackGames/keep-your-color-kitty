@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 @onready var tile_detection : Marker2D = $TileDetection
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 
@@ -9,7 +10,6 @@ var facing := "Up"
 var can_move := false
 var can_action := false
 
-# Might #@export these if we support saves?
 #var is_player : bool
 var cur_health : int
 var max_health : int

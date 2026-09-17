@@ -1,11 +1,16 @@
 extends Node2D
 
-@onready var player_character: CharacterBody2D = $Elements/Player
-@onready var ai_array := []
+@onready var levels_scene : Node2D = $Levels
+@onready var current_level : Node2D
+@onready var current_level_index := -1
+
+@onready var player_character: CharacterBody2D = $Player
 @onready var ai_enemy : CharacterBody2D
+@onready var ai_array := []
 @onready var current_character : CharacterBody2D
 
 var game_over := false
+
 
 func next_turn () -> void:
 	Debug.say("starting turn")
@@ -55,14 +60,48 @@ func next_turn () -> void:
 		pass
 	#endregion
 
+	print(player_character.position)
 	Debug.say("finished turn\n--------")
 	next_turn()
 
-# Called when the node enters the scene tree for the first time.
+
+func set_active_level() -> void:
+	if current_level != null:
+		current_level.visible = false
+		current_level.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	current_level_index += 1
+	
+	if current_level_index >= levels_scene.level_order.size():
+		Debug.say("Finished last level")
+		get_tree().quit()
+	
+	current_level = get_node("Levels/" + str(levels_scene.level_order[current_level_index]))
+	current_level.visible = true
+	current_level.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	# Move player to starting position of level
+	print(player_character.position)
+	player_character.position = current_level.player_start_position
+	print(player_character.position)
+
+
+func update_camera_target() -> void:
+	Globals.level_camera = current_level.get_node("Camera2D")
+	if Globals.level_camera:
+		$Player/RemoteTransform2D.remote_path = Globals.level_camera.get_path()
+	else:
+		push_error("Current level " + current_level.name + " does not contain Camera2D")
+	# Fixed code
+
+
 func _ready() -> void:
+	levels_scene.show()
+	set_active_level()
+	update_camera_target()
 	next_turn()
 
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	set_process(false)
