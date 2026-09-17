@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cdr8jgfxou2vs" path="res://scenes/player.tscn" id="1_req00"]
 [ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/wall.tscn" id="2_iweij"]
 [ext_resource type="PackedScene" uid="uid://c1k51mno8dg0j" path="res://scenes/floor.tscn" id="3_60lig"]
+[ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="5_74qev"]
 
 [node name="Node2D" type="Node2D" unique_id=1141408967]
 script = ExtResource("1_iweij")
@@ -13,6 +14,36 @@ script = ExtResource("1_iweij")
 [node name="Floor" parent="Elements" unique_id=949866119 instance=ExtResource("3_60lig")]
 position = Vector2(-32, -32)
 floor_size = Vector2(400, 400)
+
+[node name="Sludges" type="Node2D" parent="Elements" unique_id=1417335600]
+
+[node name="Sludge" parent="Elements/Sludges" unique_id=369884562 instance=ExtResource("5_74qev")]
+position = Vector2(192, 16)
+atlas_source_id = 5
+
+[node name="Sludge2" parent="Elements/Sludges" unique_id=1864561191 instance=ExtResource("5_74qev")]
+position = Vector2(192, 32)
+atlas_source_id = 2
+tile_rotation_steps = 3
+
+[node name="Sludge3" parent="Elements/Sludges" unique_id=600562855 instance=ExtResource("5_74qev")]
+position = Vector2(176, 32)
+atlas_source_id = 4
+tile_rotation_steps = 1
+
+[node name="Sludge4" parent="Elements/Sludges" unique_id=1155225996 instance=ExtResource("5_74qev")]
+position = Vector2(160, 32)
+atlas_source_id = 5
+tile_rotation_steps = 3
+
+[node name="Sludge5" parent="Elements/Sludges" unique_id=1877099162 instance=ExtResource("5_74qev")]
+position = Vector2(208, 32)
+atlas_source_id = 5
+tile_rotation_steps = 1
+
+[node name="Sludge6" parent="Elements/Sludges" unique_id=1228734102 instance=ExtResource("5_74qev")]
+position = Vector2(240, 16)
+atlas_source_id = 6
 
 [node name="Walls" type="Node2D" parent="Elements" unique_id=941633441]
 
@@ -47,7 +78,7 @@ position = Vector2(256, 96)
 wall_size = Vector2(16, 160)
 
 [node name="Wall9" parent="Elements/Walls" unique_id=2070889724 instance=ExtResource("2_iweij")]
-position = Vector2(112, 112)
+position = Vector2(176, 80)
 wall_size = Vector2(64, 64)
 
 [node name="Player" parent="Elements" unique_id=1727976728 instance=ExtResource("1_req00")]

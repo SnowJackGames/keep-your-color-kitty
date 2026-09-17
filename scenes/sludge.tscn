@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b8qgufxjxuq3f"]
+
+[ext_resource type="Texture2D" uid="uid://bfiqnbrtcpixr" path="res://art/sludge/1x1.png" id="1_tqpm4"]
+[ext_resource type="Script" uid="uid://w46e1s813gp7" path="res://scripts/sludge.gd" id="1_ytsjj"]
+[ext_resource type="Texture2D" uid="uid://b2qiidc4os0a5" path="res://art/sludge/corner1.png" id="2_ytsjj"]
+[ext_resource type="Texture2D" uid="uid://i56hgjnwatci" path="res://art/sludge/middle1.png" id="3_coc74"]
+[ext_resource type="Texture2D" uid="uid://f3281p3fy4q1" path="res://art/sludge/middle2.png" id="3_tqpm4"]
+[ext_resource type="Texture2D" uid="uid://d26qyve1clpd2" path="res://art/sludge/river1.png" id="4_ppeti"]
+[ext_resource type="Texture2D" uid="uid://cm4bijf7whbwr" path="res://art/sludge/river-end1.png" id="5_7wx6e"]
+[ext_resource type="Texture2D" uid="uid://dnxwxn85k4che" path="res://art/sludge/side2.png" id="6_f8oad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
+size = Vector2(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ytsjj"]
+texture = ExtResource("3_coc74")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_coc74"]
+texture = ExtResource("3_tqpm4")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppeti"]
+texture = ExtResource("6_f8oad")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7wx6e"]
+texture = ExtResource("2_ytsjj")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f8oad"]
+texture = ExtResource("4_ppeti")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w100c"]
+texture = ExtResource("5_7wx6e")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_akds1"]
+texture = ExtResource("1_tqpm4")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_74qev"]
+sources/0 = SubResource("TileSetAtlasSource_ytsjj")
+sources/1 = SubResource("TileSetAtlasSource_coc74")
+sources/2 = SubResource("TileSetAtlasSource_ppeti")
+sources/3 = SubResource("TileSetAtlasSource_7wx6e")
+sources/4 = SubResource("TileSetAtlasSource_f8oad")
+sources/5 = SubResource("TileSetAtlasSource_w100c")
+sources/6 = SubResource("TileSetAtlasSource_akds1")
+
+[node name="Sludge" type="StaticBody2D" unique_id=369884562]
+script = ExtResource("1_ytsjj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=68033917]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_nish5")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1209576093]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_74qev")

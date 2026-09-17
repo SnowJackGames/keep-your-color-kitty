@@ -5,9 +5,13 @@ func check_end_point(pos: Vector2) -> Array:
 	var query = PhysicsPointQueryParameters2D.new()
 	query.position = pos
 	return space_state.intersect_point(query)
-	
+
+
+
 func is_empty(pos: Vector2) -> bool:
 	return check_end_point(pos).is_empty()
+
+
 
 func contains(pos: Vector2, object_name: String) -> bool:
 	var results = check_end_point(pos)
@@ -18,8 +22,9 @@ func contains(pos: Vector2, object_name: String) -> bool:
 		if result.collider.name == object_name:
 			return true
 	return false
-	
-	
+
+
+
 func objectnamesatspot(pos: Vector2) -> Array:
 	var results = check_end_point(pos)
 	var objectnames: Array[String]
@@ -31,7 +36,24 @@ func objectnamesatspot(pos: Vector2) -> Array:
 			objectnames.append(str(result.collider.name))
 	
 	return objectnames
+
+
+
+# Check if spot is moveonable
+func moveonable(pos) -> bool:
+	var results = check_end_point(pos)
+	var is_moveonable = true
+
+	if results.is_empty():
+		is_moveonable = false
 	
+	for result in results:
+		if !result.collider.pounceoverable:
+			is_moveonable = false
+
+	return is_moveonable
+
+
 
 # Check if spot is pounceoverable
 func pounceoverable(pos) -> bool:
@@ -47,6 +69,8 @@ func pounceoverable(pos) -> bool:
 
 	return is_pounceoverable
 
+
+
 # Check if spot is landonable
 func landonable(pos) -> bool:
 	var results = check_end_point(pos)
@@ -58,5 +82,20 @@ func landonable(pos) -> bool:
 	for result in results:
 		if !result.collider.landonable:
 			is_landonable = false
+		
 	
 	return is_landonable
+
+
+
+func tile_damage(pos) -> int:
+	var results = check_end_point(pos)
+	var dmg: = 0
+	if results.is_empty():
+		return 0
+	
+	for result in results:
+		if "tile_damage" in result.collider:
+			dmg += result.collider.tile_damage
+	
+	return dmg

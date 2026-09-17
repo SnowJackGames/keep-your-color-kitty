@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-@onready var move_marker: = $MoveMarker as Marker2D
-@onready var pounce_marker: Marker2D = $PounceMarker
+@onready var tile_detection: Marker2D = $TileDetection
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+const kitty_center_offset: = Vector2(8,8)
+
 var facing: = "up"
-var grid_size: = 16
 var can_move: = false
 var can_action: = false
 
@@ -18,6 +18,7 @@ signal OnTakeDamage (health : int)
 # signal OnHeal (health : int)
 # signal CantMoveHere
 signal FinishedTurn
+signal FinishedMove
 signal FinishedAction
 
 #region Input Dictionaries
@@ -67,7 +68,7 @@ func _process (_delta: float) -> void:
 			if Input.is_action_pressed(dir):
 				set_process(false)
 				attempt_move(dir)
-				await get_tree().create_timer(0.15).timeout
+				await FinishedMove
 				set_process(true)
 
 	if can_action == true:
@@ -78,8 +79,6 @@ func _process (_delta: float) -> void:
 					set_process(false)
 					action_inputs[action].call()
 					await FinishedAction
-					Debug.say("saw finished")
-					await get_tree().create_timer(0.3).timeout
 					set_process(true)
 
 		# Combat
@@ -97,23 +96,34 @@ func attempt_move(dir) -> void:
 	sprite.animation = directional_walk_animations[dir]
 	facing = directional_facing[dir]
 	
-	var kitty_center_offset: = Vector2(8,8)
-	var move_marker_check: Vector2 = (dir_inputs[dir] * grid_size * 1) + position + kitty_center_offset
-	if move_marker.moveonable(move_marker_check):
+	var tile_detection_check: Vector2 = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
+	if tile_detection.moveonable(tile_detection_check):
 		can_move = false
-		move(dir_inputs[dir] * grid_size * 1)
+		move(dir_inputs[dir] * Globals.grid_size * 1)
 		if Globals.game_mode == 1:
 			end_turn()
 	else:
-		var objlist: String
-		for obj in move_marker.objectnamesatspot(move_marker_check):
+		var objlist: = ""
+		for obj in tile_detection.objectnamesatspot(tile_detection_check):
 			objlist += obj + " "
 		Debug.say(objlist)
-
+		# Shake head animation?
+		await get_tree().create_timer(0.15).timeout
+		FinishedMove.emit()
 
 func move(vector_pos: Vector2):
 	position += vector_pos
 	sprite.frame = (sprite.frame + 1) % 2
+	# Move animation
+	await get_tree().create_timer(0.15).timeout
+	# If moved onto damaging tile, take damage
+	var tile_damage: int = tile_detection.tile_damage(position)
+	if tile_damage > 0:
+		cur_health -= tile_damage
+		# Take damage animation, slowdown
+		await get_tree().create_timer(0.6).timeout
+		OnTakeDamage.emit()
+	FinishedMove.emit()
 #endregion
 
 #region Slash
@@ -139,7 +149,7 @@ func attempt_slash() -> void:
 	# Combat
 	elif Globals.game_mode == 2:
 		# wait for "ui_accept" to send action
-		pounce()
+		slash()
 		
 	else:
 		push_error("Impossible state in attempt_slash")
@@ -154,6 +164,8 @@ func slash_hint(shouldload: bool = false) -> void:
 
 func slash() -> void:
 	Debug.say("Slash " + facing + " !")
+	# Animate slash
+	await get_tree().create_timer(0.3).timeout
 	end_turn()
 	FinishedAction.emit()
 #endregion
@@ -164,24 +176,23 @@ func declare_pounce() -> void:
 	var valid_dir: = [] # "Up", etc
 	for dir in directional_facing: # directional_facing: ui_up -> Up
 		var valid_target: = true
-		var pounce_marker_check: Vector2
-		var kitty_center_offset: = Vector2(8,8)
-		# move pounce_marker to each increasing spot towards the target
+		var tile_detection_check: Vector2
+		# move tile_detection to each increasing spot towards the target
 		for i in range(1, 3):
-			pounce_marker_check = (dir_inputs[dir] * grid_size * i) + position + kitty_center_offset
-			if !pounce_marker.pounceoverable(pounce_marker_check):
+			tile_detection_check = (dir_inputs[dir] * Globals.grid_size * i) + position + kitty_center_offset
+			if !tile_detection.pounceoverable(tile_detection_check):
 				valid_target = false
 				break
 		
-		pounce_marker_check = (dir_inputs[dir] * grid_size * 4) + position + kitty_center_offset
-		if !pounce_marker.landonable(pounce_marker_check):
+		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 3) + position + kitty_center_offset
+		if !tile_detection.landonable(tile_detection_check):
 			valid_target = false
 			
 		if valid_target:
 			valid_dir.append(directional_facing[dir])
 
 		# Now, we check more *specifically* what is in the way with PounceMarker
-		# move pounce_marker to each increasing spot towards the target
+		# move tile_detection to each increasing spot towards the target
 		# check if whatever is there can be pounced over (create attribute for each object for this)
 		# if 1 and 2 away cannot be pounced over, or 3 away cannot be landed on,
 		# then cannot pounce
@@ -197,11 +208,11 @@ func declare_pounce() -> void:
 		attempt_pounce(valid_dir)
 	else:
 		Debug.say("No valid pounce target!")
-		# Animate "no valid target"
+		# Animate shake head
+		await get_tree().create_timer(0.3).timeout
 		while Input.is_action_pressed('ui_cancel'):
 			# Wait for button to be let go
 			# Reduce speed of loop waiting for key release
-			# Also, you need a non-zero amount of time awaiting FinishedAction
 			await get_tree().create_timer(0.1).timeout
 		FinishedAction.emit()
 
@@ -228,7 +239,6 @@ func attempt_pounce(valid_dir: Array) -> void:
 
 	else:
 		push_error("Impossible state in attempt_pounce")
-		FinishedAction.emit()
 
 func pounce_hint(valid_dir: Array, shouldload: bool) -> void:
 	var pounce_ui: = "Targetting/Pounce/"
@@ -255,13 +265,21 @@ func pounce() -> void:
 	# Turn off hint
 	pounce_hint([], false)
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
-	var pounce_vector_pos: Vector2 = dir_inputs[directional_facing.find_key(facing)] * grid_size * 3
+	var pounce_vector_pos: Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
 	# We animate moving
-	# We deal damage to whatever is there
-	# i.e anything there takes a damage
+	await get_tree().create_timer(0.3).timeout
 	# We move there
 	position += pounce_vector_pos
+	# We deal damage to whatever is there
+	# i.e anything there takes a damage
 	Debug.say("Pounce " + facing + " !")
+
+	# If pounced onto damaging spot, take damage
+	var tile_damage: int = tile_detection.tile_damage(position)
+	if tile_damage > 0:
+		cur_health -= tile_damage
+		await get_tree().create_timer(0.6).timeout
+		OnTakeDamage.emit()
 	end_turn()
 	FinishedAction.emit()
 #endregion

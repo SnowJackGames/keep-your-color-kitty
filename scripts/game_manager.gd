@@ -55,7 +55,7 @@ func next_turn () -> void:
 		pass
 	#endregion
 
-	Debug.say("game_manager saw finished turn\n--------")
+	Debug.say("finished turn\n--------")
 	next_turn()
 
 # Called when the node enters the scene tree for the first time.
