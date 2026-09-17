@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://b6ulkrygrjmy8" path="res://scenes/floor.gd" id="1_whr1e"]
 [ext_resource type="Texture2D" uid="uid://bmu2sln3by8dn" path="res://art/Tiles2/Tile1.png" id="2_kuqtn"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whr1e"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kuqtn"]
 texture = ExtResource("2_kuqtn")
 0:0/0 = 0
@@ -10,9 +14,13 @@ texture = ExtResource("2_kuqtn")
 [sub_resource type="TileSet" id="TileSet_nish5"]
 sources/1 = SubResource("TileSetAtlasSource_kuqtn")
 
-[node name="Floor" type="Node2D" unique_id=949866119]
+[node name="Floor" type="StaticBody2D" unique_id=1357818769]
 script = ExtResource("1_whr1e")
 possible_source_ids = Array[int]([1])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=383468955]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_whr1e")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1219947328]
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)

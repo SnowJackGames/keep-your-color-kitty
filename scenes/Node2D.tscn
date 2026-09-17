@@ -16,7 +16,7 @@ floor_size = Vector2(400, 400)
 
 [node name="Walls" type="Node2D" parent="Elements" unique_id=941633441]
 
-[node name="Wall" parent="Elements/Walls" unique_id=34819834 instance=ExtResource("2_iweij")]
+[node name="Wall" parent="Elements/Walls" unique_id=1186156670 instance=ExtResource("2_iweij")]
 wall_size = Vector2(320, 16)
 
 [node name="Wall2" parent="Elements/Walls" unique_id=456130550 instance=ExtResource("2_iweij")]
@@ -63,3 +63,5 @@ limit_left = 0
 limit_top = 0
 limit_right = 320
 limit_bottom = 288
+
+[node name="UI" type="Node2D" parent="." unique_id=1879375070]

@@ -4,6 +4,10 @@ extends StaticBody2D
 @onready var tile_map_layer = $TileMapLayer
 @onready var collision_shape = $CollisionShape2D
 
+@onready var pounceoverable: = false
+@onready var landonable: = false
+@onready var moveonable: = false
+
 # Possible sprites for our wall
 @export var possible_source_ids: Array[int] = []:
 	set(value):
@@ -18,10 +22,11 @@ extends StaticBody2D
 		update_wall()
 		queue_redraw()
 
-func _ready():
+func _ready() -> void:
 	update_wall()
 
-func update_wall():
+
+func update_wall() -> void:
 	if not is_inside_tree() or not tile_map_layer or not collision_shape:
 		return
 
@@ -37,15 +42,15 @@ func update_wall():
 	var tiles_x = int(wall_size.x / 16)
 	var tiles_y = int(wall_size.y / 16)
 
-	# Randomize floor tile according to a default seed
+	# Randomize wall tile according to a default seed
 	# This way its always the "same" random,
-	# as the seed is determined by the floor's global_position
+	# as the seed is determined by the wall's global_position
 	for x in range(tiles_x):
 		for y in range(tiles_y):
 			var rng = RandomNumberGenerator.new()
 			var cell_global_x = global_position.x + (x * 16)
 			var cell_global_y = global_position.y + (y * 16)
-			# This seed is the hash of the position of the floor instance
+			# This seed is the hash of the position of the wall instance
 			rng.seed = hash(Vector2(cell_global_x, cell_global_y))
 			var random_index = rng.randi_range(0, possible_source_ids.size() - 1)
 			var random_source_id = possible_source_ids[random_index]

@@ -1,7 +1,12 @@
 @tool
-extends Node2D
+extends StaticBody2D
 
 @onready var tile_map_layer = $TileMapLayer
+@onready var collision_shape = $CollisionShape2D
+
+@onready var pounceoverable: = true
+@onready var landonable: = true
+@onready var moveonable: = true
 
 # Possible sprites for our floor
 @export var possible_source_ids: Array[int] = []:
@@ -15,13 +20,19 @@ extends Node2D
 		var snapped_y = max(16, snapped(value.y, 16))
 		floor_size = Vector2(snapped_x, snapped_y)
 		update_floor()
+		queue_redraw()
 
-func _ready():
+func _ready() -> void:
 	update_floor()
 
-func update_floor():
-	if not is_inside_tree() or not tile_map_layer:
+
+func update_floor() -> void:
+	if not is_inside_tree() or not tile_map_layer or not collision_shape:
 		return
+
+	if collision_shape.shape:
+		collision_shape.shape.size = floor_size
+	collision_shape.position = floor_size / 2
 
 	tile_map_layer.clear()
 

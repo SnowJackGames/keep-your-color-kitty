@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7k8cu1jegqf5"
-path="res://.godot/imported/combat-UI-Sheet.png-5f85415e119c905d49abce85d70234a9.ctex"
+uid="uid://dup8gsn5mp5yg"
+path="res://.godot/imported/targeting-slash-Sheet.png-9b59e109efde86f9123148b348aab633.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/combat-UI-Sheet.png"
-dest_files=["res://.godot/imported/combat-UI-Sheet.png-5f85415e119c905d49abce85d70234a9.ctex"]
+source_file="res://art/UI/targeting-slash-Sheet.png"
+dest_files=["res://.godot/imported/targeting-slash-Sheet.png-9b59e109efde86f9123148b348aab633.ctex"]
 
 [params]
 
