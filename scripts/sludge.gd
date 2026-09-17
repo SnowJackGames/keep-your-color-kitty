@@ -1,24 +1,23 @@
 @tool
 extends StaticBody2D
 
-@onready var tile_map_layer = $TileMapLayer
+@onready var tile_map_layer : TileMapLayer = $TileMapLayer
 
-@onready var pounceoverable: = true
-@onready var landonable: = true
-@onready var moveonable: = true
-@onready var tile_damage: = 1
-
-
+@onready var pounceoverable := true
+@onready var landonable := true
+@onready var moveonable := true
+@onready var slashthroughable := true
+@onready var tile_damage := 1
 
 # We want to be able to customize every tile instance for specific textures / rotations
 @export_group("Visuals")
-@export_range(0, 6) var atlas_source_id: int = 0:
+@export_range(0, 6) var atlas_source_id : int = 0:
 	set(value):
 		atlas_source_id = value
 		_update_sludge()
 		
 # Rotate tile in 90-degree steps 
-@export_range(0, 3) var tile_rotation_steps: int = 0:
+@export_range(0, 3) var tile_rotation_steps : int = 0:
 	set(value):
 		tile_rotation_steps = value
 		_update_sludge()
@@ -30,7 +29,7 @@ func _update_sludge() -> void:
 	if not is_inside_tree() or not tile_map_layer:
 		return
 	
-	var local_atlas_coords = Vector2i(0, 0)
+	var local_atlas_coords := Vector2i(0, 0)
 	tile_map_layer.set_cell(Vector2i(0, 0), atlas_source_id, local_atlas_coords)
 	
 	tile_map_layer.rotation_degrees = tile_rotation_steps * 90

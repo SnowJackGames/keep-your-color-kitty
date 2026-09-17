@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cy1feuedew32n"]
 
-[ext_resource type="Script" uid="uid://76rudammlp05" path="res://scripts/wall.gd" id="1_2ktk7"]
+[ext_resource type="Script" uid="uid://10bgvvl2qhei" path="res://scripts/random_wall.gd" id="1_2ktk7"]
 [ext_resource type="Texture2D" uid="uid://b14wkppt8xxx6" path="res://art/Tiles2/GroundTile2.png" id="2_2ktk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
@@ -14,7 +14,7 @@ texture = ExtResource("2_2ktk7")
 [sub_resource type="TileSet" id="TileSet_nish5"]
 sources/1 = SubResource("TileSetAtlasSource_e00m8")
 
-[node name="Wall" type="StaticBody2D" unique_id=34819834]
+[node name="RandomWall" type="StaticBody2D" unique_id=34819834]
 script = ExtResource("1_2ktk7")
 possible_source_ids = Array[int]([1])
 

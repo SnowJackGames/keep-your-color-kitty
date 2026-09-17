@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvlrsnc0vhmnh" path="res://scripts/game_manager.gd" id="1_iweij"]
 [ext_resource type="PackedScene" uid="uid://cdr8jgfxou2vs" path="res://scenes/player.tscn" id="1_req00"]
-[ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/wall.tscn" id="2_iweij"]
+[ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="2_iweij"]
 [ext_resource type="PackedScene" uid="uid://c1k51mno8dg0j" path="res://scenes/floor.tscn" id="3_60lig"]
 [ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="5_74qev"]
 
@@ -47,37 +47,37 @@ atlas_source_id = 6
 
 [node name="Walls" type="Node2D" parent="Elements" unique_id=941633441]
 
-[node name="Wall" parent="Elements/Walls" unique_id=1186156670 instance=ExtResource("2_iweij")]
+[node name="RandomWall" parent="Elements/Walls" unique_id=1186156670 instance=ExtResource("2_iweij")]
 wall_size = Vector2(320, 16)
 
-[node name="Wall2" parent="Elements/Walls" unique_id=456130550 instance=ExtResource("2_iweij")]
+[node name="RandomWall2" parent="Elements/Walls" unique_id=456130550 instance=ExtResource("2_iweij")]
 position = Vector2(176, 272)
 wall_size = Vector2(144, 16)
 
-[node name="Wall3" parent="Elements/Walls" unique_id=433030151 instance=ExtResource("2_iweij")]
+[node name="RandomWall3" parent="Elements/Walls" unique_id=433030151 instance=ExtResource("2_iweij")]
 position = Vector2(0, 272)
 wall_size = Vector2(160, 16)
 
-[node name="Wall4" parent="Elements/Walls" unique_id=553890014 instance=ExtResource("2_iweij")]
+[node name="RandomWall4" parent="Elements/Walls" unique_id=553890014 instance=ExtResource("2_iweij")]
 position = Vector2(160, 288)
 
-[node name="Wall5" parent="Elements/Walls" unique_id=887405349 instance=ExtResource("2_iweij")]
+[node name="RandomWall5" parent="Elements/Walls" unique_id=887405349 instance=ExtResource("2_iweij")]
 position = Vector2(0, 16)
 wall_size = Vector2(16, 256)
 
-[node name="Wall6" parent="Elements/Walls" unique_id=452091646 instance=ExtResource("2_iweij")]
+[node name="RandomWall6" parent="Elements/Walls" unique_id=452091646 instance=ExtResource("2_iweij")]
 position = Vector2(304, 16)
 wall_size = Vector2(16, 256)
 
-[node name="Wall7" parent="Elements/Walls" unique_id=1840830247 instance=ExtResource("2_iweij")]
+[node name="RandomWall7" parent="Elements/Walls" unique_id=1840830247 instance=ExtResource("2_iweij")]
 position = Vector2(64, 48)
 wall_size = Vector2(16, 160)
 
-[node name="Wall8" parent="Elements/Walls" unique_id=448065792 instance=ExtResource("2_iweij")]
+[node name="RandomWall8" parent="Elements/Walls" unique_id=448065792 instance=ExtResource("2_iweij")]
 position = Vector2(256, 96)
 wall_size = Vector2(16, 160)
 
-[node name="Wall9" parent="Elements/Walls" unique_id=2070889724 instance=ExtResource("2_iweij")]
+[node name="RandomWall9" parent="Elements/Walls" unique_id=2070889724 instance=ExtResource("2_iweij")]
 position = Vector2(176, 80)
 wall_size = Vector2(64, 64)
 

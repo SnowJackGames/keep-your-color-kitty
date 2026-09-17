@@ -1,11 +1,11 @@
 extends Node2D
 
 @onready var player_character: CharacterBody2D = $Elements/Player
-@onready var ai_array: = []
-@onready var ai_enemy: CharacterBody2D
-@onready var current_character: CharacterBody2D
+@onready var ai_array := []
+@onready var ai_enemy : CharacterBody2D
+@onready var current_character : CharacterBody2D
 
-var game_over: = false
+var game_over := false
 
 func next_turn () -> void:
 	Debug.say("starting turn")

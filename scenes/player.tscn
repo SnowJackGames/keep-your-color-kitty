@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d2x28110ic8cv" path="res://art/cat/cat-right-Sheet.png" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://br8x28oye14wc" path="res://art/cat/cat-back-Sheet.png" id="5_ur7pv"]
 [ext_resource type="TileSet" uid="uid://cltyogwv1homu" path="res://tilesets/pounce.tres" id="6_tuyoq"]
+[ext_resource type="TileSet" uid="uid://dle48t16r7qgx" path="res://tilesets/slash.tres" id="8_smehm"]
 [ext_resource type="Script" uid="uid://b8yopu18qml5i" path="res://scripts/tile_detection.gd" id="8_ur7pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
@@ -109,54 +110,104 @@ script = ExtResource("8_ur7pv")
 [node name="Targetting" type="Node2D" parent="." unique_id=2022788328]
 
 [node name="Pounce" type="Node2D" parent="Targetting" unique_id=701345727]
-
-[node name="UpPartial" type="TileMapLayer" parent="Targetting/Pounce" unique_id=1437361946]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 3, 0, 2, 0, 0, 0, 0, 0, 254, 255, 0, 0, 3, 0, 1, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
-[node name="RightPartial" type="TileMapLayer" parent="Targetting/Pounce" unique_id=730792614]
-tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 4, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 5, 0, 3, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
-[node name="DownPartial" type="TileMapLayer" parent="Targetting/Pounce" unique_id=1121623972]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 5, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
-[node name="LeftPartial" type="TileMapLayer" parent="Targetting/Pounce" unique_id=353209134]
-tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 255, 255, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
+visible = false
 
 [node name="UpFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=388999085]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 24, 0, 0, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
-[node name="RightFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=90215075]
-tile_map_data = PackedByteArray(0, 0, 3, 0, 0, 0, 0, 0, 20, 0, 3, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 254, 255, 0, 0, 17, 0, 1, 0, 0, 0, 0, 0, 255, 255, 0, 0, 17, 0, 2, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
 [node name="DownFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=13406816]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 3, 0, 0, 0, 10, 0, 6, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 6, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 0, 3, 0, 5, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
 [node name="LeftFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=1924361861]
 position = Vector2(0, 16)
-tile_map_data = PackedByteArray(0, 0, 253, 255, 255, 255, 0, 0, 28, 0, 3, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 253, 255, 255, 255, 0, 0, 21, 0, 3, 0, 0, 0, 254, 255, 255, 255, 0, 0, 22, 0, 3, 0, 0, 0, 255, 255, 255, 255, 0, 0, 23, 0, 3, 0, 0, 0)
+tile_set = ExtResource("6_tuyoq")
+
+[node name="RightFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=90215075]
+tile_map_data = PackedByteArray(0, 0, 3, 0, 0, 0, 0, 0, 13, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 11, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 12, 0, 3, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
 [node name="UpUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=957302835]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 3, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 10, 0, 0, 0, 0, 0)
+tile_set = ExtResource("6_tuyoq")
+
+[node name="DownUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=690487439]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 3, 0, 0, 0, 10, 0, 6, 0, 0, 0)
+tile_set = ExtResource("6_tuyoq")
+
+[node name="LeftUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=537055988]
+tile_map_data = PackedByteArray(0, 0, 253, 255, 0, 0, 0, 0, 14, 0, 3, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
 [node name="RightUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=848646898]
 tile_map_data = PackedByteArray(0, 0, 3, 0, 0, 0, 0, 0, 6, 0, 3, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
-[node name="DownUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=690487439]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 6, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
-[node name="LeftUnfocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=537055988]
-tile_map_data = PackedByteArray(0, 0, 253, 255, 0, 0, 0, 0, 7, 0, 3, 0, 0, 0)
-tile_set = ExtResource("6_tuyoq")
-
 [node name="Slash" type="Node2D" parent="Targetting" unique_id=1702349992]
+visible = false
+
+[node name="UpNearFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1717271753]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 12, 0, 1, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="UpFarFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1643436102]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 254, 255, 0, 0, 12, 0, 0, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="DownNearFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1857006665]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 3, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="DownFarFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=2137555689]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="LeftNearFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1081213912]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 16, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="LeftFarFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=453236602]
+tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 0, 0, 15, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="RightNearFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1560877346]
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="RightFarFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1751516762]
+tile_map_data = PackedByteArray(0, 0, 2, 0, 0, 0, 0, 0, 9, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="UpNearUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=125543316]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 2, 0, 1, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="UpFarUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1265196563]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 254, 255, 0, 0, 2, 0, 0, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="DownNearUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=274797703]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 0, 0, 7, 0, 3, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="DownFarUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1450872902]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 2, 0, 0, 0, 7, 0, 4, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="LeftNearUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1999673535]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 11, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="LeftFarUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1271406756]
+tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 0, 0, 10, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="RightNearUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=140196147]
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
+
+[node name="RightFarUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1933768334]
+tile_map_data = PackedByteArray(0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0)
+tile_set = ExtResource("8_smehm")
