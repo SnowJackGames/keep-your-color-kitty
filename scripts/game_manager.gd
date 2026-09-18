@@ -59,13 +59,22 @@ func next_turn () -> void:
 		await get_tree().create_timer(0.5).timeout # after finished
 		pass
 	#endregion
+	
+	# Unlock stairs
+	if Globals.game_mode == 1:
+		if current_level.get_node("Elements/Stairs"):
+			current_level.get_node("Elements/Stairs").unlock()
 
-	print(player_character.position)
+	if player_character.on_level_exit:
+		increment_active_level()
+
 	Debug.say("finished turn\n--------")
 	next_turn()
 
 
-func set_active_level() -> void:
+func increment_active_level() -> void:
+	player_character.reset_status()
+
 	if current_level != null:
 		current_level.visible = false
 		current_level.process_mode = Node.PROCESS_MODE_DISABLED
@@ -76,14 +85,13 @@ func set_active_level() -> void:
 		Debug.say("Finished last level")
 		get_tree().quit()
 	
-	current_level = get_node("Levels/" + str(levels_scene.level_order[current_level_index]))
-	current_level.visible = true
-	current_level.process_mode = Node.PROCESS_MODE_INHERIT
-	
-	# Move player to starting position of level
-	print(player_character.position)
-	player_character.position = current_level.player_start_position
-	print(player_character.position)
+	else:
+		current_level = get_node("Levels/" + str(levels_scene.level_order[current_level_index]))
+		current_level.visible = true
+		current_level.process_mode = Node.PROCESS_MODE_INHERIT
+		
+		# Move player to starting position of level
+		player_character.position = current_level.player_start_position
 
 
 func update_camera_target() -> void:
@@ -92,12 +100,11 @@ func update_camera_target() -> void:
 		$Player/RemoteTransform2D.remote_path = Globals.level_camera.get_path()
 	else:
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
-	# Fixed code
 
 
 func _ready() -> void:
 	levels_scene.show()
-	set_active_level()
+	increment_active_level()
 	update_camera_target()
 	next_turn()
 

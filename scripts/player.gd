@@ -7,6 +7,7 @@ extends CharacterBody2D
 const kitty_center_offset := Vector2(8,8)
 
 var facing := "Up"
+var on_level_exit := false
 var can_move := false
 var can_action := false
 
@@ -57,11 +58,15 @@ func end_turn ():
 	can_move = false
 	can_action = false
 	
+func reset_status() -> void:
+	cur_health = 15
+	max_health = 15
+	on_level_exit = false
+	Debug.say("Full health!")
+
 func _ready() -> void:
 	$Targetting/Pounce.hide()
 	$Targetting/Slash.hide()
-	cur_health = 15
-	max_health = 15
 
 func _process (_delta: float) -> void:
 	if can_move == true:
@@ -97,6 +102,9 @@ func _process (_delta: float) -> void:
 			push_error("Impossible game_mode state")
 	
 	if (can_move == false) and (can_action == false):
+		if tile_detection.objectnamesatspot(position + kitty_center_offset).has("Stairs"):
+			on_level_exit = true
+			print("on the exit")
 		FinishedTurn.emit()
 
 #region Move

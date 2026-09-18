@@ -2,8 +2,8 @@ extends Node2D
 
 
 @onready var level_order = [
-	$Level1
-	# $Level2 etc
+	$Level1,
+	$Level2
 ]
 
 # Disable all levels at first

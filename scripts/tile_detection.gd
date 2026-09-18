@@ -45,66 +45,25 @@ func tile_damage(pos) -> int:
 	
 #region Boolean "-ables"
 func moveonable(pos) -> bool:
-	var results := check_end_point(pos)
-	var is_moveonable := true
-
-	if results.is_empty():
-		is_moveonable = false
-	
-	for result in results:
-		if "moveonable" in result.collider:
-			if !result.collider.moveonable:
-				is_moveonable = false
-		else:
-			is_moveonable = false
-
-	return is_moveonable
+	return has_attribute(pos, "moveonable")
 
 func pounceoverable(pos) -> bool:
-	var results := check_end_point(pos)
-	var is_pounceoverable := true
-
-	if results.is_empty():
-		is_pounceoverable = false
-	
-	for result in results:
-		if "pounceoverable" in result.collider:
-			if !result.collider.pounceoverable:
-				is_pounceoverable = false
-		else:
-			is_pounceoverable = false
-
-	return is_pounceoverable
+	return has_attribute(pos, "pounceoverable")
 
 func landonable(pos) -> bool:
-	var results := check_end_point(pos)
-	var is_landonable := true
-
-	if results.is_empty():
-		is_landonable = false
-	
-	for result in results:
-		if "landonable" in result.collider:
-			if !result.collider.landonable:
-				is_landonable = false
-		else:
-			is_landonable = false
-
-	return is_landonable
-#endregion
+	return has_attribute(pos, "landonable")
 
 func slashthroughable(pos) -> bool:
-	var results :=check_end_point(pos)
-	var is_slashthroughable := true
+	return has_attribute(pos, "slashthroughable")
+	
+func has_attribute(pos : Vector2, attribute : String) -> bool:
+	var results := check_end_point(pos)
 	
 	if results.is_empty():
-		is_slashthroughable = false
+		return false
 
 	for result in results:
-		if "slashthroughable" in result.collider:
-			if !result.collider.slashthroughable:
-				is_slashthroughable = false
-		else:
-			is_slashthroughable = false
-
-	return is_slashthroughable
+		if not attribute in result.collider or not result.collider.get(attribute):
+			return false
+		
+	return true

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://co70r7wdwc8uo"]
+
+[ext_resource type="Script" uid="uid://4tmb2v17jmdf" path="res://scripts/stairs.gd" id="1_t8gvg"]
+[ext_resource type="Texture2D" uid="uid://bff8fk7b368" path="res://art/floor/Stairs1.png" id="2_t8gvg"]
+[ext_resource type="Texture2D" uid="uid://cgwenas0mhlry" path="res://art/floor/Stairs2.png" id="3_alqbs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
+size = Vector2(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_frutw"]
+texture = ExtResource("2_t8gvg")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1w5o"]
+texture = ExtResource("3_alqbs")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_coc74"]
+sources/0 = SubResource("TileSetAtlasSource_frutw")
+sources/1 = SubResource("TileSetAtlasSource_h1w5o")
+
+[node name="Stairs" type="StaticBody2D" unique_id=369884562]
+script = ExtResource("1_t8gvg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=68033917]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_nish5")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1209576093]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_coc74")
