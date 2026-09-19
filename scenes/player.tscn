@@ -8,6 +8,8 @@
 [ext_resource type="TileSet" uid="uid://cltyogwv1homu" path="res://tilesets/pounce.tres" id="6_tuyoq"]
 [ext_resource type="TileSet" uid="uid://dle48t16r7qgx" path="res://tilesets/slash.tres" id="8_smehm"]
 [ext_resource type="Script" uid="uid://b8yopu18qml5i" path="res://scripts/tile_detection.gd" id="8_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://bg7kbkhqrde3b" path="res://art/UI/targeting-Sheet.png" id="9_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://baoekbx55jjrb" path="res://art/UI/targeting-pounce-Sheet.png" id="10_d2wvv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
 size = Vector2(16, 16)
@@ -91,6 +93,50 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3v2ag"]
+texture = ExtResource("9_y4r1p")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jej6c"]
+texture = ExtResource("10_d2wvv")
+3:0/0 = 0
+10:0/0 = 0
+17:0/0 = 0
+24:0/0 = 0
+31:0/0 = 0
+17:1/0 = 0
+17:2/0 = 0
+0:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+20:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+27:3/0 = 0
+28:3/0 = 0
+34:3/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+10:6/0 = 0
+17:6/0 = 0
+24:6/0 = 0
+31:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_smehm"]
+sources/0 = SubResource("TileSetAtlasSource_3v2ag")
+sources/1 = SubResource("TileSetAtlasSource_jej6c")
+
 [node name="Player" type="CharacterBody2D" unique_id=1727976728]
 z_index = 1
 script = ExtResource("1_qlg0r")
@@ -112,7 +158,6 @@ script = ExtResource("8_ur7pv")
 z_index = 2
 
 [node name="Pounce" type="Node2D" parent="Targetting" unique_id=701345727]
-visible = false
 
 [node name="UpFocused" type="TileMapLayer" parent="Targetting/Pounce" unique_id=388999085]
 tile_map_data = PackedByteArray(0, 0, 0, 0, 253, 255, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 254, 255, 0, 0, 17, 0, 1, 0, 0, 0, 0, 0, 255, 255, 0, 0, 17, 0, 2, 0, 0, 0)
@@ -148,7 +193,6 @@ tile_map_data = PackedByteArray(0, 0, 3, 0, 0, 0, 0, 0, 6, 0, 3, 0, 0, 0)
 tile_set = ExtResource("6_tuyoq")
 
 [node name="Slash" type="Node2D" parent="Targetting" unique_id=1702349992]
-visible = false
 
 [node name="UpNearFocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1717271753]
 tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 12, 0, 1, 0, 0, 0)
@@ -213,3 +257,37 @@ tile_set = ExtResource("8_smehm")
 [node name="RightFarUnfocused" type="TileMapLayer" parent="Targetting/Slash" unique_id=1933768334]
 tile_map_data = PackedByteArray(0, 0, 2, 0, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0)
 tile_set = ExtResource("8_smehm")
+
+[node name="Move" type="Node2D" parent="Targetting" unique_id=448775110]
+
+[node name="UpFocused" type="TileMapLayer" parent="Targetting/Move" unique_id=1556446249]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="DownFocused" type="TileMapLayer" parent="Targetting/Move" unique_id=717099112]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="LeftFocused" type="TileMapLayer" parent="Targetting/Move" unique_id=767281545]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="RightFocused" type="TileMapLayer" parent="Targetting/Move" unique_id=287060728]
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="UpUnfocused" type="TileMapLayer" parent="Targetting/Move" unique_id=1546151982]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 1, 0, 3, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="DownUnfocused" type="TileMapLayer" parent="Targetting/Move" unique_id=737055849]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 1, 0, 1, 0, 10, 0, 6, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="LeftUnfocused" type="TileMapLayer" parent="Targetting/Move" unique_id=2036085601]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")
+
+[node name="RightUnfocused" type="TileMapLayer" parent="Targetting/Move" unique_id=1415164054]
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 1, 0, 6, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_smehm")

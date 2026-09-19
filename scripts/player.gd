@@ -76,6 +76,7 @@ func reset_status() -> void:
 func _ready() -> void:
 	$Targetting/Pounce.hide()
 	$Targetting/Slash.hide()
+	$Targetting/Move.hide()
 
 func _process (_delta: float) -> void:
 	if can_move == true:
@@ -126,7 +127,7 @@ func _process (_delta: float) -> void:
 	if (can_move == false) and (can_action == false):
 		if tile_detection.objectnamesatspot(position + kitty_center_offset).has("Stairs"):
 			on_level_exit = true
-			print("on the exit")
+			Debug.say("on the exit")
 		FinishedTurn.emit()
 
 #region Move
@@ -166,9 +167,9 @@ func attempt_move(valid_dir) -> void:
 						is_multiple_buttons = true
 				if !is_multiple_buttons:
 					## Attempt move
+					facing = directional_facing[dir]
 					if dir in valid_dir:
 						can_move = false
-						facing = dir
 						sprite.animation = directional_walk_animations[dir]
 						move(dir_inputs[dir] * Globals.grid_size * 1)
 					else:
@@ -220,25 +221,24 @@ func attempt_move(valid_dir) -> void:
 
 
 func move_hint(valid_dir: Array, shouldload: bool) -> void:
-	#var move_ui := "Targetting/Move/"
-	#if shouldload:
-		#var directions := ["Up", "Right", "Down", "Left"]
-		#for dir in directions:
-			#if valid_dir.has(dir):
-				#if facing == dir:
-					#get_node(move_ui + dir + "Focused").show()
-					#get_node(move_ui + dir + "Unfocused").hide()
-				#else:
-					#get_node(move_ui + dir + "Unfocused").show()
-					#get_node(move_ui + dir + "Focused").hide()
-			#else:
-				#get_node(move_ui + dir + "Focused").hide()
-				#get_node(move_ui + dir + "Unfocused").hide()
-		## Reveal after processing visibility of sub-layers
-		#get_node(move_ui).show()
-	#else:
-		#get_node(move_ui).hide()
-		pass
+	var move_ui := "Targetting/Move/"
+	if shouldload:
+		var directions := ["Up", "Right", "Down", "Left"]
+		for dir in directions:
+			if valid_dir.has(dir):
+				if facing == dir:
+					get_node(move_ui + dir + "Focused").show()
+					get_node(move_ui + dir + "Unfocused").hide()
+				else:
+					get_node(move_ui + dir + "Unfocused").show()
+					get_node(move_ui + dir + "Focused").hide()
+			else:
+				get_node(move_ui + dir + "Focused").hide()
+				get_node(move_ui + dir + "Unfocused").hide()
+		# Reveal after processing visibility of sub-layers
+		get_node(move_ui).show()
+	else:
+		get_node(move_ui).hide()
 
 func move(vector_pos: Vector2):
 	if Globals.game_mode == 1:
