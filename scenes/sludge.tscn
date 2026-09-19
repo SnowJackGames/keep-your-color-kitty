@@ -12,42 +12,42 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
 size = Vector2(16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ytsjj"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_coc74"]
 texture = ExtResource("3_coc74")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_coc74"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppeti"]
 texture = ExtResource("3_tqpm4")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppeti"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7wx6e"]
 texture = ExtResource("6_f8oad")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7wx6e"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f8oad"]
 texture = ExtResource("2_ytsjj")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f8oad"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w100c"]
 texture = ExtResource("4_ppeti")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w100c"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_akds1"]
 texture = ExtResource("5_7wx6e")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_akds1"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ecuf"]
 texture = ExtResource("1_tqpm4")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_74qev"]
-sources/0 = SubResource("TileSetAtlasSource_ytsjj")
-sources/1 = SubResource("TileSetAtlasSource_coc74")
-sources/2 = SubResource("TileSetAtlasSource_ppeti")
-sources/3 = SubResource("TileSetAtlasSource_7wx6e")
-sources/4 = SubResource("TileSetAtlasSource_f8oad")
-sources/5 = SubResource("TileSetAtlasSource_w100c")
-sources/6 = SubResource("TileSetAtlasSource_akds1")
+sources/0 = SubResource("TileSetAtlasSource_coc74")
+sources/1 = SubResource("TileSetAtlasSource_ppeti")
+sources/2 = SubResource("TileSetAtlasSource_7wx6e")
+sources/3 = SubResource("TileSetAtlasSource_f8oad")
+sources/4 = SubResource("TileSetAtlasSource_w100c")
+sources/5 = SubResource("TileSetAtlasSource_akds1")
+sources/6 = SubResource("TileSetAtlasSource_2ecuf")
 
 [node name="Sludge" type="StaticBody2D" unique_id=369884562]
 script = ExtResource("1_ytsjj")
@@ -57,5 +57,6 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nish5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1209576093]
+z_index = -1
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_74qev")

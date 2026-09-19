@@ -109,6 +109,7 @@ position = Vector2(8, 8)
 script = ExtResource("8_ur7pv")
 
 [node name="Targetting" type="Node2D" parent="." unique_id=2022788328]
+z_index = 2
 
 [node name="Pounce" type="Node2D" parent="Targetting" unique_id=701345727]
 visible = false

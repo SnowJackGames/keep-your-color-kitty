@@ -3,29 +3,28 @@ extends StaticBody2D
 
 @onready var tile_map_layer : TileMapLayer = $TileMapLayer
 
-@onready var pounceoverable := true
-@onready var landonable := true
-@onready var moveonable := true
-@onready var slashthroughable := true
-@onready var tile_damage := 3
+@onready var pounceoverable := false
+@onready var landonable := false
+@onready var moveonable := false
+@onready var slashthroughable := false
 
 # We want to be able to customize every tile instance for specific textures / rotations
 @export_group("Visuals")
-@export_range(0, 6) var atlas_source_id : int = 0:
+@export_range(0, 15) var atlas_source_id : int = 0:
 	set(value):
 		atlas_source_id = value
-		_update_sludge()
+		_update_wall()
 		
 # Rotate tile in 90-degree steps 
 @export_range(0, 3) var tile_rotation_steps : int = 0:
 	set(value):
 		tile_rotation_steps = value
-		_update_sludge()
+		_update_wall()
 
 func _ready() -> void:
-	_update_sludge()
+	_update_wall()
 	
-func _update_sludge() -> void:
+func _update_wall() -> void:
 	if not is_inside_tree() or not tile_map_layer:
 		return
 	

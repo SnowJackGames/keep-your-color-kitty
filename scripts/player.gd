@@ -6,7 +6,10 @@ extends CharacterBody2D
 
 const kitty_center_offset := Vector2(8,8)
 
+var damage_dealt_this_turn := 0
+var object_destroyed_name : String
 var facing := "Up"
+var pos_at_start_of_turn : Vector2
 var on_level_exit := false
 var can_move := false
 var can_action := false
@@ -51,10 +54,16 @@ var action_inputs := {
 #endregion
 
 func begin_turn ():
+	damage_dealt_this_turn = 0
+	pos_at_start_of_turn = position
 	can_move = true
 	can_action = true
 
 func end_turn ():
+	# If you end your turn in a damaging tile
+	# but hadn't moved onto it during the turn, then you now take damage
+	if position == pos_at_start_of_turn:
+		check_for_tile_damage()
 	can_move = false
 	can_action = false
 	
@@ -70,21 +79,25 @@ func _ready() -> void:
 
 func _process (_delta: float) -> void:
 	if can_move == true:
-		for dir in dir_inputs.keys():
-			var is_legal := true
-			if Input.is_action_pressed(dir):
-				# Make sure we're not trying to move in two directions at once
-				for dir2 in dir_inputs.keys():
-					if dir != dir2 and Input.is_action_pressed(dir2):
-						is_legal = false
-						break
-				if is_legal:
+		# Exploration
+		if Globals.game_mode == 1:
+			for dir in dir_inputs.keys():
+				if Input.is_action_pressed(dir):
 					set_process(false)
-					attempt_move(dir)
+					declare_move()
 					await FinishedMove
+					print("moved")
 					set_process(true)
-					break
-
+		# Combat
+		elif Globals.game_mode == 2:
+			set_process(false)
+			declare_move()
+			await FinishedMove
+			set_process(true)
+		
+		else:
+			push_error("Impossible game_mode state")
+		
 	if can_action == true:
 		# Exploration
 		if Globals.game_mode == 1:
@@ -98,6 +111,8 @@ func _process (_delta: float) -> void:
 		# Combat
 		elif Globals.game_mode == 2:
 			pass
+			# check if thing was destroyed
+			# if so, object_destroyed_name = that
 		else:
 			push_error("Impossible game_mode state")
 	
@@ -108,38 +123,117 @@ func _process (_delta: float) -> void:
 		FinishedTurn.emit()
 
 #region Move
-func attempt_move(dir) -> void:
-	# Initially let's face the direction
-	sprite.animation = directional_walk_animations[dir]
-	facing = directional_facing[dir]
+func declare_move() -> void:
+	var valid_dir := [] # "Up", etc
+	for dir in directional_facing: # directional_facing: ui_up -> Up
+		var valid_target := true
+		var tile_detection_check := (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
+		if !tile_detection.moveonable(tile_detection_check):
+			valid_target = false
+		if valid_target:
+			valid_dir.append(dir)
 	
-	var tile_detection_check : Vector2 = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
-	if tile_detection.moveonable(tile_detection_check):
-		can_move = false
-		move(dir_inputs[dir] * Globals.grid_size * 1)
-		if Globals.game_mode == 1:
-			end_turn()
+	if !valid_dir.is_empty():
+		# In Combat
+		if Globals.game_mode == 2:
+			move_hint(valid_dir, true)
+		attempt_move(valid_dir)
+	
+	# No valid movement
 	else:
-		var objlist := ""
-		for obj in tile_detection.objectnamesatspot(tile_detection_check):
-			objlist += obj + " "
-		Debug.say(objlist)
-		# Shake head animation?
-		await get_tree().create_timer(0.15).timeout
-		FinishedMove.emit()
+		Debug.say("No valid movement")
+		await get_tree().create_timer(0.1).timeout
+		can_move = false
+		FinishedAction.emit()
+
+
+func attempt_move(valid_dir) -> void:
+	# Exploration
+	if Globals.game_mode == 1:
+		for dir in dir_inputs.keys():
+			var is_multiple_buttons := false
+			if Input.is_action_pressed(dir):
+				# Make sure we're not trying to move in two directions at once
+				for dir2 in dir_inputs.keys():
+					if dir != dir2 and Input.is_action_pressed(dir2):
+						is_multiple_buttons = true
+						break
+				if !is_multiple_buttons:
+					# Attempt move
+					print(valid_dir)
+					if dir in valid_dir:
+						can_move = false
+						move(dir_inputs[dir] * Globals.grid_size * 1)
+					else:
+						# can't move that way
+						await get_tree().create_timer(0.15).timeout
+						FinishedMove.emit()
+				else:
+					await get_tree().create_timer(0.15).timeout
+					FinishedMove.emit()
+	#Combat
+	elif Globals.game_mode == 2:
+		var can_process_move := false
+		var should_move := false
+		while !can_process_move:
+			for dir in dir_inputs.keys():
+				if Input.is_action_pressed(dir) and dir in valid_dir:
+					# face correct direction, update move_hint
+					sprite.animation = directional_walk_animations[dir]
+					facing = directional_facing[dir]
+					move_hint(valid_dir, true)
+			
+			# pressing (A) while facing a valid direction
+			if Input.is_action_pressed("ui_accept") and facing in valid_dir:
+				# hide the combat move UI
+				should_move = true
+				can_process_move = true
+			
+			# pressing (B) skips movement
+			if Input.is_action_pressed("ui_cancel"):
+				# hide the combat move UI
+				can_process_move = true
+			
+			await get_tree().create_timer(0.1).timeout
+	# Hide move UI
+	
+		if should_move:
+			move_hint([], false)
+			can_move = false
+			move(dir_inputs[directional_facing[facing]] * Globals.grid_size * 1)
+		else:
+			FinishedAction.emit()
+	
+	else:
+		push_error("Impossible state in attempt_move")
+
+func move_hint(valid_dir: Array, shouldload: bool) -> void:
+	#var move_ui := "Targetting/Move/"
+	#if shouldload:
+		#var directions := ["Up", "Right", "Down", "Left"]
+		#for dir in directions:
+			#if valid_dir.has(dir):
+				#if facing == dir:
+					#get_node(move_ui + dir + "Focused").show()
+					#get_node(move_ui + dir + "Unfocused").hide()
+				#else:
+					#get_node(move_ui + dir + "Unfocused").show()
+					#get_node(move_ui + dir + "Focused").hide()
+			#else:
+				#get_node(move_ui + dir + "Focused").hide()
+				#get_node(move_ui + dir + "Unfocused").hide()
+		## Reveal after processing visibility of sub-layers
+		#get_node(move_ui).show()
+	#else:
+		#get_node(move_ui).hide()
+		pass
 
 func move(vector_pos: Vector2):
 	position += vector_pos
 	sprite.frame = (sprite.frame + 1) % 2
 	# Move animation
 	await get_tree().create_timer(0.15).timeout
-	# If moved onto damaging tile, take damage
-	var tile_damage : int = tile_detection.tile_damage(position)
-	if tile_damage > 0:
-		cur_health -= tile_damage
-		# Take damage animation, slowdown
-		await get_tree().create_timer(0.6).timeout
-		OnTakeDamage.emit()
+	check_for_tile_damage()
 	FinishedMove.emit()
 #endregion
 
@@ -271,6 +365,7 @@ func slash(valid_dir: Array) -> void:
 	else:
 		push_error("Asked to slash this direction but cannot")
 	
+	damage_dealt_this_turn = 3
 	end_turn()
 	FinishedAction.emit()
 #endregion
@@ -283,7 +378,9 @@ func declare_pounce() -> void:
 		var valid_target := true
 		var tile_detection_check : Vector2
 		# move tile_detection to each increasing spot towards the target
-		for i in range(1, 3):
+		# if 1 and 2 away cannot be pounced over, or 3 away cannot be landed on,
+		# then cannot pounce
+		for i in range(1, 2):
 			tile_detection_check = (dir_inputs[dir] * Globals.grid_size * i) + position + kitty_center_offset
 			if !tile_detection.pounceoverable(tile_detection_check):
 				valid_target = false
@@ -295,12 +392,6 @@ func declare_pounce() -> void:
 			
 		if valid_target:
 			valid_dir.append(directional_facing[dir])
-
-		# Now, we check more *specifically* what is in the way with PounceMarker
-		# move tile_detection to each increasing spot towards the target
-		# check if whatever is there can be pounced over (create attribute for each object for this)
-		# if 1 and 2 away cannot be pounced over, or 3 away cannot be landed on,
-		# then cannot pounce
 	
 	if !valid_dir.is_empty():
 		# Make sure we're not facing an illegal direction...
@@ -378,17 +469,30 @@ func pounce() -> void:
 	Debug.say("Pounce " + facing + " !")
 
 	# If pounced onto damaging spot, take damage
-	var tile_damage : int = tile_detection.tile_damage(position)
-	if tile_damage > 0:
-		cur_health -= tile_damage
-		await get_tree().create_timer(0.6).timeout
-		OnTakeDamage.emit()
+	check_for_tile_damage()
+	damage_dealt_this_turn = 5
 	end_turn()
 	FinishedAction.emit()
 #endregion
-	
-#func take_damage (amount : int):
-	#pass
+
+#region World And Entity Interactions
+func check_for_tile_damage() -> void:
+	# If moved onto damaging tile, take damage
+	var tile_damage : int = tile_detection.tile_damage(position)
+	if tile_damage > 0:
+		take_damage(tile_damage)
+
+func pushed_onto(pos : Vector2) -> void:
+	position = pos
+	check_for_tile_damage()
+
+func take_damage (damage : int):
+	if damage > 0:
+		cur_health -= damage
+		# Take damage animation, slowdown
+		await get_tree().create_timer(0.6).timeout
+		OnTakeDamage.emit()
 	#
 #func heal (amount : int):
 	#pass
+#endregion

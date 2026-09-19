@@ -15,6 +15,7 @@ texture = ExtResource("2_2ktk7")
 sources/1 = SubResource("TileSetAtlasSource_e00m8")
 
 [node name="RandomWall" type="StaticBody2D" unique_id=34819834]
+z_index = 2
 script = ExtResource("1_2ktk7")
 possible_source_ids = Array[int]([1])
 

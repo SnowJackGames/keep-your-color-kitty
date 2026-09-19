@@ -7,25 +7,25 @@ extends StaticBody2D
 @onready var landonable := true
 @onready var moveonable := true
 @onready var slashthroughable := true
-@onready var tile_damage := 3
+@onready var tile_damage := 1
 
 # We want to be able to customize every tile instance for specific textures / rotations
 @export_group("Visuals")
 @export_range(0, 6) var atlas_source_id : int = 0:
 	set(value):
 		atlas_source_id = value
-		_update_sludge()
+		_update_gas()
 		
 # Rotate tile in 90-degree steps 
 @export_range(0, 3) var tile_rotation_steps : int = 0:
 	set(value):
 		tile_rotation_steps = value
-		_update_sludge()
+		_update_gas()
 
 func _ready() -> void:
-	_update_sludge()
+	_update_gas()
 	
-func _update_sludge() -> void:
+func _update_gas() -> void:
 	if not is_inside_tree() or not tile_map_layer:
 		return
 	

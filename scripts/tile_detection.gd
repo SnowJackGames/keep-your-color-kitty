@@ -56,6 +56,9 @@ func landonable(pos) -> bool:
 func slashthroughable(pos) -> bool:
 	return has_attribute(pos, "slashthroughable")
 	
+func damageable(pos) -> bool:
+	return has_attribute(pos, "damageable")
+	
 func has_attribute(pos : Vector2, attribute : String) -> bool:
 	var results := check_end_point(pos)
 	

@@ -19,11 +19,17 @@ func next_turn () -> void:
 	
 	#region Enemy Phases
 	# Check to see if there's any ai_enemys (enemies). put them in ai_array based on position
+	calc_ai_array()
 	if ai_array:
 		# Exploration
 		Globals.game_mode = 2
-		# ENEMY MOVE / BUMP ATTACK:
-			# enemies move or bump attack. If they bump attacked, mark them as such
+		for ai in ai_array:
+			ai.begin_turn()
+			await ai.FinishedPhase
+			await get_tree().create_timer(randf_range(0.1, 0.5)).timeout # stagger time btwn enemy turns
+		await get_tree().create_timer(0.5).timeout # after finished
+		# ENEMY MOVE / BUMP SLASH:
+			# enemies move or bump slash. If they bump slashed, mark ai.bump_attacked() as true
 			# 
 		# ENEMY DECLARE ATTACK:
 			# each enemy if they did not bump attack declares attack
@@ -44,20 +50,30 @@ func next_turn () -> void:
 	elif Globals.game_mode == 2:
 		Debug.say("Combat, need UI")
 		# If UI is not up, show it
+		remove_object(player_character.object_destroyed_name)
 	else:
 		push_error("Impossible state in game_manager player phase")
 	
 	await current_character.FinishedTurn
+	# Current enemy in ai_array takes player_character.damage_dealt
+	
+	# redefine ai_array
 	#endregion
 
 	#region Next Enemy Phases
+	# Recalc array after player turn
+	calc_ai_array()
 	if ai_array:
-		# ENEMY ATTACK
 		# Disable player UI
-		# Each enemy in ai_array that has declared an attack then attacks
-		await get_tree().create_timer(randf_range(0.5, 1.5)).timeout # between attack?
+		# ENEMY ATTACK
+		for ai in ai_array:
+			if !ai.bump_attacked():
+				#ai enacts attack
+				ai.attack()
+				await ai.FinishedPhase
+				ai.end_turn()
+				await get_tree().create_timer(randf_range(0.1, 0.5)).timeout # random slight delay btwn enemies
 		await get_tree().create_timer(0.5).timeout # after finished
-		pass
 	#endregion
 	
 	# Unlock stairs
@@ -101,9 +117,20 @@ func update_camera_target() -> void:
 	else:
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
 
+# Deleting something, like a bomb or an enemy dying
+func remove_object(name : String) -> void:
+	if name:
+		get_node(name).PROCESS_MODE_DISABLED
+
+# calculate ai_array
+func calc_ai_array() -> void:
+	pass
+
 
 func _ready() -> void:
+	show()
 	levels_scene.show()
+	player_character.show()
 	increment_active_level()
 	update_camera_target()
 	next_turn()

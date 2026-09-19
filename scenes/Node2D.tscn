@@ -10,8 +10,8 @@ script = ExtResource("1_iweij")
 [node name="Player" parent="." unique_id=1727976728 instance=ExtResource("1_req00")]
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=439446228]
+visible = false
 
 [node name="UI" type="Node2D" parent="." unique_id=1879375070]
 
 [node name="Levels" parent="." unique_id=272764069 instance=ExtResource("6_ab5sx")]
-visible = false
