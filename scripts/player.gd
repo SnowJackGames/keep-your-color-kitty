@@ -83,11 +83,17 @@ func _process (_delta: float) -> void:
 		if Globals.game_mode == 1:
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir):
-					set_process(false)
-					declare_move()
-					await FinishedMove
-					print("moved")
-					set_process(true)
+					#var pressing_2_buttons := false
+					#for dir2 in dir_inputs.keys():
+						#if (dir != dir2) and Input.is_action_pressed(dir2):
+							#pressing_2_buttons = true
+							#break
+					#if !pressing_2_buttons:
+						set_process(false)
+						declare_move()
+						await FinishedMove
+						set_process(true)
+						break
 		# Combat
 		elif Globals.game_mode == 2:
 			set_process(false)
@@ -107,6 +113,7 @@ func _process (_delta: float) -> void:
 					action_inputs[action].call()
 					await FinishedAction
 					set_process(true)
+					break
 
 		# Combat
 		elif Globals.game_mode == 2:
@@ -151,26 +158,30 @@ func attempt_move(valid_dir) -> void:
 	# Exploration
 	if Globals.game_mode == 1:
 		for dir in dir_inputs.keys():
-			var is_multiple_buttons := false
 			if Input.is_action_pressed(dir):
 				# Make sure we're not trying to move in two directions at once
+				var is_multiple_buttons := false
 				for dir2 in dir_inputs.keys():
-					if dir != dir2 and Input.is_action_pressed(dir2):
+					if (dir != dir2) and Input.is_action_pressed(dir2):
 						is_multiple_buttons = true
-						break
 				if !is_multiple_buttons:
-					# Attempt move
-					print(valid_dir)
+					## Attempt move
 					if dir in valid_dir:
 						can_move = false
+						facing = dir
+						sprite.animation = directional_walk_animations[dir]
 						move(dir_inputs[dir] * Globals.grid_size * 1)
 					else:
-						# can't move that way
+						Debug.say("Invalid move")
 						await get_tree().create_timer(0.15).timeout
 						FinishedMove.emit()
+						break
 				else:
+					# Won't let player move two ways at once
 					await get_tree().create_timer(0.15).timeout
 					FinishedMove.emit()
+					break
+
 	#Combat
 	elif Globals.game_mode == 2:
 		var can_process_move := false
@@ -207,6 +218,7 @@ func attempt_move(valid_dir) -> void:
 	else:
 		push_error("Impossible state in attempt_move")
 
+
 func move_hint(valid_dir: Array, shouldload: bool) -> void:
 	#var move_ui := "Targetting/Move/"
 	#if shouldload:
@@ -229,6 +241,8 @@ func move_hint(valid_dir: Array, shouldload: bool) -> void:
 		pass
 
 func move(vector_pos: Vector2):
+	if Globals.game_mode == 1:
+		can_action = false
 	position += vector_pos
 	sprite.frame = (sprite.frame + 1) % 2
 	# Move animation
