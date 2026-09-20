@@ -26,10 +26,9 @@ var player : CharacterBody2D
 
 var max_health := 5
 var bump_slash_damage := 3
-var quick_attack_damage := 4
+var quick_attack_damage := 3
 
 signal FinishedMove
-signal FinishedAttackDeclaration
 
 static var direction_dictionary = {
 	"Up Left" : Vector2.UP + Vector2.LEFT,
@@ -39,6 +38,14 @@ static var direction_dictionary = {
 	"Down Right" : Vector2.RIGHT + Vector2.DOWN,
 	"Down" : Vector2.DOWN,
 	"Down Left" :Vector2.DOWN + Vector2.LEFT,
+	"Left" : Vector2.LEFT
+}
+
+# Only 4 directions
+static var simple_direction_dictionary = {
+	"Up" : Vector2.UP,
+	"Right" : Vector2.RIGHT,
+	"Down" : Vector2.DOWN,
 	"Left" : Vector2.LEFT
 }
 
@@ -108,6 +115,8 @@ func phase_one() -> void:
 			player.take_damage(player.cornered_damage)
 			player.take_damage(bump_slash_damage)
 			$AttackHint.hide()
+		# Then they damage themselves
+		take_damage(bump_slash_damage)
 	else:
 		# Move towards player
 		var closest_tile_to_player := position
@@ -125,7 +134,6 @@ func phase_one() -> void:
 		await FinishedMove
 		# Declare attack
 		declare_attack()
-		await FinishedAttackDeclaration
 	await get_tree().create_timer(0.2).timeout
 	FinishedPhase.emit()
 
@@ -136,9 +144,9 @@ func declare_attack() -> void:
 	var direction_towards_player : String
 	var distance_to_player := position.distance_to(player.position)
 	var tile_detection_check : Vector2
-	# Check 8 directions
-	for direction in direction_dictionary:
-		tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position + rat_center_offset
+	# Check 4 directions
+	for direction in simple_direction_dictionary:
+		tile_detection_check = simple_direction_dictionary[direction] * Globals.grid_size + position
 		# If player is right next to us, attack there of course
 		if tile_detection.player_on_tile(tile_detection_check):
 			declared_attack = true
@@ -160,20 +168,33 @@ func declare_attack() -> void:
 				declared_attack_pos_near = tile_detection_check
 	declared_attack_direction = direction_towards_player
 	
-	# Check how many tiles we're attacking
+	# If we can attack 1 tile away, let's see if we attack 2 tiles away
 	if declared_attack:
-		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size + position + rat_center_offset
+		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 2 + position
+		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
+			declared_attack_pos_far = tile_detection_check
 		attack_hint()
 	pass
 
 func attack_hint() -> void:
 	if declared_attack_direction:
-		pass
+		if declared_attack_pos_near:
+			$AttackHint.global_position = declared_attack_pos_near
+			$AttackHint.show()
+		if declared_attack_pos_far:
+			$AttackHint2.global_position = declared_attack_pos_far
+			$AttackHint2.show()
+			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
 	if declared_attack:
-		pass
+		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
+			if attack_spot != null:
+				if tile_detection.player_on_tile(attack_spot):
+					player.take_damage(quick_attack_damage)
 	await get_tree().create_timer(0.2).timeout
+	$AttackHint.hide()
+	$AttackHint2.hide()
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
@@ -200,10 +221,28 @@ func check_for_tile_damage() -> void:
 		take_damage(tile_damage)
 		
 func take_damage (damage : int):
+	var attack_shown = $AttackHint.visible
+	var attack2_shown = $AttackHint2.visible
 	if damage > 0:
 		cur_health -= damage
-		# Take damage animation, slowdown
-		await get_tree().create_timer(0.6).timeout
+		# Take damage animation
+		if attack_shown:
+			$AttackHint.hide()
+		if attack2_shown:
+			$AttackHint2.hide()
+		hide()
+		await get_tree().create_timer(0.1).timeout
+		show()
+		await get_tree().create_timer(0.1).timeout
+		hide()
+		await get_tree().create_timer(0.1).timeout
+		show()
+
 	if cur_health <= 0:
-		print("died")
 		queue_free()
+	else:
+		if attack_shown:
+			$AttackHint.show()
+		if attack2_shown:
+			$AttackHint2.show()
+		await get_tree().create_timer(0.2).timeout

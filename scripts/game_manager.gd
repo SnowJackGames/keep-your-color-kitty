@@ -147,5 +147,6 @@ func _process(_delta: float) -> void:
 	Debug.say("Health: %s / %s" % [player_character.cur_health, player_character.max_health])
 	# Game Over
 	if player_character.cur_health <= 0:
+		player_character.hide()
 		get_tree().quit()
 	set_process(true)

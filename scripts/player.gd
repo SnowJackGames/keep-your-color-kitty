@@ -115,6 +115,7 @@ func _process (_delta: float) -> void:
 					set_process(false)
 					action_inputs[action].call()
 					await FinishedAction
+					print("saw action finished")
 					set_process(true)
 					break
 
@@ -476,7 +477,6 @@ func slash(valid_dir: Array) -> void:
 		Debug.say("Slash " + facing + " Near!")
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1) + position
 		await tile_detection.damage_object(damage_spot, slash_damage)
-		print("saw damaged")
 		# Animate near slash
 		await get_tree().create_timer(0.3).timeout
 	# Far slash
@@ -484,7 +484,6 @@ func slash(valid_dir: Array) -> void:
 		Debug.say("Slash " + facing + " Far!")
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 2) + position
 		await tile_detection.damage_object(damage_spot, slash_damage)
-		print("saw damaged")
 		# Animate far slash
 		await get_tree().create_timer(0.3).timeout
 
@@ -611,8 +610,10 @@ func pounce() -> void:
 	pounce_hint([], false)
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
 	var pounce_vector_pos : Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
+	var damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3) + position
 	# We animate moving
 	position += pounce_vector_pos
+	await tile_detection.damage_object(damage_spot, pounce_damage)
 	await get_tree().create_timer(0.3).timeout
 	# We move there [we can make this smoother]
 	# We deal damage to whatever is there
@@ -634,7 +635,6 @@ func check_for_tile_damage() -> void:
 		take_damage(tile_damage)
 
 func pushed_onto(pos : Vector2) -> void:
-	print("pushed")
 	position = pos
 	check_for_tile_damage()
 	
@@ -681,8 +681,15 @@ func where_can_be_pushed(source_direction) -> Variant:
 func take_damage (damage : int):
 	if damage > 0:
 		cur_health -= damage
-		# Take damage animation, slowdown
-		await get_tree().create_timer(0.6).timeout
+		# Take damage animation
+		hide()
+		await get_tree().create_timer(0.1).timeout
+		show()
+		await get_tree().create_timer(0.1).timeout
+		hide()
+		await get_tree().create_timer(0.1).timeout
+		show()
+		await get_tree().create_timer(0.2).timeout
 		OnTakeDamage.emit()
 	#
 #func heal (amount : int):
