@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d2x28110ic8cv" path="res://art/cat/cat-right-Sheet.png" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://br8x28oye14wc" path="res://art/cat/cat-back-Sheet.png" id="5_ur7pv"]
 [ext_resource type="TileSet" uid="uid://cltyogwv1homu" path="res://tilesets/pounce.tres" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://cqvsv861olabi" path="res://scenes/tile_detection.tscn" id="6_y4r1p"]
 [ext_resource type="TileSet" uid="uid://dle48t16r7qgx" path="res://tilesets/slash.tres" id="8_smehm"]
-[ext_resource type="Script" uid="uid://b8yopu18qml5i" path="res://scripts/tile_detection.gd" id="8_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://bg7kbkhqrde3b" path="res://art/UI/targeting-Sheet.png" id="9_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://baoekbx55jjrb" path="res://art/UI/targeting-pounce-Sheet.png" id="10_d2wvv"]
 
@@ -150,9 +150,8 @@ position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_nish5")
 animation = &"walk up"
 
-[node name="TileDetection" type="Marker2D" parent="." unique_id=2033127818]
+[node name="TileDetection" parent="." unique_id=195151570 instance=ExtResource("6_y4r1p")]
 position = Vector2(8, 8)
-script = ExtResource("8_ur7pv")
 
 [node name="Targetting" type="Node2D" parent="." unique_id=2022788328]
 z_index = 2

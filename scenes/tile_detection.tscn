@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cqvsv861olabi"]
+
+[ext_resource type="Script" uid="uid://b8yopu18qml5i" path="res://scripts/tile_detection.gd" id="1_ww4d7"]
+
+[node name="TileDetection" type="Marker2D" unique_id=195151570]
+script = ExtResource("1_ww4d7")

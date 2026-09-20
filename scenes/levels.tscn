@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://co70r7wdwc8uo" path="res://scenes/stairs.tscn" id="3_r44b6"]
 [ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="4_byla0"]
 [ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="5_r44b6"]
+[ext_resource type="PackedScene" uid="uid://db8ebj05sakt1" path="res://scenes/rat.tscn" id="7_r44b6"]
+[ext_resource type="PackedScene" uid="uid://dp78uphin41ox" path="res://scenes/custom_wall.tscn" id="8_1jewu"]
 
 [node name="Levels" type="Node2D" unique_id=272764069]
 script = ExtResource("1_hk6qi")
 
 [node name="Level1" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
-visible = false
-set_player_start_position = Vector2(160, 272)
+set_player_start_position = Vector2(160, 256)
 
 [node name="Elements" type="Node2D" parent="Level1" unique_id=1363058128]
 
@@ -95,7 +96,15 @@ limit_top = 0
 limit_right = 320
 limit_bottom = 288
 
+[node name="Rat" parent="Level1" unique_id=934275049 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 176)
+
+[node name="CustomWall" parent="Level1" unique_id=51517795 instance=ExtResource("8_1jewu")]
+position = Vector2(160, 272)
+atlas_source_id = 1
+
 [node name="Level2" parent="." unique_id=1108138394 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(160, 192)
 
 [node name="Floor" parent="Level2" unique_id=1298709385 instance=ExtResource("3_jj4e6")]

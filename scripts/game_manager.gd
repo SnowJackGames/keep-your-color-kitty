@@ -6,8 +6,7 @@ extends Node2D
 
 @onready var player_character: CharacterBody2D = $Player
 @onready var ai_enemy : CharacterBody2D
-@onready var ai_array := []
-@onready var current_character : CharacterBody2D
+@onready var ai_array : Array[CharacterBody2D] = []
 
 var game_over := false
 
@@ -23,38 +22,32 @@ func next_turn () -> void:
 	if ai_array:
 		# Exploration
 		Globals.game_mode = 2
+		await get_tree().create_timer(0.2).timeout
 		for ai in ai_array:
 			ai.begin_turn()
 			await ai.FinishedPhase
-			await get_tree().create_timer(randf_range(0.1, 0.5)).timeout # stagger time btwn enemy turns
-		await get_tree().create_timer(0.5).timeout # after finished
-		# ENEMY MOVE / BUMP SLASH:
-			# enemies move or bump slash. If they bump slashed, mark ai.bump_attacked() as true
-			# 
-		# ENEMY DECLARE ATTACK:
-			# each enemy if they did not bump attack declares attack
+			await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
 	else:
 		# Combat
 		Globals.game_mode = 1
 	#endregion
 		
+	Debug.say("AI completed phase one")
 	#region Player Phases
 	# PLAYER MOVE, PLAYER ATTACK
-	current_character = player_character
-	current_character.begin_turn()
-	# Exploration
-	if Globals.game_mode == 1:
-		pass
-		# If UI is up, hide it
-	# Combat
-	elif Globals.game_mode == 2:
-		Debug.say("Combat, need UI")
-		# If UI is not up, show it
-		remove_object(player_character.object_destroyed_name)
-	else:
-		push_error("Impossible state in game_manager player phase")
-	
-	await current_character.FinishedTurn
+	player_character.begin_turn()
+	## Exploration
+	#if Globals.game_mode == 1:
+		#pass
+		## If UI is up, hide it
+	## Combat
+	#elif Globals.game_mode == 2:
+		## If UI is not up, show it
+		#pass
+	#else:
+		#push_error("Impossible state in game_manager player phase")
+
+	await player_character.FinishedTurn
 	# Current enemy in ai_array takes player_character.damage_dealt
 	
 	# redefine ai_array
@@ -67,13 +60,15 @@ func next_turn () -> void:
 		# Disable player UI
 		# ENEMY ATTACK
 		for ai in ai_array:
-			if !ai.bump_attacked():
+			if !ai.bump_attacked:
 				#ai enacts attack
 				ai.attack()
 				await ai.FinishedPhase
 				ai.end_turn()
-				await get_tree().create_timer(randf_range(0.1, 0.5)).timeout # random slight delay btwn enemies
-		await get_tree().create_timer(0.5).timeout # after finished
+				await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # random slight delay btwn enemies
+		await get_tree().create_timer(0.1).timeout # after finished
+	else:
+		Globals.game_mode = 1
 	#endregion
 	
 	# Unlock stairs
@@ -117,17 +112,23 @@ func update_camera_target() -> void:
 	else:
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
 
-# Deleting something, like a bomb or an enemy dying
-func remove_object(name : String) -> void:
-	if name:
-		get_node(name).PROCESS_MODE_DISABLED
 
 # calculate ai_array
 func calc_ai_array() -> void:
-	pass
+	var unsorted_array : Array[CharacterBody2D] = []
+	# search to see if any enemies
+	
+	for child in current_level.find_children("*", "CharacterBody2D"):
+		if child.is_enemy:
+			unsorted_array.append(child)
 
+	# sort them left to right, top to bottom
+	# but for now
+	ai_array = unsorted_array
 
 func _ready() -> void:
+	Globals.player = $Player
+	Globals.ui = $UI
 	show()
 	levels_scene.show()
 	player_character.show()

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://onnss6t256u7"]
+
+[ext_resource type="Texture2D" uid="uid://bq5diiprw5ynd" path="res://art/UI/combat-move-UI.png" id="1_nt7q6"]
+[ext_resource type="Script" uid="uid://cj52hi1w78wu8" path="res://scripts/ui.gd" id="1_x4jx1"]
+[ext_resource type="Texture2D" uid="uid://daam3wofenoc6" path="res://art/UI/combat-attack-UI-Sheet.png" id="3_yev5y"]
+[ext_resource type="Texture2D" uid="uid://e5h3hws6sp7m" path="res://art/UI/combat-attack-confirm-cancel.png" id="4_gdt2y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yev5y"]
+atlas = ExtResource("3_yev5y")
+
+[node name="UI" type="Control" unique_id=1523276235]
+z_index = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_x4jx1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=334690291]
+
+[node name="MoveCombatHover" type="TextureRect" parent="CanvasLayer" unique_id=363549220]
+texture = ExtResource("1_nt7q6")
+
+[node name="AttackCombatHover" type="TextureRect" parent="CanvasLayer" unique_id=29610004]
+texture = SubResource("AtlasTexture_yev5y")
+
+[node name="AttackCombatReturnHover" type="TextureRect" parent="CanvasLayer" unique_id=1235343333]
+texture = ExtResource("4_gdt2y")

@@ -4,8 +4,10 @@ extends CharacterBody2D
 @onready var tile_detection : Marker2D = $TileDetection
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+
 const kitty_center_offset := Vector2(8,8)
 
+var combat_attack_selection_index : int
 var damage_dealt_this_turn := 0
 var object_destroyed_name : String
 var facing := "Up"
@@ -14,7 +16,11 @@ var on_level_exit := false
 var can_move := false
 var can_action := false
 
-#var is_player : bool
+static var is_player := true
+static var cornered_damage = 3
+static var slash_damage = 3
+static var pounce_damage = 5
+static var knight_damage = 3
 var cur_health : int
 var max_health : int
 
@@ -24,6 +30,7 @@ signal OnTakeDamage (health : int)
 signal FinishedTurn
 signal FinishedMove
 signal FinishedAction
+signal InputsClear
 
 #region Input Dictionaries
 static var dir_inputs : Dictionary[String, Vector2]= {
@@ -53,13 +60,14 @@ var action_inputs := {
 }
 #endregion
 
-func begin_turn ():
+func begin_turn():
+	combat_attack_selection_index = 0
 	damage_dealt_this_turn = 0
 	pos_at_start_of_turn = position
 	can_move = true
 	can_action = true
 
-func end_turn ():
+func end_turn():
 	# If you end your turn in a damaging tile
 	# but hadn't moved onto it during the turn, then you now take damage
 	if position == pos_at_start_of_turn:
@@ -84,12 +92,6 @@ func _process (_delta: float) -> void:
 		if Globals.game_mode == 1:
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir):
-					#var pressing_2_buttons := false
-					#for dir2 in dir_inputs.keys():
-						#if (dir != dir2) and Input.is_action_pressed(dir2):
-							#pressing_2_buttons = true
-							#break
-					#if !pressing_2_buttons:
 						set_process(false)
 						declare_move()
 						await FinishedMove
@@ -118,7 +120,17 @@ func _process (_delta: float) -> void:
 
 		# Combat
 		elif Globals.game_mode == 2:
-			pass
+			set_process(false)
+			var selected : Callable = await attack_selection()
+			selected.call()
+			if selected == end_turn:
+				end_turn()
+			else:
+				await FinishedAction
+			await_inputs_clear()
+			await InputsClear
+			set_process(true)
+			
 			# check if thing was destroyed
 			# if so, object_destroyed_name = that
 		else:
@@ -130,6 +142,69 @@ func _process (_delta: float) -> void:
 			Debug.say("on the exit")
 		FinishedTurn.emit()
 
+func attack_selection() -> Callable:
+	await_inputs_clear()
+	await InputsClear
+	var chose_option := false
+	var selection_just_changed := true
+	while !chose_option:
+		# Left
+		if Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+			if combat_attack_selection_index == 0:
+				combat_attack_selection_index = 3
+			else:
+				combat_attack_selection_index -= 1
+			selection_just_changed = true
+			await get_tree().create_timer(0.05).timeout
+		# Right
+		if Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+			combat_attack_selection_index += 1
+			combat_attack_selection_index %= 4
+			selection_just_changed = true
+			await get_tree().create_timer(0.05).timeout
+		# (A) select
+		if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+			chose_option = true
+		# (B) skip
+		if Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+			combat_attack_selection_index = 3
+			chose_option = true
+		# Show the correct UI version
+		if selection_just_changed:
+			selection_just_changed = false
+			if combat_attack_selection_index in range(0, 4):
+				Globals.ui.attack_combat_hover(combat_attack_selection_index)
+			else:
+				push_error("Impossible selection index")
+		# Reduce speed of loop waiting for key release
+		await get_tree().create_timer(0.1).timeout
+	# Wait for "let go" of other buttons
+	await_inputs_clear()
+	await InputsClear
+	Globals.ui.hide_all()
+	# Run selection selected from menu
+	# Slash
+	if combat_attack_selection_index == 0:
+		return declare_slash
+	# Pounce
+	elif combat_attack_selection_index == 1:
+		return declare_pounce
+	# Knight
+	elif combat_attack_selection_index == 2:
+		return declare_slash
+		# return declare_knight
+	# Skip
+	else:
+		return end_turn
+
+func await_inputs_clear() -> void:
+	var can_move_on = false
+	while !can_move_on:
+		if !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+			can_move_on = true
+		await get_tree().create_timer(0.05).timeout
+	InputsClear.emit()
+
 #region Move
 func declare_move() -> void:
 	var valid_dir := [] # "Up", etc
@@ -139,7 +214,7 @@ func declare_move() -> void:
 		if !tile_detection.moveonable(tile_detection_check):
 			valid_target = false
 		if valid_target:
-			valid_dir.append(dir)
+			valid_dir.append(directional_facing[dir])
 	
 	if !valid_dir.is_empty():
 		# In Combat
@@ -168,10 +243,10 @@ func attempt_move(valid_dir) -> void:
 				if !is_multiple_buttons:
 					## Attempt move
 					facing = directional_facing[dir]
-					if dir in valid_dir:
+					if directional_facing[dir] in valid_dir:
 						can_move = false
 						sprite.animation = directional_walk_animations[dir]
-						move(dir_inputs[dir] * Globals.grid_size * 1)
+						move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
 					else:
 						Debug.say("Invalid move")
 						await get_tree().create_timer(0.15).timeout
@@ -185,11 +260,12 @@ func attempt_move(valid_dir) -> void:
 
 	#Combat
 	elif Globals.game_mode == 2:
+		Globals.ui.move_combat_hover()
 		var can_process_move := false
 		var should_move := false
 		while !can_process_move:
 			for dir in dir_inputs.keys():
-				if Input.is_action_pressed(dir) and dir in valid_dir:
+				if Input.is_action_pressed(dir) and valid_dir.has(directional_facing[dir]):
 					# face correct direction, update move_hint
 					sprite.animation = directional_walk_animations[dir]
 					facing = directional_facing[dir]
@@ -203,18 +279,17 @@ func attempt_move(valid_dir) -> void:
 			
 			# pressing (B) skips movement
 			if Input.is_action_pressed("ui_cancel"):
-				# hide the combat move UI
 				can_process_move = true
 			
 			await get_tree().create_timer(0.1).timeout
-	# Hide move UI
-	
+		await_inputs_clear()
+		await InputsClear
+		move_hint([], false)
+		can_move = false
 		if should_move:
-			move_hint([], false)
-			can_move = false
-			move(dir_inputs[directional_facing[facing]] * Globals.grid_size * 1)
+			move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
 		else:
-			FinishedAction.emit()
+			FinishedMove.emit()
 	
 	else:
 		push_error("Impossible state in attempt_move")
@@ -260,14 +335,21 @@ func declare_slash() -> void:
 		var tile_detection_check_near : Vector2 = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
 		var tile_detection_check_far : Vector2 = (dir_inputs[dir] * Globals.grid_size * 2) + position + kitty_center_offset
 		
-		# We can't go "far" until we first go "near".
-		# But if we can go "far" then there's no need to go "near"
-		# You can never be both "near" and "far",
-		# But "near" is on the way to "far".
-		if tile_detection.slashthroughable(tile_detection_check_near):
-			if tile_detection.slashthroughable(tile_detection_check_far):
+		# Check if enemy is near
+		if tile_detection.enemy_on_tile(tile_detection_check_near):
+			valid_dir.append(directional_facing[dir] + "Near") # ex. "UpNear"
+			valid_dir_without_near_or_far.append(directional_facing[dir])
+		# Check if near is slashthroughable
+		elif tile_detection.slashthroughable(tile_detection_check_near):
+			# if so, is enemy far
+			if tile_detection.enemy_on_tile(tile_detection_check_far):
 				valid_dir.append(directional_facing[dir] + "Far") # ex. "UpFar"
 				valid_dir_without_near_or_far.append(directional_facing[dir])
+			# otherwise, is far slashthroughable
+			elif tile_detection.slashthroughable(tile_detection_check_far):
+				valid_dir.append(directional_facing[dir] + "Far") # ex. "UpFar"
+				valid_dir_without_near_or_far.append(directional_facing[dir])
+			# otherwise, near is slashthroughable but not far
 			else:
 				valid_dir.append(directional_facing[dir] + "Near") # ex. "UpNear"
 				valid_dir_without_near_or_far.append(directional_facing[dir])
@@ -286,10 +368,8 @@ func declare_slash() -> void:
 		Debug.say("No valid slash target!")
 		# Animate shake head
 		await get_tree().create_timer(0.3).timeout
-		while Input.is_action_pressed('ui_accept'):
-			# Wait for button to be let go
-			# Reduce speed of loop waiting for key release
-			await get_tree().create_timer(0.1).timeout
+		await_inputs_clear()
+		await InputsClear
 		FinishedAction.emit()
 
 func attempt_slash(valid_dir: Array) -> void:
@@ -303,15 +383,41 @@ func attempt_slash(valid_dir: Array) -> void:
 					facing = directional_facing[dir]
 					sprite.animation = directional_walk_animations[dir]
 					slash_hint(valid_dir, true)
+					break
 			# Reduce speed of loop waiting for key release
 			await get_tree().create_timer(0.1).timeout
 		slash(valid_dir)
 		
 	# Combat
 	elif Globals.game_mode == 2:
-		# wait for "ui_accept" to send action
-		slash(valid_dir)
-		
+		Globals.ui.attack_combat_return_hover()
+		var chose_option := false
+		var go_back := false
+		while !chose_option:
+			for dir in dir_inputs.keys():
+				# (A) accept
+				if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+					chose_option = true
+					break
+				# (B) cancel
+				elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
+					chose_option = true
+					go_back = true
+					break
+				elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept")and !Input.is_action_pressed("ui_cancel"):
+					facing = directional_facing[dir]
+					sprite.animation = directional_walk_animations[dir]
+					slash_hint(valid_dir, true)
+					break
+			await get_tree().create_timer(0.1).timeout
+		await_inputs_clear()
+		await InputsClear
+		if go_back:
+			slash_hint([], false)
+			FinishedAction.emit()
+		else:
+			slash(valid_dir)
+	
 	else:
 		push_error("Impossible state in attempt_slash")
 
@@ -362,14 +468,23 @@ func slash_hint(valid_dir: Array, shouldload: bool = false) -> void:
 		get_node(slash_ui).hide()
 
 func slash(valid_dir: Array) -> void:
+	Globals.ui.hide_all()
 	slash_hint([], false)
+	var damage_spot : Vector2
+	# Near slash
 	if valid_dir.has((facing + "Near")) and !valid_dir.has((facing + "Far")):
 		Debug.say("Slash " + facing + " Near!")
+		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1) + position
+		await tile_detection.damage_object(damage_spot, slash_damage)
+		print("saw damaged")
 		# Animate near slash
 		await get_tree().create_timer(0.3).timeout
-
+	# Far slash
 	elif valid_dir.has((facing + "Far")) and !valid_dir.has((facing + "Near")):
 		Debug.say("Slash " + facing + " Far!")
+		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 2) + position
+		await tile_detection.damage_object(damage_spot, slash_damage)
+		print("saw damaged")
 		# Animate far slash
 		await get_tree().create_timer(0.3).timeout
 
@@ -378,8 +493,6 @@ func slash(valid_dir: Array) -> void:
 	
 	else:
 		push_error("Asked to slash this direction but cannot")
-	
-	damage_dealt_this_turn = 3
 	end_turn()
 	FinishedAction.emit()
 #endregion
@@ -420,10 +533,8 @@ func declare_pounce() -> void:
 		Debug.say("No valid pounce target!")
 		# Animate shake head
 		await get_tree().create_timer(0.3).timeout
-		while Input.is_action_pressed('ui_cancel'):
-			# Wait for button to be let go
-			# Reduce speed of loop waiting for key release
-			await get_tree().create_timer(0.1).timeout
+		await_inputs_clear()
+		await InputsClear
 		FinishedAction.emit()
 
 func attempt_pounce(valid_dir: Array) -> void:
@@ -444,8 +555,33 @@ func attempt_pounce(valid_dir: Array) -> void:
 
 	# Combat
 	elif Globals.game_mode == 2:
-		# wait for "ui_accept"
-		pounce()
+		Globals.ui.attack_combat_return_hover()
+		var chose_option := false
+		var go_back := false
+		while !chose_option:
+			for dir in dir_inputs.keys():
+				# (A) accept
+				if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+					chose_option = true
+					break
+				# (B) cancel
+				elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
+					chose_option = true
+					go_back = true
+					break
+				elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+					facing = directional_facing[dir]
+					sprite.animation = directional_walk_animations[dir]
+					pounce_hint(valid_dir, true)
+					break
+			await get_tree().create_timer(0.1).timeout
+		await_inputs_clear()
+		await InputsClear
+		if go_back:
+			pounce_hint([], false)
+			FinishedAction.emit()
+		else:
+			pounce()
 
 	else:
 		push_error("Impossible state in attempt_pounce")
@@ -471,6 +607,7 @@ func pounce_hint(valid_dir: Array, shouldload: bool) -> void:
 		get_node(pounce_ui).hide()
 	
 func pounce() -> void:
+	Globals.ui.hide_all()
 	pounce_hint([], false)
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
 	var pounce_vector_pos : Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
@@ -497,8 +634,49 @@ func check_for_tile_damage() -> void:
 		take_damage(tile_damage)
 
 func pushed_onto(pos : Vector2) -> void:
+	print("pushed")
 	position = pos
 	check_for_tile_damage()
+	
+# Check to see where entity can be pushed
+func where_can_be_pushed(source_direction) -> Variant:
+	var push_spot = null
+	var tile_detection_check : Vector2
+	if source_direction == "Up":
+		tile_detection_check = (Vector2.UP) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down":
+		tile_detection_check = (Vector2.DOWN) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Left":
+		tile_detection_check = (Vector2.LEFT) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Right":
+		tile_detection_check = (Vector2.RIGHT) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Up Left":
+		tile_detection_check = ((Vector2.UP) + (Vector2.LEFT)) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Up Right":
+		tile_detection_check = ((Vector2.UP) + (Vector2.RIGHT)) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down Left":
+		tile_detection_check = ((Vector2.DOWN) + (Vector2.LEFT)) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down Right":
+		tile_detection_check = ((Vector2.DOWN) + (Vector2.RIGHT)) * Globals.grid_size * 1 + position + kitty_center_offset
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	else:
+		push_error("received impossible direction: " + source_direction)
+	return push_spot
 
 func take_damage (damage : int):
 	if damage > 0:
