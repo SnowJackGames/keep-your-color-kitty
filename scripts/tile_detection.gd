@@ -42,8 +42,7 @@ func tile_damage(pos) -> int:
 			dmg += result.collider.tile_damage
 	
 	return dmg
-	
-#region Boolean "-ables"
+
 func moveonable(pos) -> bool:
 	return has_attribute(pos, "moveonable")
 
@@ -84,7 +83,6 @@ func has_attribute(pos : Vector2, attribute : String) -> bool:
 		
 	return true
 
-
 func enemy_on_tile(pos) -> bool:
 	var results := check_end_point(pos)
 	if results.is_empty():
@@ -95,6 +93,17 @@ func enemy_on_tile(pos) -> bool:
 				return true
 	
 	return false
+
+func get_enemy_path_from_spot(pos) -> Variant:
+	var results := check_end_point(pos)
+	if results.is_empty():
+		return
+		
+	for result in results:
+		if "is_enemy" in result.collider or result.collider.get("is_enemy"):
+			if result.collider.is_enemy:
+				return result.collider.get_path()
+	return ""
 
 func player_on_tile(pos) -> bool:
 	var results := check_end_point(pos)

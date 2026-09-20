@@ -97,7 +97,7 @@ limit_right = 320
 limit_bottom = 288
 
 [node name="Rat" parent="Level1" unique_id=934275049 instance=ExtResource("7_r44b6")]
-position = Vector2(160, 192)
+position = Vector2(128, 208)
 
 [node name="CustomWall" parent="Level1" unique_id=51517795 instance=ExtResource("8_1jewu")]
 position = Vector2(160, 272)

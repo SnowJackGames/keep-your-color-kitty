@@ -27,13 +27,17 @@ func next_turn () -> void:
 			ai.begin_turn()
 			await ai.FinishedPhase
 			await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
+		Debug.say("AI completed phase one")
 	else:
 		# Combat
 		Globals.game_mode = 1
 	#endregion
 		
-	Debug.say("AI completed phase one")
 	#region Player Phases
+	calc_ai_array() # in case any AI died during their turn
+	if !ai_array:
+		Globals.game_mode = 1
+	
 	# PLAYER MOVE, PLAYER ATTACK
 	player_character.begin_turn()
 	## Exploration
@@ -60,7 +64,7 @@ func next_turn () -> void:
 		# Disable player UI
 		# ENEMY ATTACK
 		for ai in ai_array:
-			if !ai.bump_attacked:
+			if !ai.bump_attacking:
 				#ai enacts attack
 				ai.attack()
 				await ai.FinishedPhase

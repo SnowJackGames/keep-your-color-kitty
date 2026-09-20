@@ -1,0 +1,41 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://df8ytdi0peqj7"]
+
+[ext_resource type="Texture2D" uid="uid://djmyxsp356ups" path="res://art/enemies/rat/Rat Front.png" id="1_a7m1o"]
+[ext_resource type="Texture2D" uid="uid://cmw2dky5qair3" path="res://art/enemies/rat/Rat Left.png" id="2_pmh15"]
+[ext_resource type="Texture2D" uid="uid://cc7pt78324g7a" path="res://art/enemies/rat/Rat Right.png" id="3_py4ox"]
+[ext_resource type="Texture2D" uid="uid://c43peqopjxqva" path="res://art/enemies/rat/Rat Behind.png" id="4_av0s4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_a7m1o")
+}],
+"loop": 1,
+"name": &"walk down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pmh15")
+}],
+"loop": 1,
+"name": &"walk left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_py4ox")
+}],
+"loop": 1,
+"name": &"walk right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_av0s4")
+}],
+"loop": 1,
+"name": &"walk up",
+"speed": 5.0
+}]

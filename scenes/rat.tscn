@@ -1,50 +1,12 @@
 [gd_scene format=3 uid="uid://db8ebj05sakt1"]
 
 [ext_resource type="Script" uid="uid://ck5fnfj734sbb" path="res://scripts/rat.gd" id="1_1l88y"]
-[ext_resource type="Texture2D" uid="uid://djmyxsp356ups" path="res://art/enemies/rat/Rat Front.png" id="2_368s2"]
-[ext_resource type="Texture2D" uid="uid://cmw2dky5qair3" path="res://art/enemies/rat/Rat Left.png" id="3_nnna8"]
-[ext_resource type="Texture2D" uid="uid://cc7pt78324g7a" path="res://art/enemies/rat/Rat Right.png" id="4_po2hf"]
-[ext_resource type="Texture2D" uid="uid://c43peqopjxqva" path="res://art/enemies/rat/Rat Behind.png" id="5_0g0h3"]
+[ext_resource type="SpriteFrames" uid="uid://df8ytdi0peqj7" path="res://tilesets/rat.tres" id="2_3csnj"]
 [ext_resource type="PackedScene" uid="uid://cqvsv861olabi" path="res://scenes/tile_detection.tscn" id="6_368s2"]
 [ext_resource type="Texture2D" uid="uid://bg7kbkhqrde3b" path="res://art/UI/targeting-Sheet.png" id="7_nnna8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1l88y"]
 size = Vector2(16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0g0h3"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_368s2")
-}],
-"loop": 1,
-"name": &"walk down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_nnna8")
-}],
-"loop": 1,
-"name": &"walk left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_po2hf")
-}],
-"loop": 1,
-"name": &"walk right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_0g0h3")
-}],
-"loop": 1,
-"name": &"walk up",
-"speed": 5.0
-}]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_po2hf"]
 texture = ExtResource("7_nnna8")
@@ -67,8 +29,9 @@ shape = SubResource("RectangleShape2D_1l88y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=729522034]
 position = Vector2(8, 8)
-sprite_frames = SubResource("SpriteFrames_0g0h3")
-animation = &"walk up"
+sprite_frames = ExtResource("2_3csnj")
+animation = &"walk down"
+frame_progress = 0.32381463
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": false,
@@ -94,16 +57,16 @@ metadata/_aseprite_wizard_config_ = {
 position = Vector2(8, 8)
 
 [node name="MoveHint" type="TileMapLayer" parent="." unique_id=1009878094]
-z_index = 3
+z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint" type="TileMapLayer" parent="." unique_id=809907438]
-z_index = 3
+z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint2" type="TileMapLayer" parent="." unique_id=934580440]
-z_index = 3
+z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")

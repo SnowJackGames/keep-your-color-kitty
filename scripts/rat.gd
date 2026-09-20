@@ -14,7 +14,6 @@ extends CharacterBody2D
 const rat_center_offset := Vector2(8,8)
 
 var facing := "Up"
-var bump_attacked : bool
 var bump_attacking : bool
 var cur_health : int
 var declared_attack : bool
@@ -71,7 +70,6 @@ func begin_turn() -> void:
 	declared_attack_direction = null
 	declared_move_pos = null
 	declared_attack = false
-	bump_attacked = false
 	bump_attacking = false
 	phase_one()
 	
@@ -100,20 +98,20 @@ func phase_one() -> void:
 		bump_attacking = true
 		declared_move_pos = player.position
 		facing = direction_towards_player
-		var where_can_be_pushed = player.where_can_be_pushed(direction_towards_player)
+		var push_target = player.where_can_be_pushed(direction_towards_player)
 		# declare initial position, then move position halfway towards player?
 		
-		if where_can_be_pushed:
+		if push_target:
 			move(declared_move_pos)
 			await FinishedMove
-			player.take_damage(bump_slash_damage)
-			player.pushed_onto(where_can_be_pushed - rat_center_offset)
+			await player.take_damage(bump_slash_damage)
+			player.pushed_onto(push_target - rat_center_offset)
 		else:
 			$AttackHint.global_position = declared_move_pos
 			$AttackHint.show()
 			await get_tree().create_timer(0.2).timeout
-			player.take_damage(player.cornered_damage)
-			player.take_damage(bump_slash_damage)
+			await player.take_damage(player.cornered_damage)
+			await player.take_damage(bump_slash_damage)
 			$AttackHint.hide()
 		# Then they damage themselves
 		take_damage(bump_slash_damage)
@@ -191,7 +189,7 @@ func attack() -> void:
 		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
 			if attack_spot != null:
 				if tile_detection.player_on_tile(attack_spot):
-					player.take_damage(quick_attack_damage)
+					await player.take_damage(quick_attack_damage)
 	await get_tree().create_timer(0.2).timeout
 	$AttackHint.hide()
 	$AttackHint2.hide()
@@ -219,7 +217,54 @@ func check_for_tile_damage() -> void:
 	var tile_damage : int = tile_detection.tile_damage(position)
 	if tile_damage > 0:
 		take_damage(tile_damage)
-		
+
+func pushed_onto(pos : Vector2) -> void:
+	position = pos
+	# clear out any declared attacks, bc we got staggered
+	declared_attack = false
+	$AttackHint.hide()
+	$AttackHint2.hide()
+	check_for_tile_damage()
+
+func where_can_be_pushed(source_direction) -> Variant:
+	var push_spot = null
+	var tile_detection_check : Vector2
+	if source_direction == "Up":
+		tile_detection_check = (Vector2.UP) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down":
+		tile_detection_check = (Vector2.DOWN) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Left":
+		tile_detection_check = (Vector2.LEFT) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Right":
+		tile_detection_check = (Vector2.RIGHT) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Up Left":
+		tile_detection_check = ((Vector2.UP) + (Vector2.LEFT)) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Up Right":
+		tile_detection_check = ((Vector2.UP) + (Vector2.RIGHT)) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down Left":
+		tile_detection_check = ((Vector2.DOWN) + (Vector2.LEFT)) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	elif source_direction == "Down Right":
+		tile_detection_check = ((Vector2.DOWN) + (Vector2.RIGHT)) * Globals.grid_size * 1 + position
+		if tile_detection.moveonable(tile_detection_check):
+			push_spot = tile_detection_check
+	else:
+		push_error("received impossible direction: " + source_direction)
+	return push_spot
+
 func take_damage (damage : int):
 	var attack_shown = $AttackHint.visible
 	var attack2_shown = $AttackHint2.visible
@@ -237,7 +282,6 @@ func take_damage (damage : int):
 		hide()
 		await get_tree().create_timer(0.1).timeout
 		show()
-
 	if cur_health <= 0:
 		queue_free()
 	else:

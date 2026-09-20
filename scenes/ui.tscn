@@ -21,8 +21,8 @@ visible = false
 texture = ExtResource("1_nt7q6")
 
 [node name="AttackCombatHover" type="TextureRect" parent="CanvasLayer" unique_id=29610004]
-offset_right = 320.0
-offset_bottom = 288.0
+offset_right = 640.0
+offset_bottom = 144.0
 texture = SubResource("AtlasTexture_yev5y")
 
 [node name="AttackCombatReturnHover" type="TextureRect" parent="CanvasLayer" unique_id=1235343333]
