@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://onnss6t256u7" path="res://scenes/ui.tscn" id="3_60lig"]
 [ext_resource type="PackedScene" uid="uid://cb2kdlv5tdnkm" path="res://scenes/levels.tscn" id="6_ab5sx"]
 
-[node name="Node2D" type="Node2D" unique_id=1141408967]
+[node name="GameManager" type="Node2D" unique_id=1141408967]
 script = ExtResource("1_iweij")
 
 [node name="Player" parent="." unique_id=1727976728 instance=ExtResource("1_req00")]
@@ -14,7 +14,9 @@ position = Vector2(-64, -48)
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=439446228]
 
 [node name="UI" parent="." unique_id=2050218572 instance=ExtResource("3_60lig")]
-offset_top = -288.0
-offset_bottom = -288.0
+offset_left = 320.0
+offset_top = -208.0
+offset_right = 320.0
+offset_bottom = -208.0
 
 [node name="Levels" parent="." unique_id=272764069 instance=ExtResource("6_ab5sx")]

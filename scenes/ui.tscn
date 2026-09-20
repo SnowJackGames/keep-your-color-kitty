@@ -17,10 +17,14 @@ script = ExtResource("1_x4jx1")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=334690291]
 
 [node name="MoveCombatHover" type="TextureRect" parent="CanvasLayer" unique_id=363549220]
+visible = false
 texture = ExtResource("1_nt7q6")
 
 [node name="AttackCombatHover" type="TextureRect" parent="CanvasLayer" unique_id=29610004]
+offset_right = 320.0
+offset_bottom = 288.0
 texture = SubResource("AtlasTexture_yev5y")
 
 [node name="AttackCombatReturnHover" type="TextureRect" parent="CanvasLayer" unique_id=1235343333]
+visible = false
 texture = ExtResource("4_gdt2y")

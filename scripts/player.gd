@@ -115,7 +115,6 @@ func _process (_delta: float) -> void:
 					set_process(false)
 					action_inputs[action].call()
 					await FinishedAction
-					print("saw action finished")
 					set_process(true)
 					break
 

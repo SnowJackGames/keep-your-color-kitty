@@ -1,0 +1,60 @@
+{ "frames": [
+   {
+    "filename": "Rat Walks etc 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "sourceSize": { "w": 160, "h": 144 },
+    "duration": 200
+   },
+   {
+    "filename": "Rat Walks etc 1.aseprite",
+    "frame": { "x": 160, "y": 0, "w": 160, "h": 144 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "sourceSize": { "w": 160, "h": 144 },
+    "duration": 200
+   },
+   {
+    "filename": "Rat Walks etc 2.aseprite",
+    "frame": { "x": 320, "y": 0, "w": 160, "h": 144 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "sourceSize": { "w": 160, "h": 144 },
+    "duration": 200
+   },
+   {
+    "filename": "Rat Walks etc 3.aseprite",
+    "frame": { "x": 0, "y": 144, "w": 160, "h": 144 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "sourceSize": { "w": 160, "h": 144 },
+    "duration": 200
+   },
+   {
+    "filename": "Rat Walks etc 4.aseprite",
+    "frame": { "x": 160, "y": 144, "w": 160, "h": 144 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 160, "h": 144 },
+    "sourceSize": { "w": 160, "h": 144 },
+    "duration": 200
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.18.5-x64",
+  "image": "Rat Walks etc.png",
+  "format": "RGBA8888",
+  "size": { "w": 480, "h": 288 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "slices": [
+  ]
+ }
+}

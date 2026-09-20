@@ -14,15 +14,18 @@ func attack_combat_hover(index : int) -> void:
 	hide_all()
 	show()
 	$CanvasLayer.show()
-	
+	# Slash
 	if index == 0:
 		attack_combat_atlas.region = Rect2(0,0,0,0)
+	# Pounce
 	elif index == 1:
 		attack_combat_atlas.region = Rect2(160,0,0,0)
+	# Knight
 	elif index == 2:
-		attack_combat_atlas.region = Rect2(320,0,0,0)
+		attack_combat_atlas.region = Rect2(0,144,0,0)
+	# skip
 	elif index == 3:
-		attack_combat_atlas.region = Rect2(480,0,0,0)
+		attack_combat_atlas.region = Rect2(160,144,0,0)
 	else:
 		push_error("impossible index given to attack_combat_hover in ui.gd")
 	

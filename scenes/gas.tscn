@@ -1,45 +1,111 @@
 [gd_scene format=3 uid="uid://duwb60ovxg80x"]
 
 [ext_resource type="Script" uid="uid://3ryuellvjbld" path="res://scripts/gas.gd" id="1_fdl3e"]
-[ext_resource type="Texture2D" uid="uid://cj7uttwfas313" path="res://art/gas/1x1.png" id="2_5jbjy"]
-[ext_resource type="Texture2D" uid="uid://c8vr157ubnfij" path="res://art/gas/corner2.png" id="3_7xypa"]
-[ext_resource type="Texture2D" uid="uid://dfun7h3w2m0xr" path="res://art/gas/middle2.png" id="4_4kk8k"]
-[ext_resource type="Texture2D" uid="uid://cs8o1i4jben3c" path="res://art/gas/side2.png" id="5_fdl3e"]
+[ext_resource type="Texture2D" uid="uid://mmlb146ry047" path="res://art/gas/corner-1.png" id="2_cm45x"]
+[ext_resource type="Texture2D" uid="uid://dhjw30kibu7la" path="res://art/gas/corner-2.png" id="3_d715e"]
+[ext_resource type="Texture2D" uid="uid://dsjlsgsfrhmxk" path="res://art/gas/corner-3.png" id="4_nl7xl"]
+[ext_resource type="Texture2D" uid="uid://cm23td56c8082" path="res://art/gas/corner-4.png" id="5_vq8cx"]
+[ext_resource type="Texture2D" uid="uid://bwuim3gxh1413" path="res://art/gas/middle-1.png" id="6_gpyf5"]
+[ext_resource type="Texture2D" uid="uid://bs0d7rlpqv3vk" path="res://art/gas/middle-2.png" id="7_7owpd"]
+[ext_resource type="Texture2D" uid="uid://xgev36jexmkw" path="res://art/gas/middle-3.png" id="8_7rxbd"]
+[ext_resource type="Texture2D" uid="uid://0scf3xpyvuro" path="res://art/gas/middle-4.png" id="9_5un7h"]
+[ext_resource type="Texture2D" uid="uid://b2bq7fqd8bfc1" path="res://art/gas/side-1.png" id="10_1gj5w"]
+[ext_resource type="Texture2D" uid="uid://dpp0xytwc04ji" path="res://art/gas/side-2.png" id="11_obnm4"]
+[ext_resource type="Texture2D" uid="uid://ituqkhxjr0f3" path="res://art/gas/side-3.png" id="12_4ca6g"]
+[ext_resource type="Texture2D" uid="uid://bgwkhk1juhpab" path="res://art/gas/side-4.png" id="13_i12pm"]
+[ext_resource type="Texture2D" uid="uid://bfra1d61q367l" path="res://art/gas/single-tile-1.png" id="14_gop87"]
+[ext_resource type="Texture2D" uid="uid://bkqmbga7jvlgf" path="res://art/gas/single-tile-2.png" id="15_qw1ok"]
+[ext_resource type="Texture2D" uid="uid://c2cvmlyft8saf" path="res://art/gas/single-tile-3.png" id="16_gridi"]
+[ext_resource type="Texture2D" uid="uid://gscu87yaibcu" path="res://art/gas/single-tile-4.png" id="17_n3115"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
 size = Vector2(16, 16)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5jns0"]
-texture = ExtResource("2_5jbjy")
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wop45"]
-texture = ExtResource("3_7xypa")
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i1i7f"]
-texture = ExtResource("4_4kk8k")
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y57be"]
-texture = ExtResource("5_fdl3e")
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_gy5lb"]
-sources/0 = SubResource("TileSetAtlasSource_5jns0")
-sources/1 = SubResource("TileSetAtlasSource_wop45")
-sources/2 = SubResource("TileSetAtlasSource_i1i7f")
-sources/3 = SubResource("TileSetAtlasSource_y57be")
+[sub_resource type="SpriteFrames" id="SpriteFrames_nish5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cm45x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d715e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nl7xl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vq8cx")
+}],
+"loop": 1,
+"name": &"corner",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_gpyf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7owpd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7rxbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5un7h")
+}],
+"loop": 1,
+"name": &"middle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_1gj5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_obnm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4ca6g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_i12pm")
+}],
+"loop": 1,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_gop87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_qw1ok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_gridi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_n3115")
+}],
+"loop": 1,
+"name": &"single",
+"speed": 5.0
+}]
 
 [node name="gas" type="StaticBody2D" unique_id=369884562]
 z_index = 1
 script = ExtResource("1_fdl3e")
+shape = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=68033917]
+visible = false
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nish5")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1209576093]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1826976048]
 z_index = -1
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-tile_set = SubResource("TileSet_gy5lb")
+sprite_frames = SubResource("SpriteFrames_nish5")
+animation = &"single"
+frame_progress = 0.24706374
+speed_scale = 0.4
+offset = Vector2(8, 8)
