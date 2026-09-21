@@ -73,6 +73,24 @@ static var invert_direction := {
 	"Left" : "Right"
 }
 
+static var direction_slash_animation := {
+	"Up": "slash up",
+	"Down": "slash down",
+	"Left": "slash left",
+	"Right": "slash right",
+}
+
+static var direction_hurt_animation := {
+	"Up": "hurt up",
+	"Down": "hurt down",
+	"Left": "hurt left",
+	"Right": "hurt right",
+	"Up Left" : "hurt up",
+	"Up Right" : "hurt up",
+	"Down Left" : "hurt down",
+	"Down Right" : "hurt left",
+}
+
 func begin_turn() -> void:
 	player = Globals.player
 	declared_attack_pos_1 = null
@@ -112,7 +130,7 @@ func phase_one() -> void:
 	# For every direction, figure out the closest and furthest tile to player
 	for direction in direction_dictionary:
 		tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position
-		if tile_detection.moveonable(tile_detection_check):
+		if tile_detection.moveonable(tile_detection_check) and !tile_detection.tile_damage_ground(tile_detection_check):
 			# replace with closer spot
 			if tile_detection_check.distance_to(player.position) < closest_distance_to_player:
 				closest_tile_to_player = tile_detection_check
@@ -296,37 +314,25 @@ func where_can_be_pushed(source_direction) -> Variant:
 	return push_spot
 
 func take_damage (damage : int):
-	var attack_shown = $AttackHint.visible
-	var attack2_shown = $AttackHint2.visible
-	var attack3_shown = $AttackHint3.visible
-	var attack4_shown = $AttackHint4.visible
 	if damage > 0:
+		$AttackHint.hide()
+		$AttackHint2.hide()
+		$AttackHint2.hide()
+		$AttackHint4.hide()
 		cur_health -= damage
 		# Take damage animation
-		if attack_shown:
-			$AttackHint.hide()
-		if attack2_shown:
-			$AttackHint2.hide()
-		if attack3_shown:
-			$AttackHint3.hide()
-		if attack4_shown:
-			$AttackHint4.hide()
-		hide()
+		sprite.animation = direction_hurt_animation[facing]
+		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
-		show()
+		sprite.frame = 1
 		await get_tree().create_timer(0.1).timeout
-		hide()
+		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
-		show()
-	if cur_health <= 0:
-		queue_free()
-	else:
-		if attack_shown:
-			$AttackHint.show()
-		if attack2_shown:
-			$AttackHint2.show()
-		if attack3_shown:
-			$AttackHint3.show()
-		if attack4_shown:
-			$AttackHint4.show()
+		sprite.frame = 1
+		await get_tree().create_timer(0.1).timeout
+		sprite.frame = 2
 		await get_tree().create_timer(0.2).timeout
+		hide()
+		await get_tree().create_timer(0.01).timeout
+		# Should always die in one hit
+		queue_free()

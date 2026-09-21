@@ -162,7 +162,7 @@ func phase_one() -> void:
 		var distance_to_player := position.distance_to(player.position)
 		for direction in direction_dictionary:
 			tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position
-			if tile_detection.moveonable(tile_detection_check):
+			if tile_detection.moveonable(tile_detection_check) and !tile_detection.tile_damage_ground(tile_detection_check):
 				# select the better spot
 				if tile_detection_check.distance_to(player.position) < distance_to_player:
 					facing = direction
