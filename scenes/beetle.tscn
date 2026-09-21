@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cak0hse4xwae3"]
+
+[ext_resource type="Script" uid="uid://c5heyai2avf1t" path="res://scripts/beetle.gd" id="1_c3xpc"]
+[ext_resource type="SpriteFrames" uid="uid://df8ytdi0peqj7" path="res://tilesets/rat.tres" id="2_crflu"]
+[ext_resource type="PackedScene" uid="uid://cqvsv861olabi" path="res://scenes/tile_detection.tscn" id="3_rxbui"]
+[ext_resource type="Texture2D" uid="uid://bg7kbkhqrde3b" path="res://art/UI/targeting-Sheet.png" id="4_okydf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l88y"]
+size = Vector2(16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_po2hf"]
+texture = ExtResource("4_okydf")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_nish5"]
+sources/0 = SubResource("TileSetAtlasSource_po2hf")
+
+[node name="Beetle" type="CharacterBody2D" unique_id=934275049]
+z_index = 1
+script = ExtResource("1_c3xpc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820156663]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_1l88y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=729522034]
+position = Vector2(8, 8)
+sprite_frames = ExtResource("2_crflu")
+animation = &"walk down"
+frame_progress = 0.32381463
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://art/enemies/rat/Rat Walks etc.aseprite",
+"source_uid": 4534581302632186885
+}
+
+[node name="TileDetection" parent="." unique_id=195151570 instance=ExtResource("3_rxbui")]
+position = Vector2(8, 8)
+
+[node name="MoveHint" type="TileMapLayer" parent="." unique_id=1009878094]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")
+
+[node name="AttackHint" type="TileMapLayer" parent="." unique_id=809907438]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")
+
+[node name="AttackHint2" type="TileMapLayer" parent="." unique_id=934580440]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")
+
+[node name="AttackHint3" type="TileMapLayer" parent="." unique_id=756323825]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")
+
+[node name="AttackHint4" type="TileMapLayer" parent="." unique_id=1297590050]
+z_index = 2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_nish5")

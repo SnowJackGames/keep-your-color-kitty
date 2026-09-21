@@ -64,7 +64,7 @@ func next_turn () -> void:
 		# Disable player UI
 		# ENEMY ATTACK
 		for ai in ai_array:
-			if !ai.bump_attacking:
+			if ai.declared_attack:
 				#ai enacts attack
 				ai.attack()
 				await ai.FinishedPhase
@@ -123,7 +123,7 @@ func calc_ai_array() -> void:
 	# search to see if any enemies
 	
 	for child in current_level.find_children("*", "CharacterBody2D"):
-		if child.is_enemy:
+		if "is_enemy" in child or child.get("is_enemy"):
 			unsorted_array.append(child)
 
 	# sort them left to right, top to bottom

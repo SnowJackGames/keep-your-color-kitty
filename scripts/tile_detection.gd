@@ -31,15 +31,27 @@ func objectnamesatspot(pos: Vector2) -> Array:
 	
 	return objectnames
 
-func tile_damage(pos) -> int:
+func tile_damage_ground(pos) -> int:
 	var results := check_end_point(pos)
 	var dmg := 0
 	if results.is_empty():
 		return 0
 	
 	for result in results:
-		if "tile_damage" in result.collider:
-			dmg += result.collider.tile_damage
+		if "tile_damage_ground" in result.collider:
+			dmg += result.collider.tile_damage_ground
+	
+	return dmg
+	
+func tile_damage_air(pos) -> int:
+	var results := check_end_point(pos)
+	var dmg := 0
+	if results.is_empty():
+		return 0
+	
+	for result in results:
+		if "tile_damage_air" in result.collider:
+			dmg += result.collider.d
 	
 	return dmg
 

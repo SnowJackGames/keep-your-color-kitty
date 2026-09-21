@@ -7,7 +7,7 @@ extends StaticBody2D
 @onready var landonable := true
 @onready var moveonable := true
 @onready var slashthroughable := true
-@onready var tile_damage := 1
+@onready var tile_damage_air := 1
 
 var shape_index : Dictionary[int, String] = {
 	0 : "single",

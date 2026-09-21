@@ -1,3 +1,5 @@
+# Beatles.... in Nine Half-Lives...
+
 extends CharacterBody2D
 
 
@@ -11,24 +13,23 @@ extends CharacterBody2D
 @onready var moveonable := false
 @onready var is_enemy := true
 
-const rat_center_offset := Vector2(8,8)
+const beetle_center_offset := Vector2(8,8)
 
 var facing := "Up"
-var bump_attacking : bool
 var cur_health : int
 var declared_attack : bool
-var declared_attack_pos_near
-var declared_attack_pos_far
+var declared_attack_pos_1
+var declared_attack_pos_2
+var declared_attack_pos_3
+var declared_attack_pos_4
 var declared_attack_direction
 var declared_move_pos
 var player : CharacterBody2D
 
-var max_health := 5
-var bump_slash_damage := 3
-var quick_attack_damage := 3
+var max_health := 3
+var spit_attack_damage := 4
 
 signal FinishedPhase
-signal FinishedMove
 
 static var direction_dictionary = {
 	"Up Left" : Vector2.UP + Vector2.LEFT,
@@ -40,6 +41,7 @@ static var direction_dictionary = {
 	"Down Left" :Vector2.DOWN + Vector2.LEFT,
 	"Left" : Vector2.LEFT
 }
+
 
 # Only 4 directions
 static var simple_direction_dictionary = {
@@ -60,77 +62,95 @@ static var directional_walk_animations := {
 	"Left" : "walk left"
 }
 
-
+static var invert_direction := {
+	"Up Left" : "Down Right",
+	"Up" : "Down",
+	"Up Right" : "Down Left",
+	"Right" : "Left",
+	"Down Right" : "Up Left",
+	"Down" : "Up",
+	"Down Left" : "Up Right",
+	"Left" : "Right"
+}
 
 func begin_turn() -> void:
 	player = Globals.player
-	declared_attack_pos_near = null
-	declared_attack_pos_far = null
+	declared_attack_pos_1 = null
+	declared_attack_pos_2 = null
+	declared_attack_pos_3 = null
+	declared_attack_pos_4 = null
 	declared_attack_direction = null
 	declared_move_pos = null
 	declared_attack = false
-	bump_attacking = false
 	phase_one()
 	
 func end_turn() -> void:
 	pass
 	
 func _ready() -> void:
-	cur_health = 5
+	cur_health = 3
 	$MoveHint.hide()
 	$AttackHint.hide()
 	$AttackHint2.hide()
+	$AttackHint3.hide()
+	$AttackHint4.hide()
 
-# Determine if rat should either bump slash, or move then declare attack
+# Determine if beetle should move, then declare attack
 func phase_one() -> void:
-	var is_beside_player := false
+	var tile_distance_to_player : float
 	var direction_towards_player : String
-	# check surrounding 8 tiles
+	var direction_away_from_player : String
+	tile_distance_to_player = position.distance_to(player.position) / 16
+	
+	# Determine direction of player
 	var tile_detection_check : Vector2
-	for direction in direction_dictionary:
-		tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position + rat_center_offset
-		if tile_detection.contains(tile_detection_check, "Player"):
-			is_beside_player = true
-			direction_towards_player = direction
-	# Bump slash
-	if is_beside_player:
-		bump_attacking = true
-		declared_move_pos = player.position
-		facing = direction_towards_player
-		var push_target = player.where_can_be_pushed(direction_towards_player)
-		# declare initial position, then move position halfway towards player?
+	var closest_tile_to_player := position
+	var furthest_tile_to_player := position
+	var closest_distance_to_player := position.distance_to(player.position)
+	var furthest_distance_to_player := position.distance_to(player.position)
 		
-		if push_target:
-			move(declared_move_pos)
-			await FinishedMove
-			await player.take_damage(bump_slash_damage)
-			player.pushed_onto(push_target - rat_center_offset)
+	# For every direction, figure out the closest and furthest tile to player
+	for direction in direction_dictionary:
+		tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position
+		if tile_detection.moveonable(tile_detection_check):
+			# replace with closer spot
+			if tile_detection_check.distance_to(player.position) < closest_distance_to_player:
+				closest_tile_to_player = tile_detection_check
+				closest_distance_to_player = tile_detection_check.distance_to(player.position)
+				direction_towards_player = direction
+			# replace with further spot
+			if tile_detection_check.distance_to(player.position) > furthest_distance_to_player:
+				furthest_tile_to_player = tile_detection_check
+				furthest_distance_to_player = tile_detection_check.distance_to(player.position)
+				direction_away_from_player = direction
+	
+	var can_move_closer = false
+	var can_move_further = false
+	if position != closest_tile_to_player:
+		can_move_closer = true
+	if position != furthest_tile_to_player:
+		can_move_further = true
+
+	# Get closer
+	if tile_distance_to_player > 4:
+		if can_move_closer:
+			facing = direction_towards_player
+			await move(closest_tile_to_player)
 		else:
-			$AttackHint.global_position = declared_move_pos
-			$AttackHint.show()
 			await get_tree().create_timer(0.2).timeout
-			await player.take_damage(player.cornered_damage)
-			await player.take_damage(bump_slash_damage)
-			$AttackHint.hide()
-		# Then they damage themselves
-		take_damage(bump_slash_damage)
-	else:
-		# Move towards player
-		var closest_tile_to_player := position
-		var distance_to_player := position.distance_to(player.position)
-		for direction in direction_dictionary:
-			tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position
-			if tile_detection.moveonable(tile_detection_check):
-				# select the better spot
-				if tile_detection_check.distance_to(player.position) < distance_to_player:
-					facing = direction
-					closest_tile_to_player = tile_detection_check
-					distance_to_player = tile_detection_check.distance_to(player.position)
-		declared_move_pos = closest_tile_to_player
-		move(declared_move_pos)
-		await FinishedMove
-		# Declare attack
-		declare_attack()
+	# stay
+	elif tile_distance_to_player == 4:
+		await get_tree().create_timer(0.2).timeout
+	# move away
+	elif tile_distance_to_player < 4:
+		if can_move_further:
+			facing = direction_away_from_player
+			await move(furthest_tile_to_player)
+		else:
+			await get_tree().create_timer(0.2).timeout
+	
+	# Declare attack
+	declare_attack()
 	await get_tree().create_timer(0.2).timeout
 	FinishedPhase.emit()
 
@@ -150,7 +170,7 @@ func declare_attack() -> void:
 			direction_towards_player = direction
 			distance_to_player = tile_detection_check.distance_to(player.position)
 			declared_attack_direction = direction_towards_player
-			declared_attack_pos_near = tile_detection_check
+			declared_attack_pos_1 = tile_detection_check
 			break
 		# If it's a tile we can slash through or if its an enemy
 		elif tile_detection.slashthroughable(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check):
@@ -161,60 +181,68 @@ func declare_attack() -> void:
 				facing = direction
 				direction_towards_player = direction
 				distance_to_player = tile_detection_check.distance_to(player.position)
-				declared_attack_pos_near = tile_detection_check
+				declared_attack_pos_1 = tile_detection_check
 	declared_attack_direction = direction_towards_player
 	
-	# If we can attack 1 tile away, let's see if we attack 2 tiles away
+	# If we can attack 1 tile away, let's see if we attack 2 tiles away, then 3, then 4
 	if declared_attack:
 		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 2 + position
 		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
-			declared_attack_pos_far = tile_detection_check
+			declared_attack_pos_2 = tile_detection_check
+		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 3 + position
+		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
+			declared_attack_pos_3 = tile_detection_check
+		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 4 + position
+		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
+			declared_attack_pos_4 = tile_detection_check
 		attack_hint()
 	pass
 
 func attack_hint() -> void:
 	if declared_attack_direction:
-		if declared_attack_pos_near:
-			$AttackHint.global_position = declared_attack_pos_near
+		if declared_attack_pos_1:
+			$AttackHint.global_position = declared_attack_pos_1
 			$AttackHint.show()
-		if declared_attack_pos_far:
-			$AttackHint2.global_position = declared_attack_pos_far
+		if declared_attack_pos_2:
+			$AttackHint2.global_position = declared_attack_pos_2
 			$AttackHint2.show()
+		if declared_attack_pos_3:
+			$AttackHint3.global_position = declared_attack_pos_3
+			$AttackHint3.show()
+		if declared_attack_pos_4:
+			$AttackHint4.global_position = declared_attack_pos_4
+			$AttackHint4.show()
 			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
 	if declared_attack:
-		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
+		for attack_spot in [declared_attack_pos_1, declared_attack_pos_2, declared_attack_pos_3, declared_attack_pos_4]:
 			if attack_spot != null:
 				if tile_detection.player_on_tile(attack_spot):
-					await player.take_damage(quick_attack_damage)
+					await player.take_damage(spit_attack_damage)
 	await get_tree().create_timer(0.2).timeout
 	$AttackHint.hide()
 	$AttackHint2.hide()
+	$AttackHint3.hide()
+	$AttackHint4.hide()
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
 	$MoveHint.global_position = pos
 	$MoveHint.show()
-	if bump_attacking:
-		$AttackHint.global_position = pos
-		$AttackHint.show()
 	await get_tree().create_timer(0.2).timeout
 	$MoveHint.hide()
-	$AttackHint.hide()
 	position = pos
 	# Move animation, maybe hinting?
 	sprite.animation = directional_walk_animations[facing]
 	await get_tree().create_timer(0.15).timeout
 	check_for_tile_damage()
-	FinishedMove.emit()
 	
 
 func check_for_tile_damage() -> void:
 	# If moved onto damaging tile, take damage
-	var tile_damage := 0
-	tile_damage += tile_detection.tile_damage_ground(position)
-	tile_damage += tile_detection.tile_damage_air(position)
+	# They fly now
+	var tile_damage : int = tile_detection.tile_damage_air(position)
 	if tile_damage > 0:
 		take_damage(tile_damage)
 
@@ -224,6 +252,8 @@ func pushed_onto(pos : Vector2) -> void:
 	declared_attack = false
 	$AttackHint.hide()
 	$AttackHint2.hide()
+	$AttackHint3.hide()
+	$AttackHint4.hide()
 	check_for_tile_damage()
 
 func where_can_be_pushed(source_direction) -> Variant:
@@ -268,6 +298,8 @@ func where_can_be_pushed(source_direction) -> Variant:
 func take_damage (damage : int):
 	var attack_shown = $AttackHint.visible
 	var attack2_shown = $AttackHint2.visible
+	var attack3_shown = $AttackHint3.visible
+	var attack4_shown = $AttackHint4.visible
 	if damage > 0:
 		cur_health -= damage
 		# Take damage animation
@@ -275,6 +307,10 @@ func take_damage (damage : int):
 			$AttackHint.hide()
 		if attack2_shown:
 			$AttackHint2.hide()
+		if attack3_shown:
+			$AttackHint3.hide()
+		if attack4_shown:
+			$AttackHint4.hide()
 		hide()
 		await get_tree().create_timer(0.1).timeout
 		show()
@@ -289,4 +325,8 @@ func take_damage (damage : int):
 			$AttackHint.show()
 		if attack2_shown:
 			$AttackHint2.show()
+		if attack3_shown:
+			$AttackHint3.show()
+		if attack4_shown:
+			$AttackHint4.show()
 		await get_tree().create_timer(0.2).timeout

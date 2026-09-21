@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="5_r44b6"]
 [ext_resource type="PackedScene" uid="uid://db8ebj05sakt1" path="res://scenes/rat.tscn" id="7_r44b6"]
 [ext_resource type="PackedScene" uid="uid://dp78uphin41ox" path="res://scenes/custom_wall.tscn" id="8_1jewu"]
+[ext_resource type="PackedScene" uid="uid://cak0hse4xwae3" path="res://scenes/beetle.tscn" id="9_ibiju"]
 
 [node name="Levels" type="Node2D" unique_id=272764069]
 script = ExtResource("1_hk6qi")
@@ -98,6 +99,9 @@ limit_bottom = 288
 
 [node name="Rat" parent="Level1" unique_id=934275049 instance=ExtResource("7_r44b6")]
 position = Vector2(128, 208)
+
+[node name="Beetle" parent="Level1" unique_id=2131371446 instance=ExtResource("9_ibiju")]
+position = Vector2(160, 176)
 
 [node name="CustomWall" parent="Level1" unique_id=51517795 instance=ExtResource("8_1jewu")]
 position = Vector2(160, 272)

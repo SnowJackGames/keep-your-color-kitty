@@ -7,7 +7,7 @@ extends StaticBody2D
 @onready var landonable := true
 @onready var moveonable := true
 @onready var slashthroughable := true
-@onready var tile_damage := 3
+@onready var tile_damage_ground := 3
 
 # We want to be able to customize every tile instance for specific textures / rotations
 @export_group("Visuals")

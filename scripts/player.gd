@@ -912,7 +912,9 @@ func knight() -> void:
 #region World And Entity Interactions
 func check_for_tile_damage() -> void:
 	# If moved onto damaging tile, take damage
-	var tile_damage : int = tile_detection.tile_damage(position)
+	var tile_damage := 0
+	tile_damage += tile_detection.tile_damage_ground(position)
+	tile_damage += tile_detection.tile_damage_air(position)
 	if tile_damage > 0:
 		take_damage(tile_damage)
 
