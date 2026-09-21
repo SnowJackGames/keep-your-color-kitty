@@ -81,6 +81,17 @@ static var knight_direction_to_walk_animation := {
 	"DownDownRight" : "walk down",
 }
 
+static var directional_knight_animations := {
+	"UpUpLeft" : "knight up up left",
+	"UpUpRight" : "knight up up right",
+	"LeftLeftUp" : "knight left left left up",
+	"RightRightUp" : "knight right right up",
+	"LeftLeftDown" : "knight left left down",
+	"RightRightDown" : "knight right right down",
+	"DownDownLeft" : "knight down down left",
+	"DownDownRight" : "knight down down right",
+}
+
 static var directional_facing := {
 	'ui_up': "Up",
 	'ui_down': "Down",
@@ -722,7 +733,7 @@ func pounce() -> void:
 	sprite.frame = 3
 	position += 0.25 * pounce_vector_pos
 	await get_tree().create_timer(0.15).timeout
-	await tile_detection.damage_object(damage_spot, pounce_damage)
+	await tile_detection.damage_enemy(damage_spot, pounce_damage)
 	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 	# If pounced onto damaging spot, take damage
 	check_for_tile_damage()
@@ -937,32 +948,32 @@ func knight() -> void:
 	var target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
 	var push_spot
 	position = damage_spot
-	await tile_detection.damage_object(damage_spot, knight_damage)
+	await tile_detection.damage_enemy(damage_spot, knight_damage)
 	if knight_direction in ["UpUpLeft", "UpUpRight"]:
 		push_spot = target_enemy.where_can_be_pushed("Up")
 		if target_enemy.where_can_be_pushed("Up"):
 			await target_enemy.pushed_onto(push_spot)
 		else:
 			print("trying to push enemy upwards")
-			await tile_detection.damage_object(damage_spot, knight_damage)
+			await tile_detection.damage_enemy(damage_spot, knight_damage)
 	elif knight_direction in ["LeftLeftUp", "LeftLeftDown"]:
 		push_spot = target_enemy.where_can_be_pushed("Left")
 		if target_enemy.where_can_be_pushed("Left"):
 			await target_enemy.pushed_onto(push_spot)
 		else:
-			await tile_detection.damage_object(damage_spot, knight_damage)
+			await tile_detection.damage_enemy(damage_spot, knight_damage)
 	elif knight_direction in ["RightRightUp", "RightRightDown"]:
 		push_spot = target_enemy.where_can_be_pushed("Right")
 		if target_enemy.where_can_be_pushed("Right"):
 			await target_enemy.pushed_onto(push_spot)
 		else:
-			await tile_detection.damage_object(damage_spot, knight_damage)
+			await tile_detection.damage_enemy(damage_spot, knight_damage)
 	elif knight_direction in ["DownDownLeft", "DownDownRight"]:
 		push_spot = target_enemy.where_can_be_pushed("Down")
 		if target_enemy.where_can_be_pushed("Down"):
 			await target_enemy.pushed_onto(push_spot)
 		else:
-			await tile_detection.damage_object(damage_spot, knight_damage)
+			await tile_detection.damage_enemy(damage_spot, knight_damage)
 	else:
 		push_error("knight_direction " + knight_direction + "not valid")
 	await get_tree().create_timer(0.3).timeout
