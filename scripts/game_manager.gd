@@ -8,8 +8,16 @@ extends Node2D
 @onready var ai_enemy : CharacterBody2D
 @onready var ai_array : Array[CharacterBody2D] = []
 
-signal game_over
-signal game_resume
+@onready var game_over_player = $GameOverSequence
+@onready var pause_menu = $PauseMenu
+
+const steppin = preload("res://sound/music/Side Steppin'.mp3")
+const blurr = preload("res://sound/music/Blurr.mp3")
+const emerald = preload("res://sound/music/Emerald Gold.mp3")
+const magenta = preload("res://sound/music/Magenta.mp3")
+const opening = preload("res://sound/music/Opening.mp3")
+const spurr = preload("res://sound/music/Spurr.mp3")
+const teeter = preload("res://sound/music/Teeter.mp3")
 
 
 func next_turn () -> void:
@@ -36,6 +44,8 @@ func next_turn () -> void:
 	calc_ai_array() # in case any AI died during their turn
 	if !ai_array:
 		Globals.game_mode = 1
+	else:
+		Globals.game_mode = 2
 	
 	# PLAYER MOVE, PLAYER ATTACK
 	player_character.begin_turn()
@@ -85,13 +95,18 @@ func next_turn () -> void:
 	Debug.say("finished turn\n--------")
 	next_turn()
 
-const steppin = preload("res://sound/music/Side Steppin'.mp3")
-const blurr = preload("res://sound/music/Blurr.mp3")
-const emerald = preload("res://sound/music/Emerald Gold.mp3")
-const magenta = preload("res://sound/music/Magenta.mp3")
-const opening = preload("res://sound/music/Opening.mp3")
-const spurr = preload("res://sound/music/Spurr.mp3")
-const teeter = preload("res://sound/music/Teeter.mp3")
+func reload_level():
+	unpause($Levels)
+	unpause($Player)
+	current_level.visible = false
+	player_character.reset_status()
+	print("reset")
+	player_character.position = current_level.player_start_position
+	update_camera_target()
+	current_level.visible = true
+	#enemies need to be reset, too
+
+
 
 func increment_active_level() -> void:
 	player_character.reset_status()
@@ -135,10 +150,6 @@ func increment_active_level() -> void:
 	if current_level.name == "Level15": 
 		Globalaudio.play_music_level(emerald)
 
-	
-	
-
-
 func update_camera_target() -> void: 	
 	$Player/RemoteTransform2D.remote_path = NodePath("")  
 	
@@ -169,6 +180,20 @@ func calc_ai_array() -> void:
 	# sort them left to right, top to bottom
 	# but for now
 	ai_array = unsorted_array
+	
+	# returns the int representing the current level index
+func load_game() -> int:
+	var file = FileAccess.open("user://save.save", FileAccess.READ)
+	if not FileAccess.file_exists("user://save.save"):
+		return -1 # if no save is present, returns the starting index
+	var saved_level = int(file.get_as_text())
+	return saved_level
+	
+func pause(branch : Node):
+	branch.process_mode = PROCESS_MODE_DISABLED
+
+func unpause(branch : Node):
+	branch.process_mode = PROCESS_MODE_INHERIT
 
 func _ready() -> void:
 	Globals.player = $Player
@@ -179,18 +204,35 @@ func _ready() -> void:
 	player_character.show()
 	increment_active_level()
 	next_turn()
+	pause_menu.hide()
+	pause(pause_menu)
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	set_process(false)
-	# To prevent OnTakeDamage crashing,
-	# I think we might have to make sure that character damage cannot occur on the
-	# very first frame that the game is loaded in? Which hopefully shouldn't be a problem
-	await player_character.OnTakeDamage
-	Debug.say("Health: %s / %s" % [player_character.cur_health, player_character.max_health])
-	# Game Over
-	if player_character.cur_health <= 0:
-		player_character.hide()
-		game_over.emit()
-	set_process(true)
+	# Player Damage
+	if player_character.just_took_damage:
+		player_character.just_took_damage = false
+		Debug.say("Health: %s / %s" % [player_character.cur_health, player_character.max_health])
+		# Game Over
+		if player_character.cur_health <= 0:
+			pause($Levels)
+			pause($Player)
+			await get_tree().create_timer(1.5).timeout 
+			game_over_player.play_game_over()
+			print("You Died!")
+			game_over_player.load_room.connect(reload_level)
+	
+	# Close
+	elif Input.is_action_just_pressed("ui_close_dialog"):
+		print("pause!")
+		pause($Levels)
+		pause($Player)
+		unpause(pause_menu)
+		pause_menu.show()
+		pause_menu.load_room.connect(reload_level)
+		if pause_menu.resume_game.connect():
+			unpause($Levels)
+			unpause($Player)
+			pause(pause_menu)
+			pause_menu.hide()

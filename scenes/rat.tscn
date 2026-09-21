@@ -31,7 +31,7 @@ shape = SubResource("RectangleShape2D_1l88y")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=729522034]
 position = Vector2(8, 8)
 sprite_frames = ExtResource("2_3csnj")
-animation = &"walk left"
+animation = &"hurt down"
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": false,

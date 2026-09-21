@@ -1,10 +1,5 @@
 extends Control
 
-#this code is just the pause menu itself 
-#it doesn't handle pausing the game process or opening/closing itself
-#because i figured that would be handled by game manager
-#you might want to add a pause_game signal that this connects to
-
 
 @onready var menu_index = 0
 @onready var atlas = $menu.texture

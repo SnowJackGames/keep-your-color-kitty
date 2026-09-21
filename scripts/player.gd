@@ -17,6 +17,7 @@ var can_action := false
 var knight_spot
 var knight_direction
 var knight_spot_dictionary : Dictionary[String, Vector2]
+var just_took_damage := false
 
 static var is_player := true
 static var cornered_damage = 3
@@ -1075,7 +1076,7 @@ func take_damage (damage : int):
 		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
 		sprite.animation = prev_animation
-		OnTakeDamage.emit()
+		just_took_damage = true
 	#
 #func heal (amount : int):
 	#pass
