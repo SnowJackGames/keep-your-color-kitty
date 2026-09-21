@@ -212,6 +212,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Player Damage
 	if player_character.just_took_damage:
+		set_process(false)
 		player_character.just_took_damage = false
 		Debug.say("Health: %s / %s" % [player_character.cur_health, player_character.max_health])
 		# Game Over
@@ -222,7 +223,8 @@ func _process(_delta: float) -> void:
 			game_over_player.play_game_over()
 			print("You Died!")
 			game_over_player.load_room.connect(reload_level)
-	
+		await get_tree().create_timer(0.1).timeout 
+		set_process(true)
 	# Close
 	elif Input.is_action_just_pressed("ui_close_dialog"):
 		print("pause!")

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/Side Steppin'.mp3-b1ed02c6483538d570fce6d9732
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/Spurr.mp3-0abaf53c988b3b317ccc8a662e0672ab.mp
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

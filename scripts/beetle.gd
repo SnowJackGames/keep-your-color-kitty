@@ -161,8 +161,8 @@ func declare_attack() -> void:
 	var distance_to_player := position.distance_to(player.position)
 	var tile_detection_check : Vector2
 	# Check 4 directions
-	for direction in simple_direction_dictionary:
-		tile_detection_check = simple_direction_dictionary[direction] * Globals.grid_size + position
+	for direction in direction_dictionary:
+		tile_detection_check = direction_dictionary[direction] * Globals.grid_size + position
 		# If player is right next to us, attack there of course
 		if tile_detection.player_on_tile(tile_detection_check):
 			declared_attack = true

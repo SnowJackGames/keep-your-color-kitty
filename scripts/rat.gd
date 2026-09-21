@@ -119,7 +119,7 @@ func phase_one() -> void:
 			is_beside_player = true
 			direction_towards_player = direction
 	# Bump slash
-	if is_beside_player:
+	if is_beside_player and direction_towards_player in ["Up", "Down", "Left", "Right"]:
 		bump_attacking = true
 		declared_move_pos = player.position
 		facing = direction_towards_player
@@ -251,16 +251,17 @@ func move(pos: Vector2):
 	sprite.animation = directional_walk_animations[facing]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
-	await get_tree().create_timer(0.15).timeout
-	var frame_target = sprite.frame
-	var movement_vector = pos - position
 	if bump_attacking:
 		$AttackHint.global_position = pos
 		$AttackHint.show()
+	await get_tree().create_timer(0.15).timeout
+	var frame_target = sprite.frame
+	var movement_vector = pos - position
 	frame_target += 1
 	frame_target %= 4
 	sprite.frame = frame_target
 	$MoveHint.hide()
+	$AttackHint.show()
 	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
 	frame_target += 1
