@@ -88,10 +88,11 @@ func damage_enemy(pos, amt: int) -> void:
 	var results := check_end_point(pos)
 	if !results.is_empty():
 		for result in results:
-			if "is_enemy" in result.collider or result.collider.get("is_enemy"):
-				if result.collider.is_enemy:
-					Globals.entity_to_damage = result.collider
-					await Globals.entity_to_damage.take_damage(amt)
+			if is_instance_valid(result.collider):
+				if "is_enemy" in result.collider or result.collider.get("is_enemy"):
+					if result.collider.is_enemy:
+						Globals.entity_to_damage = result.collider
+						await Globals.entity_to_damage.take_damage(amt)
 	
 func has_attribute(pos : Vector2, attribute : String) -> bool:
 	var results := check_end_point(pos)
