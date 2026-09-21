@@ -85,6 +85,13 @@ func next_turn () -> void:
 	Debug.say("finished turn\n--------")
 	next_turn()
 
+const steppin = preload("res://sound/music/Side Steppin'.mp3")
+const blurr = preload("res://sound/music/Blurr.mp3")
+const emerald = preload("res://sound/music/Emerald Gold.mp3")
+const magenta = preload("res://sound/music/Magenta.mp3")
+const opening = preload("res://sound/music/Opening.mp3")
+const spurr = preload("res://sound/music/Spurr.mp3")
+const teeter = preload("res://sound/music/Teeter.mp3")
 
 func increment_active_level() -> void:
 	player_character.reset_status()
@@ -107,6 +114,27 @@ func increment_active_level() -> void:
 		# Move player to starting position of level
 		player_character.position = current_level.player_start_position
 	update_camera_target()
+	if current_level.name == "Exploration0": 
+		Globalaudio.play_music_level(spurr)
+	if current_level.name == "Level1": 
+		Globalaudio.play_music_level(steppin)
+	if current_level.name == "Level5": 
+		Globalaudio.play_music_level(spurr)
+	if current_level.name == "Level6": 
+		Globalaudio.play_music_level(teeter)
+	if current_level.name == "Exploration2": 
+		Globalaudio.play_music_level(opening)
+	if current_level.name == "Level8": 
+		Globalaudio.play_music_level(teeter)
+	if current_level.name == "Exploration3": 
+		Globalaudio.play_music_level(spurr)
+	if current_level.name == "Level12": 
+		Globalaudio.play_music_level(spurr)
+	if current_level.name == "Level13": 
+		Globalaudio.play_music_level(blurr)
+	if current_level.name == "Level15": 
+		Globalaudio.play_music_level(emerald)
+
 	
 	
 

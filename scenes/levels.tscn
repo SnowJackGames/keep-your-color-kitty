@@ -15,6 +15,504 @@ script = ExtResource("1_hk6qi")
 metadata/_edit_vertical_guides_ = [-496.0, 224.0]
 metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0]
 
+[node name="Exploration0" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
+set_player_start_position = Vector2(256, 288)
+
+[node name="Floor" parent="Exploration0" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
+floor_size = Vector2(320, 320)
+
+[node name="Camera2D" type="Camera2D" parent="Exploration0" unique_id=1591195083]
+position = Vector2(112, 144)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 320
+
+[node name="Elements" type="Node2D" parent="Exploration0" unique_id=279365000]
+
+[node name="Stairs" parent="Exploration0/Elements" unique_id=369884562 instance=ExtResource("3_r44b6")]
+position = Vector2(288, 112)
+
+[node name="Boarder Wall" type="Node2D" parent="Exploration0/Elements" unique_id=1695852003]
+
+[node name="CustomWall" parent="Exploration0/Elements/Boarder Wall" unique_id=51517795 instance=ExtResource("7_r44b6")]
+atlas_source_id = 8
+
+[node name="CustomWall19" parent="Exploration0/Elements/Boarder Wall" unique_id=408716885 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 0)
+atlas_source_id = 8
+
+[node name="CustomWall28" parent="Exploration0/Elements/Boarder Wall" unique_id=1679087097 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 304)
+atlas_source_id = 8
+
+[node name="CustomWall29" parent="Exploration0/Elements/Boarder Wall" unique_id=931475746 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 0)
+
+[node name="CustomWall30" parent="Exploration0/Elements/Boarder Wall" unique_id=1982847604 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 0)
+
+[node name="CustomWall31" parent="Exploration0/Elements/Boarder Wall" unique_id=871193810 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 0)
+
+[node name="CustomWall44" parent="Exploration0/Elements/Boarder Wall" unique_id=55027583 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 0)
+
+[node name="CustomWall45" parent="Exploration0/Elements/Boarder Wall" unique_id=684964613 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 0)
+
+[node name="CustomWall46" parent="Exploration0/Elements/Boarder Wall" unique_id=1234083970 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 0)
+
+[node name="CustomWall32" parent="Exploration0/Elements/Boarder Wall" unique_id=951761475 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 0)
+
+[node name="CustomWall33" parent="Exploration0/Elements/Boarder Wall" unique_id=505359782 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 0)
+
+[node name="CustomWall34" parent="Exploration0/Elements/Boarder Wall" unique_id=1916837580 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 0)
+
+[node name="CustomWall35" parent="Exploration0/Elements/Boarder Wall" unique_id=566531180 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 0)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall36" parent="Exploration0/Elements/Boarder Wall" unique_id=17009793 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 0)
+
+[node name="CustomWall37" parent="Exploration0/Elements/Boarder Wall" unique_id=1374591664 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 0)
+
+[node name="CustomWall38" parent="Exploration0/Elements/Boarder Wall" unique_id=1856795817 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 0)
+
+[node name="CustomWall39" parent="Exploration0/Elements/Boarder Wall" unique_id=1527868790 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 0)
+
+[node name="CustomWall40" parent="Exploration0/Elements/Boarder Wall" unique_id=480659003 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 0)
+
+[node name="CustomWall41" parent="Exploration0/Elements/Boarder Wall" unique_id=1498290582 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 0)
+
+[node name="CustomWall42" parent="Exploration0/Elements/Boarder Wall" unique_id=93365770 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 0)
+
+[node name="CustomWall43" parent="Exploration0/Elements/Boarder Wall" unique_id=1105571078 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 0)
+
+[node name="CustomWall59" parent="Exploration0/Elements/Boarder Wall" unique_id=1792480429 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 304)
+atlas_source_id = 1
+
+[node name="CustomWall63" parent="Exploration0/Elements/Boarder Wall" unique_id=1472052345 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 304)
+atlas_source_id = 1
+
+[node name="CustomWall64" parent="Exploration0/Elements/Boarder Wall" unique_id=399544782 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 304)
+atlas_source_id = 2
+
+[node name="CustomWall65" parent="Exploration0/Elements/Boarder Wall" unique_id=93587010 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 304)
+atlas_source_id = 2
+
+[node name="CustomWall67" parent="Exploration0/Elements/Boarder Wall" unique_id=972565798 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 304)
+
+[node name="CustomWall74" parent="Exploration0/Elements/Boarder Wall" unique_id=1444614129 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 304)
+
+[node name="CustomWall93" parent="Exploration0/Elements/Boarder Wall" unique_id=121133997 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 288)
+atlas_source_id = 18
+
+[node name="CustomWall98" parent="Exploration0/Elements/Boarder Wall" unique_id=366951205 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 208)
+atlas_source_id = 18
+
+[node name="CustomWall99" parent="Exploration0/Elements/Boarder Wall" unique_id=1192954791 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 208)
+atlas_source_id = 18
+
+[node name="CustomWall100" parent="Exploration0/Elements/Boarder Wall" unique_id=566828733 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 224)
+atlas_source_id = 18
+
+[node name="CustomWall101" parent="Exploration0/Elements/Boarder Wall" unique_id=659312892 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 224)
+atlas_source_id = 18
+
+[node name="CustomWall102" parent="Exploration0/Elements/Boarder Wall" unique_id=1928072541 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 208)
+atlas_source_id = 18
+
+[node name="CustomWall103" parent="Exploration0/Elements/Boarder Wall" unique_id=2063507307 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 208)
+atlas_source_id = 18
+
+[node name="CustomWall104" parent="Exploration0/Elements/Boarder Wall" unique_id=1322683600 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 224)
+atlas_source_id = 18
+
+[node name="CustomWall105" parent="Exploration0/Elements/Boarder Wall" unique_id=475442820 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 224)
+atlas_source_id = 18
+
+[node name="CustomWall94" parent="Exploration0/Elements/Boarder Wall" unique_id=1269950790 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 288)
+atlas_source_id = 18
+
+[node name="CustomWall68" parent="Exploration0/Elements/Boarder Wall" unique_id=932863897 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 304)
+
+[node name="CustomWall69" parent="Exploration0/Elements/Boarder Wall" unique_id=268611276 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 304)
+
+[node name="CustomWall70" parent="Exploration0/Elements/Boarder Wall" unique_id=1480515728 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 304)
+atlas_source_id = 2
+
+[node name="CustomWall71" parent="Exploration0/Elements/Boarder Wall" unique_id=1077424311 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 304)
+atlas_source_id = 2
+
+[node name="CustomWall72" parent="Exploration0/Elements/Boarder Wall" unique_id=773411006 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 304)
+atlas_source_id = 1
+
+[node name="CustomWall73" parent="Exploration0/Elements/Boarder Wall" unique_id=1428950300 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 304)
+atlas_source_id = 1
+
+[node name="CustomWall2" parent="Exploration0/Elements/Boarder Wall" unique_id=24585223 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 176)
+
+[node name="CustomWall3" parent="Exploration0/Elements/Boarder Wall" unique_id=1447449460 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 192)
+
+[node name="CustomWall4" parent="Exploration0/Elements/Boarder Wall" unique_id=453617734 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 208)
+
+[node name="CustomWall5" parent="Exploration0/Elements/Boarder Wall" unique_id=1980819438 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 224)
+
+[node name="CustomWall6" parent="Exploration0/Elements/Boarder Wall" unique_id=1249127207 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 240)
+
+[node name="CustomWall11" parent="Exploration0/Elements/Boarder Wall" unique_id=1004716764 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 240)
+atlas_source_id = 17
+
+[node name="CustomWall13" parent="Exploration0/Elements/Boarder Wall" unique_id=983852937 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 240)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall14" parent="Exploration0/Elements/Boarder Wall" unique_id=425476104 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 240)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall15" parent="Exploration0/Elements/Boarder Wall" unique_id=1641437009 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 240)
+atlas_source_id = 17
+
+[node name="CustomWall16" parent="Exploration0/Elements/Boarder Wall" unique_id=1165468696 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 224)
+atlas_source_id = 1
+
+[node name="CustomWall17" parent="Exploration0/Elements/Boarder Wall" unique_id=520512088 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 208)
+atlas_source_id = 1
+
+[node name="CustomWall18" parent="Exploration0/Elements/Boarder Wall" unique_id=838506977 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 192)
+atlas_source_id = 17
+
+[node name="CustomWall20" parent="Exploration0/Elements/Boarder Wall" unique_id=108147818 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 192)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall21" parent="Exploration0/Elements/Boarder Wall" unique_id=330427350 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 192)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall22" parent="Exploration0/Elements/Boarder Wall" unique_id=1453175415 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 192)
+
+[node name="CustomWall23" parent="Exploration0/Elements/Boarder Wall" unique_id=1128951920 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 192)
+atlas_source_id = 17
+
+[node name="CustomWall24" parent="Exploration0/Elements/Boarder Wall" unique_id=1196998249 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 208)
+atlas_source_id = 1
+
+[node name="CustomWall12" parent="Exploration0/Elements/Boarder Wall" unique_id=622022322 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 224)
+atlas_source_id = 1
+
+[node name="CustomWall25" parent="Exploration0/Elements/Boarder Wall" unique_id=1208087353 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 240)
+atlas_source_id = 17
+
+[node name="CustomWall26" parent="Exploration0/Elements/Boarder Wall" unique_id=1433862138 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 240)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall27" parent="Exploration0/Elements/Boarder Wall" unique_id=474022102 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 240)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall57" parent="Exploration0/Elements/Boarder Wall" unique_id=2077557080 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 240)
+atlas_source_id = 17
+
+[node name="CustomWall58" parent="Exploration0/Elements/Boarder Wall" unique_id=1382259654 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 224)
+atlas_source_id = 1
+
+[node name="CustomWall60" parent="Exploration0/Elements/Boarder Wall" unique_id=1188302096 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 208)
+atlas_source_id = 1
+
+[node name="CustomWall61" parent="Exploration0/Elements/Boarder Wall" unique_id=1476607919 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 192)
+atlas_source_id = 17
+
+[node name="CustomWall62" parent="Exploration0/Elements/Boarder Wall" unique_id=496974212 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 192)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall66" parent="Exploration0/Elements/Boarder Wall" unique_id=962103857 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 192)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall95" parent="Exploration0/Elements/Boarder Wall" unique_id=42885390 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 192)
+atlas_source_id = 17
+
+[node name="CustomWall96" parent="Exploration0/Elements/Boarder Wall" unique_id=2127742375 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 208)
+atlas_source_id = 1
+
+[node name="CustomWall97" parent="Exploration0/Elements/Boarder Wall" unique_id=1617377661 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 224)
+atlas_source_id = 1
+
+[node name="CustomWall7" parent="Exploration0/Elements/Boarder Wall" unique_id=1191290413 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 256)
+
+[node name="CustomWall8" parent="Exploration0/Elements/Boarder Wall" unique_id=1262702652 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 272)
+
+[node name="CustomWall9" parent="Exploration0/Elements/Boarder Wall" unique_id=1319480490 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 288)
+
+[node name="CustomWall47" parent="Exploration0/Elements/Boarder Wall" unique_id=1662428900 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 48)
+
+[node name="CustomWall48" parent="Exploration0/Elements/Boarder Wall" unique_id=1064716193 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 64)
+
+[node name="CustomWall55" parent="Exploration0/Elements/Boarder Wall" unique_id=231089925 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 16)
+
+[node name="CustomWall56" parent="Exploration0/Elements/Boarder Wall" unique_id=1800441132 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 32)
+
+[node name="CustomWall49" parent="Exploration0/Elements/Boarder Wall" unique_id=125356623 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 80)
+
+[node name="CustomWall50" parent="Exploration0/Elements/Boarder Wall" unique_id=1942210327 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 96)
+
+[node name="CustomWall51" parent="Exploration0/Elements/Boarder Wall" unique_id=151428619 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 112)
+
+[node name="CustomWall52" parent="Exploration0/Elements/Boarder Wall" unique_id=521738841 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 128)
+
+[node name="CustomWall106" parent="Exploration0/Elements/Boarder Wall" unique_id=493460892 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 128)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall119" parent="Exploration0/Elements/Boarder Wall" unique_id=1627363022 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 128)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall112" parent="Exploration0/Elements/Boarder Wall" unique_id=1750438834 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 128)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall118" parent="Exploration0/Elements/Boarder Wall" unique_id=972721323 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 128)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall114" parent="Exploration0/Elements/Boarder Wall" unique_id=1446267877 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 128)
+
+[node name="CustomWall120" parent="Exploration0/Elements/Boarder Wall" unique_id=1773293491 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 128)
+
+[node name="CustomWall115" parent="Exploration0/Elements/Boarder Wall" unique_id=1269692572 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 128)
+
+[node name="CustomWall116" parent="Exploration0/Elements/Boarder Wall" unique_id=2014181528 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 128)
+
+[node name="CustomWall117" parent="Exploration0/Elements/Boarder Wall" unique_id=314485767 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 128)
+
+[node name="CustomWall122" parent="Exploration0/Elements/Boarder Wall" unique_id=785014099 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 144)
+atlas_source_id = 20
+
+[node name="CustomWall123" parent="Exploration0/Elements/Boarder Wall" unique_id=557192748 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 288)
+atlas_source_id = 20
+
+[node name="CustomWall108" parent="Exploration0/Elements/Boarder Wall" unique_id=1524741146 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 128)
+
+[node name="CustomWall109" parent="Exploration0/Elements/Boarder Wall" unique_id=1879813865 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 128)
+
+[node name="CustomWall124" parent="Exploration0/Elements/Boarder Wall" unique_id=77170518 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 128)
+atlas_source_id = 1
+
+[node name="CustomWall126" parent="Exploration0/Elements/Boarder Wall" unique_id=10207335 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 112)
+
+[node name="CustomWall127" parent="Exploration0/Elements/Boarder Wall" unique_id=1802896464 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 112)
+
+[node name="CustomWall128" parent="Exploration0/Elements/Boarder Wall" unique_id=934689907 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 96)
+
+[node name="CustomWall131" parent="Exploration0/Elements/Boarder Wall" unique_id=1344092748 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 80)
+atlas_source_id = 1
+
+[node name="CustomWall129" parent="Exploration0/Elements/Boarder Wall" unique_id=892503780 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 96)
+
+[node name="CustomWall130" parent="Exploration0/Elements/Boarder Wall" unique_id=2120732964 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 80)
+atlas_source_id = 1
+
+[node name="CustomWall134" parent="Exploration0/Elements/Boarder Wall" unique_id=2134627112 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 32)
+
+[node name="CustomWall135" parent="Exploration0/Elements/Boarder Wall" unique_id=674529841 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 16)
+
+[node name="CustomWall136" parent="Exploration0/Elements/Boarder Wall" unique_id=1393133944 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 16)
+
+[node name="CustomWall137" parent="Exploration0/Elements/Boarder Wall" unique_id=799949784 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 32)
+
+[node name="CustomWall138" parent="Exploration0/Elements/Boarder Wall" unique_id=1448457155 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 48)
+atlas_source_id = 1
+
+[node name="CustomWall133" parent="Exploration0/Elements/Boarder Wall" unique_id=379442202 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 48)
+atlas_source_id = 1
+
+[node name="CustomWall125" parent="Exploration0/Elements/Boarder Wall" unique_id=520893244 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 128)
+atlas_source_id = 1
+
+[node name="CustomWall110" parent="Exploration0/Elements/Boarder Wall" unique_id=1499391506 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 128)
+
+[node name="CustomWall111" parent="Exploration0/Elements/Boarder Wall" unique_id=1216074109 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 128)
+
+[node name="CustomWall121" parent="Exploration0/Elements/Boarder Wall" unique_id=1117478842 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 128)
+
+[node name="CustomWall53" parent="Exploration0/Elements/Boarder Wall" unique_id=2114267556 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 144)
+
+[node name="CustomWall54" parent="Exploration0/Elements/Boarder Wall" unique_id=1219420549 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 160)
+
+[node name="CustomWall75" parent="Exploration0/Elements/Boarder Wall" unique_id=1442199558 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 176)
+
+[node name="CustomWall76" parent="Exploration0/Elements/Boarder Wall" unique_id=734946560 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 192)
+
+[node name="CustomWall77" parent="Exploration0/Elements/Boarder Wall" unique_id=248554588 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 208)
+
+[node name="CustomWall78" parent="Exploration0/Elements/Boarder Wall" unique_id=1741181616 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 224)
+
+[node name="CustomWall79" parent="Exploration0/Elements/Boarder Wall" unique_id=1048071139 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 240)
+
+[node name="CustomWall80" parent="Exploration0/Elements/Boarder Wall" unique_id=1494972549 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 256)
+
+[node name="CustomWall81" parent="Exploration0/Elements/Boarder Wall" unique_id=177098115 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 272)
+
+[node name="CustomWall82" parent="Exploration0/Elements/Boarder Wall" unique_id=2106598851 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 288)
+
+[node name="CustomWall83" parent="Exploration0/Elements/Boarder Wall" unique_id=470877825 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 48)
+
+[node name="CustomWall84" parent="Exploration0/Elements/Boarder Wall" unique_id=1391119613 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 64)
+
+[node name="CustomWall85" parent="Exploration0/Elements/Boarder Wall" unique_id=1804178254 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 16)
+
+[node name="CustomWall86" parent="Exploration0/Elements/Boarder Wall" unique_id=1110311699 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 32)
+
+[node name="CustomWall87" parent="Exploration0/Elements/Boarder Wall" unique_id=1931269132 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 80)
+
+[node name="CustomWall88" parent="Exploration0/Elements/Boarder Wall" unique_id=815130062 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 96)
+
+[node name="CustomWall89" parent="Exploration0/Elements/Boarder Wall" unique_id=1871412463 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 112)
+
+[node name="CustomWall90" parent="Exploration0/Elements/Boarder Wall" unique_id=1529929143 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 128)
+
+[node name="CustomWall91" parent="Exploration0/Elements/Boarder Wall" unique_id=227188235 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 144)
+
+[node name="CustomWall92" parent="Exploration0/Elements/Boarder Wall" unique_id=1881747431 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 160)
+
+[node name="CustomWall10" parent="Exploration0/Elements/Boarder Wall" unique_id=409700902 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 304)
+atlas_source_id = 8
+
+[node name="Level Wall" type="Node2D" parent="Exploration0/Elements" unique_id=859567211]
+
 [node name="Level1" parent="." unique_id=69772821 instance=ExtResource("2_5ekxl")]
 visible = false
 set_player_start_position = Vector2(144, 240)
@@ -44,7 +542,7 @@ position = Vector2(160, 64)
 position = Vector2(112, 48)
 atlas_source_id = 8
 
-[node name="CustomWall12" parent="Level1/Elements/Boarder Wall" unique_id=51517795 instance=ExtResource("7_r44b6")]
+[node name="CustomWall12" parent="Level1/Elements/Boarder Wall" unique_id=1155866213 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 48)
 atlas_source_id = 8
 
@@ -357,7 +855,7 @@ position = Vector2(0, -336)
 position = Vector2(272, 352)
 atlas_source_id = 6
 
-[node name="Sludge31" parent="Level2/Elements/Level Three Assets/Hazard" unique_id=369884562 instance=ExtResource("4_byla0")]
+[node name="Sludge31" parent="Level2/Elements/Level Three Assets/Hazard" unique_id=1525783935 instance=ExtResource("4_byla0")]
 position = Vector2(160, 400)
 atlas_source_id = 6
 
@@ -3263,11 +3761,11 @@ atlas_source_id = 6
 position = Vector2(224, 256)
 atlas_source_id = 6
 
-[node name="Exploration1" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
+[node name="Exploration1" parent="." unique_id=2017894154 instance=ExtResource("2_5ekxl")]
 visible = false
 set_player_start_position = Vector2(256, 288)
 
-[node name="Floor" parent="Exploration1" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
+[node name="Floor" parent="Exploration1" unique_id=1718764753 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Exploration1" unique_id=1318779263]
@@ -8370,6 +8868,7 @@ position = Vector2(176, 160)
 atlas_source_id = 3
 
 [node name="Level10" parent="." unique_id=1318668282 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(192, 208)
 
 [node name="Floor" parent="Level10" unique_id=295061027 instance=ExtResource("3_jj4e6")]
@@ -8755,6 +9254,1076 @@ position = Vector2(112, 96)
 
 [node name="CustomWall14" parent="Level11/Elements/Level Wall" unique_id=237932824 instance=ExtResource("7_r44b6")]
 position = Vector2(112, 128)
+
+[node name="Exploration3" parent="." unique_id=215496794 instance=ExtResource("2_5ekxl")]
+visible = false
+set_player_start_position = Vector2(256, 288)
+
+[node name="Floor" parent="Exploration3" unique_id=2081017107 instance=ExtResource("3_jj4e6")]
+position = Vector2(-288, -384)
+floor_size = Vector2(896, 896)
+
+[node name="Camera2D" type="Camera2D" parent="Exploration3" unique_id=423027372]
+position = Vector2(112, 144)
+limit_left = 0
+limit_top = -160
+limit_right = 320
+limit_bottom = 320
+
+[node name="Elements" type="Node2D" parent="Exploration3" unique_id=1111918664]
+
+[node name="Stairs" parent="Exploration3/Elements" unique_id=1851286977 instance=ExtResource("3_r44b6")]
+position = Vector2(128, -96)
+
+[node name="Boarder Wall" type="Node2D" parent="Exploration3/Elements" unique_id=589486276]
+
+[node name="Sludge3" parent="Exploration3/Elements/Boarder Wall" unique_id=486990956 instance=ExtResource("4_byla0")]
+position = Vector2(32, 160)
+atlas_source_id = 6
+
+[node name="Sludge4" parent="Exploration3/Elements/Boarder Wall" unique_id=1133802601 instance=ExtResource("4_byla0")]
+position = Vector2(240, -96)
+atlas_source_id = 6
+
+[node name="CustomWall" parent="Exploration3/Elements/Boarder Wall" unique_id=967994512 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -160)
+atlas_source_id = 8
+
+[node name="CustomWall19" parent="Exploration3/Elements/Boarder Wall" unique_id=1580252619 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -160)
+atlas_source_id = 8
+
+[node name="CustomWall101" parent="Exploration3/Elements/Boarder Wall" unique_id=146189324 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 256)
+atlas_source_id = 18
+
+[node name="CustomWall312" parent="Exploration3/Elements/Boarder Wall" unique_id=1413130102 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 224)
+atlas_source_id = 18
+
+[node name="CustomWall335" parent="Exploration3/Elements/Boarder Wall" unique_id=823224536 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 128)
+atlas_source_id = 18
+
+[node name="CustomWall208" parent="Exploration3/Elements/Boarder Wall" unique_id=1488761446 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 80)
+atlas_source_id = 18
+
+[node name="CustomWall28" parent="Exploration3/Elements/Boarder Wall" unique_id=1973235865 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 304)
+atlas_source_id = 8
+
+[node name="CustomWall29" parent="Exploration3/Elements/Boarder Wall" unique_id=1026140092 instance=ExtResource("7_r44b6")]
+position = Vector2(128, -160)
+
+[node name="CustomWall30" parent="Exploration3/Elements/Boarder Wall" unique_id=93203877 instance=ExtResource("7_r44b6")]
+position = Vector2(112, -160)
+
+[node name="CustomWall31" parent="Exploration3/Elements/Boarder Wall" unique_id=453467275 instance=ExtResource("7_r44b6")]
+position = Vector2(96, -160)
+
+[node name="CustomWall44" parent="Exploration3/Elements/Boarder Wall" unique_id=1042450643 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -160)
+
+[node name="CustomWall45" parent="Exploration3/Elements/Boarder Wall" unique_id=1859047937 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -160)
+atlas_source_id = 21
+
+[node name="CustomWall46" parent="Exploration3/Elements/Boarder Wall" unique_id=648287267 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -160)
+
+[node name="CustomWall32" parent="Exploration3/Elements/Boarder Wall" unique_id=2049602147 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -160)
+
+[node name="CustomWall34" parent="Exploration3/Elements/Boarder Wall" unique_id=273467317 instance=ExtResource("7_r44b6")]
+position = Vector2(48, -160)
+
+[node name="CustomWall124" parent="Exploration3/Elements/Boarder Wall" unique_id=1196407265 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -144)
+
+[node name="CustomWall125" parent="Exploration3/Elements/Boarder Wall" unique_id=1353882043 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -128)
+
+[node name="CustomWall35" parent="Exploration3/Elements/Boarder Wall" unique_id=1857355894 instance=ExtResource("7_r44b6")]
+position = Vector2(16, -160)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall36" parent="Exploration3/Elements/Boarder Wall" unique_id=1726577048 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -160)
+
+[node name="CustomWall37" parent="Exploration3/Elements/Boarder Wall" unique_id=2030699925 instance=ExtResource("7_r44b6")]
+position = Vector2(288, -160)
+
+[node name="CustomWall38" parent="Exploration3/Elements/Boarder Wall" unique_id=1032034320 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -160)
+
+[node name="CustomWall39" parent="Exploration3/Elements/Boarder Wall" unique_id=931616972 instance=ExtResource("7_r44b6")]
+position = Vector2(256, -160)
+
+[node name="CustomWall40" parent="Exploration3/Elements/Boarder Wall" unique_id=1238624021 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -160)
+
+[node name="CustomWall41" parent="Exploration3/Elements/Boarder Wall" unique_id=785755877 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -160)
+
+[node name="CustomWall42" parent="Exploration3/Elements/Boarder Wall" unique_id=1326865327 instance=ExtResource("7_r44b6")]
+position = Vector2(208, -160)
+
+[node name="CustomWall43" parent="Exploration3/Elements/Boarder Wall" unique_id=306902058 instance=ExtResource("7_r44b6")]
+position = Vector2(192, -160)
+
+[node name="CustomWall57" parent="Exploration3/Elements/Boarder Wall" unique_id=1978359610 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 304)
+
+[node name="CustomWall58" parent="Exploration3/Elements/Boarder Wall" unique_id=892751918 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 304)
+
+[node name="CustomWall59" parent="Exploration3/Elements/Boarder Wall" unique_id=797353248 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 304)
+
+[node name="CustomWall60" parent="Exploration3/Elements/Boarder Wall" unique_id=548706321 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 304)
+
+[node name="CustomWall61" parent="Exploration3/Elements/Boarder Wall" unique_id=1754082957 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 304)
+
+[node name="CustomWall62" parent="Exploration3/Elements/Boarder Wall" unique_id=1268817521 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 304)
+
+[node name="CustomWall93" parent="Exploration3/Elements/Boarder Wall" unique_id=798976437 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 288)
+
+[node name="CustomWall94" parent="Exploration3/Elements/Boarder Wall" unique_id=406472584 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 272)
+
+[node name="CustomWall95" parent="Exploration3/Elements/Boarder Wall" unique_id=1168256764 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 256)
+
+[node name="CustomWall96" parent="Exploration3/Elements/Boarder Wall" unique_id=323569877 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 240)
+
+[node name="CustomWall161" parent="Exploration3/Elements/Boarder Wall" unique_id=1720912450 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 192)
+
+[node name="CustomWall163" parent="Exploration3/Elements/Boarder Wall" unique_id=767837848 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 224)
+
+[node name="CustomWall164" parent="Exploration3/Elements/Boarder Wall" unique_id=267860270 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 208)
+
+[node name="CustomWall165" parent="Exploration3/Elements/Boarder Wall" unique_id=257199263 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 192)
+
+[node name="CustomWall185" parent="Exploration3/Elements/Boarder Wall" unique_id=2120245310 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 144)
+
+[node name="CustomWall188" parent="Exploration3/Elements/Boarder Wall" unique_id=624377803 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 144)
+
+[node name="CustomWall189" parent="Exploration3/Elements/Boarder Wall" unique_id=495921214 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 128)
+
+[node name="CustomWall190" parent="Exploration3/Elements/Boarder Wall" unique_id=518727258 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 112)
+
+[node name="CustomWall191" parent="Exploration3/Elements/Boarder Wall" unique_id=2015904122 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 112)
+
+[node name="CustomWall192" parent="Exploration3/Elements/Boarder Wall" unique_id=1437719182 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 112)
+
+[node name="CustomWall193" parent="Exploration3/Elements/Boarder Wall" unique_id=1139189520 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 96)
+
+[node name="CustomWall209" parent="Exploration3/Elements/Boarder Wall" unique_id=148497269 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 96)
+
+[node name="CustomWall210" parent="Exploration3/Elements/Boarder Wall" unique_id=1862337549 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 96)
+
+[node name="CustomWall211" parent="Exploration3/Elements/Boarder Wall" unique_id=1862142702 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 80)
+
+[node name="CustomWall212" parent="Exploration3/Elements/Boarder Wall" unique_id=2023229227 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 64)
+
+[node name="CustomWall214" parent="Exploration3/Elements/Boarder Wall" unique_id=783833494 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 80)
+
+[node name="CustomWall215" parent="Exploration3/Elements/Boarder Wall" unique_id=1582466918 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 80)
+
+[node name="CustomWall216" parent="Exploration3/Elements/Boarder Wall" unique_id=1247398426 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 80)
+
+[node name="CustomWall217" parent="Exploration3/Elements/Boarder Wall" unique_id=249322372 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 80)
+
+[node name="CustomWall221" parent="Exploration3/Elements/Boarder Wall" unique_id=2056696669 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 96)
+
+[node name="CustomWall222" parent="Exploration3/Elements/Boarder Wall" unique_id=1993859082 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 112)
+
+[node name="CustomWall223" parent="Exploration3/Elements/Boarder Wall" unique_id=350220047 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 128)
+
+[node name="CustomWall224" parent="Exploration3/Elements/Boarder Wall" unique_id=471546814 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 192)
+
+[node name="CustomWall225" parent="Exploration3/Elements/Boarder Wall" unique_id=1141181365 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 208)
+
+[node name="CustomWall218" parent="Exploration3/Elements/Boarder Wall" unique_id=570432332 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 80)
+
+[node name="CustomWall219" parent="Exploration3/Elements/Boarder Wall" unique_id=944124704 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 48)
+
+[node name="CustomWall226" parent="Exploration3/Elements/Boarder Wall" unique_id=429213614 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 48)
+
+[node name="CustomWall229" parent="Exploration3/Elements/Boarder Wall" unique_id=1211807275 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 32)
+
+[node name="CustomWall230" parent="Exploration3/Elements/Boarder Wall" unique_id=486454512 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 48)
+
+[node name="CustomWall231" parent="Exploration3/Elements/Boarder Wall" unique_id=1367620242 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 48)
+
+[node name="CustomWall232" parent="Exploration3/Elements/Boarder Wall" unique_id=1130660707 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 32)
+
+[node name="CustomWall233" parent="Exploration3/Elements/Boarder Wall" unique_id=500954849 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 32)
+
+[node name="CustomWall234" parent="Exploration3/Elements/Boarder Wall" unique_id=853606177 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 32)
+
+[node name="CustomWall235" parent="Exploration3/Elements/Boarder Wall" unique_id=1843283862 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 32)
+
+[node name="CustomWall236" parent="Exploration3/Elements/Boarder Wall" unique_id=813921173 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 32)
+
+[node name="CustomWall237" parent="Exploration3/Elements/Boarder Wall" unique_id=24088507 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 32)
+
+[node name="CustomWall269" parent="Exploration3/Elements/Boarder Wall" unique_id=1978846253 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 16)
+
+[node name="CustomWall270" parent="Exploration3/Elements/Boarder Wall" unique_id=1181179121 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 0)
+
+[node name="CustomWall271" parent="Exploration3/Elements/Boarder Wall" unique_id=885780663 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 0)
+
+[node name="CustomWall272" parent="Exploration3/Elements/Boarder Wall" unique_id=1933050332 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -16)
+
+[node name="CustomWall273" parent="Exploration3/Elements/Boarder Wall" unique_id=803518261 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -16)
+atlas_source_id = 1
+
+[node name="CustomWall274" parent="Exploration3/Elements/Boarder Wall" unique_id=129463889 instance=ExtResource("7_r44b6")]
+position = Vector2(128, -16)
+
+[node name="CustomWall275" parent="Exploration3/Elements/Boarder Wall" unique_id=382321664 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 0)
+
+[node name="CustomWall276" parent="Exploration3/Elements/Boarder Wall" unique_id=857024056 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 0)
+
+[node name="CustomWall277" parent="Exploration3/Elements/Boarder Wall" unique_id=1982936899 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 0)
+
+[node name="CustomWall278" parent="Exploration3/Elements/Boarder Wall" unique_id=1897712260 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 0)
+
+[node name="CustomWall279" parent="Exploration3/Elements/Boarder Wall" unique_id=1339209384 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 0)
+
+[node name="CustomWall280" parent="Exploration3/Elements/Boarder Wall" unique_id=1817240840 instance=ExtResource("7_r44b6")]
+position = Vector2(64, -16)
+
+[node name="CustomWall281" parent="Exploration3/Elements/Boarder Wall" unique_id=1047749629 instance=ExtResource("7_r44b6")]
+position = Vector2(64, -32)
+
+[node name="CustomWall282" parent="Exploration3/Elements/Boarder Wall" unique_id=1784153010 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -32)
+
+[node name="CustomWall283" parent="Exploration3/Elements/Boarder Wall" unique_id=716586326 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 0)
+
+[node name="CustomWall284" parent="Exploration3/Elements/Boarder Wall" unique_id=165831548 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 0)
+
+[node name="CustomWall285" parent="Exploration3/Elements/Boarder Wall" unique_id=804880376 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -16)
+
+[node name="CustomWall286" parent="Exploration3/Elements/Boarder Wall" unique_id=1005129445 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -48)
+
+[node name="CustomWall287" parent="Exploration3/Elements/Boarder Wall" unique_id=2073431389 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -64)
+
+[node name="CustomWall288" parent="Exploration3/Elements/Boarder Wall" unique_id=777579242 instance=ExtResource("7_r44b6")]
+position = Vector2(48, -64)
+
+[node name="CustomWall289" parent="Exploration3/Elements/Boarder Wall" unique_id=838796329 instance=ExtResource("7_r44b6")]
+position = Vector2(96, -64)
+
+[node name="CustomWall290" parent="Exploration3/Elements/Boarder Wall" unique_id=598623059 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -64)
+atlas_source_id = 5
+
+[node name="CustomWall331" parent="Exploration3/Elements/Boarder Wall" unique_id=833145919 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -80)
+
+[node name="CustomWall332" parent="Exploration3/Elements/Boarder Wall" unique_id=183159994 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -96)
+
+[node name="CustomWall333" parent="Exploration3/Elements/Boarder Wall" unique_id=574054 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -112)
+
+[node name="CustomWall334" parent="Exploration3/Elements/Boarder Wall" unique_id=598693317 instance=ExtResource("7_r44b6")]
+position = Vector2(48, -144)
+
+[node name="CustomWall291" parent="Exploration3/Elements/Boarder Wall" unique_id=401779248 instance=ExtResource("7_r44b6")]
+position = Vector2(96, -48)
+
+[node name="CustomWall292" parent="Exploration3/Elements/Boarder Wall" unique_id=2007173794 instance=ExtResource("7_r44b6")]
+position = Vector2(112, -48)
+atlas_source_id = 21
+
+[node name="CustomWall337" parent="Exploration3/Elements/Boarder Wall" unique_id=190538361 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -128)
+atlas_source_id = 21
+
+[node name="CustomWall293" parent="Exploration3/Elements/Boarder Wall" unique_id=1255369061 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -48)
+
+[node name="CustomWall294" parent="Exploration3/Elements/Boarder Wall" unique_id=316044460 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -48)
+atlas_source_id = 5
+tile_rotation_steps = 1
+
+[node name="CustomWall302" parent="Exploration3/Elements/Boarder Wall" unique_id=2068474865 instance=ExtResource("7_r44b6")]
+position = Vector2(64, -160)
+atlas_source_id = 5
+tile_rotation_steps = 1
+
+[node name="CustomWall295" parent="Exploration3/Elements/Boarder Wall" unique_id=1003274839 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -48)
+
+[node name="CustomWall296" parent="Exploration3/Elements/Boarder Wall" unique_id=409580572 instance=ExtResource("7_r44b6")]
+position = Vector2(192, -48)
+
+[node name="CustomWall311" parent="Exploration3/Elements/Boarder Wall" unique_id=1613017563 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -112)
+
+[node name="CustomWall297" parent="Exploration3/Elements/Boarder Wall" unique_id=1713773407 instance=ExtResource("7_r44b6")]
+position = Vector2(192, -32)
+
+[node name="CustomWall298" parent="Exploration3/Elements/Boarder Wall" unique_id=119090864 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -64)
+
+[node name="CustomWall299" parent="Exploration3/Elements/Boarder Wall" unique_id=547861017 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -64)
+
+[node name="CustomWall300" parent="Exploration3/Elements/Boarder Wall" unique_id=1057963076 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -112)
+
+[node name="CustomWall301" parent="Exploration3/Elements/Boarder Wall" unique_id=1900890267 instance=ExtResource("7_r44b6")]
+position = Vector2(208, -80)
+
+[node name="CustomWall303" parent="Exploration3/Elements/Boarder Wall" unique_id=218901212 instance=ExtResource("7_r44b6")]
+position = Vector2(208, -96)
+
+[node name="CustomWall304" parent="Exploration3/Elements/Boarder Wall" unique_id=906012574 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -96)
+atlas_source_id = 2
+
+[node name="CustomWall320" parent="Exploration3/Elements/Boarder Wall" unique_id=1075345234 instance=ExtResource("7_r44b6")]
+position = Vector2(96, -144)
+atlas_source_id = 2
+
+[node name="CustomWall336" parent="Exploration3/Elements/Boarder Wall" unique_id=1793045551 instance=ExtResource("7_r44b6")]
+position = Vector2(48, -96)
+atlas_source_id = 2
+
+[node name="CustomWall305" parent="Exploration3/Elements/Boarder Wall" unique_id=1456601301 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -96)
+
+[node name="CustomWall306" parent="Exploration3/Elements/Boarder Wall" unique_id=618444428 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -80)
+
+[node name="CustomWall307" parent="Exploration3/Elements/Boarder Wall" unique_id=1090055859 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -64)
+
+[node name="CustomWall308" parent="Exploration3/Elements/Boarder Wall" unique_id=403360216 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -112)
+atlas_source_id = 3
+
+[node name="CustomWall309" parent="Exploration3/Elements/Boarder Wall" unique_id=1089647447 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -112)
+
+[node name="CustomWall310" parent="Exploration3/Elements/Boarder Wall" unique_id=564066015 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -112)
+atlas_source_id = 20
+
+[node name="CustomWall338" parent="Exploration3/Elements/Boarder Wall" unique_id=1710461499 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -80)
+atlas_source_id = 20
+
+[node name="CustomWall313" parent="Exploration3/Elements/Boarder Wall" unique_id=265629159 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -144)
+
+[node name="CustomWall314" parent="Exploration3/Elements/Boarder Wall" unique_id=1193712274 instance=ExtResource("7_r44b6")]
+position = Vector2(176, -144)
+atlas_source_id = 9
+
+[node name="CustomWall321" parent="Exploration3/Elements/Boarder Wall" unique_id=625367458 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -112)
+atlas_source_id = 9
+
+[node name="CustomWall315" parent="Exploration3/Elements/Boarder Wall" unique_id=1881181121 instance=ExtResource("7_r44b6")]
+position = Vector2(112, -128)
+
+[node name="CustomWall316" parent="Exploration3/Elements/Boarder Wall" unique_id=1374532086 instance=ExtResource("7_r44b6")]
+position = Vector2(128, -144)
+
+[node name="CustomWall317" parent="Exploration3/Elements/Boarder Wall" unique_id=1280431495 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -128)
+
+[node name="CustomWall325" parent="Exploration3/Elements/Boarder Wall" unique_id=1412827272 instance=ExtResource("7_r44b6")]
+position = Vector2(96, -96)
+
+[node name="CustomWall326" parent="Exploration3/Elements/Boarder Wall" unique_id=1989175431 instance=ExtResource("7_r44b6")]
+position = Vector2(112, -80)
+
+[node name="CustomWall327" parent="Exploration3/Elements/Boarder Wall" unique_id=247277966 instance=ExtResource("7_r44b6")]
+position = Vector2(128, -80)
+
+[node name="CustomWall328" parent="Exploration3/Elements/Boarder Wall" unique_id=1768821961 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -80)
+
+[node name="CustomWall330" parent="Exploration3/Elements/Boarder Wall" unique_id=1530255612 instance=ExtResource("7_r44b6")]
+position = Vector2(144, -96)
+
+[node name="CustomWall329" parent="Exploration3/Elements/Boarder Wall" unique_id=1210168680 instance=ExtResource("7_r44b6")]
+position = Vector2(160, -80)
+
+[node name="CustomWall318" parent="Exploration3/Elements/Boarder Wall" unique_id=48024019 instance=ExtResource("7_r44b6")]
+position = Vector2(80, -144)
+
+[node name="CustomWall319" parent="Exploration3/Elements/Boarder Wall" unique_id=1063240447 instance=ExtResource("7_r44b6")]
+position = Vector2(64, -144)
+
+[node name="CustomWall322" parent="Exploration3/Elements/Boarder Wall" unique_id=1109022943 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -128)
+
+[node name="CustomWall323" parent="Exploration3/Elements/Boarder Wall" unique_id=1440012259 instance=ExtResource("7_r44b6")]
+position = Vector2(16, -112)
+
+[node name="CustomWall324" parent="Exploration3/Elements/Boarder Wall" unique_id=1196681390 instance=ExtResource("7_r44b6")]
+position = Vector2(32, -96)
+
+[node name="CustomWall238" parent="Exploration3/Elements/Boarder Wall" unique_id=1176118297 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 16)
+
+[node name="CustomWall239" parent="Exploration3/Elements/Boarder Wall" unique_id=1881982452 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 32)
+
+[node name="CustomWall240" parent="Exploration3/Elements/Boarder Wall" unique_id=1812839120 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 32)
+
+[node name="CustomWall241" parent="Exploration3/Elements/Boarder Wall" unique_id=1397864861 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 32)
+
+[node name="CustomWall242" parent="Exploration3/Elements/Boarder Wall" unique_id=104581255 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 32)
+
+[node name="CustomWall243" parent="Exploration3/Elements/Boarder Wall" unique_id=2115322873 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 32)
+
+[node name="CustomWall244" parent="Exploration3/Elements/Boarder Wall" unique_id=2036192788 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 32)
+
+[node name="CustomWall245" parent="Exploration3/Elements/Boarder Wall" unique_id=1006035377 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 16)
+
+[node name="CustomWall246" parent="Exploration3/Elements/Boarder Wall" unique_id=33762835 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 0)
+
+[node name="CustomWall247" parent="Exploration3/Elements/Boarder Wall" unique_id=1145020757 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 0)
+
+[node name="CustomWall248" parent="Exploration3/Elements/Boarder Wall" unique_id=535689455 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 0)
+
+[node name="CustomWall249" parent="Exploration3/Elements/Boarder Wall" unique_id=38262508 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -16)
+
+[node name="CustomWall250" parent="Exploration3/Elements/Boarder Wall" unique_id=703099539 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -32)
+
+[node name="CustomWall251" parent="Exploration3/Elements/Boarder Wall" unique_id=391271190 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -32)
+
+[node name="CustomWall252" parent="Exploration3/Elements/Boarder Wall" unique_id=1185863199 instance=ExtResource("7_r44b6")]
+position = Vector2(256, -32)
+
+[node name="CustomWall253" parent="Exploration3/Elements/Boarder Wall" unique_id=1082916635 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -32)
+
+[node name="CustomWall254" parent="Exploration3/Elements/Boarder Wall" unique_id=780440388 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -48)
+
+[node name="CustomWall255" parent="Exploration3/Elements/Boarder Wall" unique_id=1263347116 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -64)
+
+[node name="CustomWall256" parent="Exploration3/Elements/Boarder Wall" unique_id=720163106 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -80)
+
+[node name="CustomWall257" parent="Exploration3/Elements/Boarder Wall" unique_id=540940781 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -96)
+
+[node name="CustomWall258" parent="Exploration3/Elements/Boarder Wall" unique_id=383935379 instance=ExtResource("7_r44b6")]
+position = Vector2(256, -96)
+atlas_source_id = 1
+
+[node name="CustomWall266" parent="Exploration3/Elements/Boarder Wall" unique_id=1573698045 instance=ExtResource("7_r44b6")]
+position = Vector2(288, -144)
+
+[node name="CustomWall267" parent="Exploration3/Elements/Boarder Wall" unique_id=1860969562 instance=ExtResource("7_r44b6")]
+position = Vector2(288, -128)
+
+[node name="CustomWall268" parent="Exploration3/Elements/Boarder Wall" unique_id=493773313 instance=ExtResource("7_r44b6")]
+position = Vector2(272, -144)
+
+[node name="CustomWall260" parent="Exploration3/Elements/Boarder Wall" unique_id=805690758 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -112)
+
+[node name="CustomWall265" parent="Exploration3/Elements/Boarder Wall" unique_id=763581682 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -112)
+
+[node name="CustomWall261" parent="Exploration3/Elements/Boarder Wall" unique_id=1932642764 instance=ExtResource("7_r44b6")]
+position = Vector2(240, -128)
+
+[node name="CustomWall262" parent="Exploration3/Elements/Boarder Wall" unique_id=1400962850 instance=ExtResource("7_r44b6")]
+position = Vector2(224, -128)
+
+[node name="CustomWall263" parent="Exploration3/Elements/Boarder Wall" unique_id=1536573248 instance=ExtResource("7_r44b6")]
+position = Vector2(208, -128)
+
+[node name="CustomWall264" parent="Exploration3/Elements/Boarder Wall" unique_id=342146619 instance=ExtResource("7_r44b6")]
+position = Vector2(208, -144)
+
+[node name="CustomWall227" parent="Exploration3/Elements/Boarder Wall" unique_id=909428867 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 32)
+
+[node name="CustomWall228" parent="Exploration3/Elements/Boarder Wall" unique_id=1090454153 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 32)
+
+[node name="CustomWall220" parent="Exploration3/Elements/Boarder Wall" unique_id=464702377 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 64)
+
+[node name="CustomWall194" parent="Exploration3/Elements/Boarder Wall" unique_id=1792395519 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 64)
+
+[node name="CustomWall213" parent="Exploration3/Elements/Boarder Wall" unique_id=319487806 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 64)
+
+[node name="CustomWall195" parent="Exploration3/Elements/Boarder Wall" unique_id=86830410 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 64)
+
+[node name="CustomWall196" parent="Exploration3/Elements/Boarder Wall" unique_id=1664379718 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 128)
+
+[node name="CustomWall197" parent="Exploration3/Elements/Boarder Wall" unique_id=1189113865 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 112)
+
+[node name="CustomWall198" parent="Exploration3/Elements/Boarder Wall" unique_id=2012942534 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 96)
+
+[node name="CustomWall199" parent="Exploration3/Elements/Boarder Wall" unique_id=1449735715 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 96)
+
+[node name="CustomWall200" parent="Exploration3/Elements/Boarder Wall" unique_id=498601398 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 80)
+
+[node name="CustomWall201" parent="Exploration3/Elements/Boarder Wall" unique_id=2045648781 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 64)
+
+[node name="CustomWall202" parent="Exploration3/Elements/Boarder Wall" unique_id=1972109436 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 64)
+
+[node name="CustomWall205" parent="Exploration3/Elements/Boarder Wall" unique_id=874560268 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 64)
+
+[node name="CustomWall206" parent="Exploration3/Elements/Boarder Wall" unique_id=1774791860 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 80)
+
+[node name="CustomWall207" parent="Exploration3/Elements/Boarder Wall" unique_id=1023068056 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 96)
+
+[node name="CustomWall203" parent="Exploration3/Elements/Boarder Wall" unique_id=259982975 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 64)
+
+[node name="CustomWall204" parent="Exploration3/Elements/Boarder Wall" unique_id=1683128512 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 64)
+
+[node name="CustomWall186" parent="Exploration3/Elements/Boarder Wall" unique_id=1381973803 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 160)
+
+[node name="CustomWall187" parent="Exploration3/Elements/Boarder Wall" unique_id=845280069 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 144)
+
+[node name="CustomWall166" parent="Exploration3/Elements/Boarder Wall" unique_id=1596305563 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 256)
+
+[node name="CustomWall170" parent="Exploration3/Elements/Boarder Wall" unique_id=2000853765 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 256)
+
+[node name="CustomWall171" parent="Exploration3/Elements/Boarder Wall" unique_id=436962976 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 256)
+
+[node name="CustomWall167" parent="Exploration3/Elements/Boarder Wall" unique_id=730042687 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 256)
+
+[node name="CustomWall168" parent="Exploration3/Elements/Boarder Wall" unique_id=769508002 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 272)
+
+[node name="CustomWall169" parent="Exploration3/Elements/Boarder Wall" unique_id=73550059 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 272)
+
+[node name="CustomWall172" parent="Exploration3/Elements/Boarder Wall" unique_id=1564794972 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 272)
+
+[node name="CustomWall173" parent="Exploration3/Elements/Boarder Wall" unique_id=1310043318 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 240)
+
+[node name="CustomWall178" parent="Exploration3/Elements/Boarder Wall" unique_id=817207112 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 192)
+
+[node name="CustomWall179" parent="Exploration3/Elements/Boarder Wall" unique_id=1367419719 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 176)
+
+[node name="CustomWall180" parent="Exploration3/Elements/Boarder Wall" unique_id=228559567 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 176)
+
+[node name="CustomWall181" parent="Exploration3/Elements/Boarder Wall" unique_id=1638912189 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 160)
+
+[node name="CustomWall182" parent="Exploration3/Elements/Boarder Wall" unique_id=528327475 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 144)
+
+[node name="CustomWall183" parent="Exploration3/Elements/Boarder Wall" unique_id=1991356364 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 128)
+
+[node name="CustomWall184" parent="Exploration3/Elements/Boarder Wall" unique_id=597169885 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 128)
+
+[node name="CustomWall174" parent="Exploration3/Elements/Boarder Wall" unique_id=192459730 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 224)
+
+[node name="CustomWall175" parent="Exploration3/Elements/Boarder Wall" unique_id=2096231086 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 208)
+
+[node name="CustomWall176" parent="Exploration3/Elements/Boarder Wall" unique_id=104020735 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 208)
+
+[node name="CustomWall177" parent="Exploration3/Elements/Boarder Wall" unique_id=100828374 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 208)
+
+[node name="CustomWall162" parent="Exploration3/Elements/Boarder Wall" unique_id=302854862 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 208)
+
+[node name="CustomWall97" parent="Exploration3/Elements/Boarder Wall" unique_id=1316044057 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 224)
+
+[node name="CustomWall98" parent="Exploration3/Elements/Boarder Wall" unique_id=1918657274 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 208)
+
+[node name="CustomWall99" parent="Exploration3/Elements/Boarder Wall" unique_id=2012020232 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 208)
+
+[node name="CustomWall100" parent="Exploration3/Elements/Boarder Wall" unique_id=1789397949 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 208)
+
+[node name="CustomWall102" parent="Exploration3/Elements/Boarder Wall" unique_id=1203009336 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 208)
+
+[node name="CustomWall103" parent="Exploration3/Elements/Boarder Wall" unique_id=1257807086 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 224)
+
+[node name="CustomWall104" parent="Exploration3/Elements/Boarder Wall" unique_id=1441665661 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 240)
+
+[node name="CustomWall105" parent="Exploration3/Elements/Boarder Wall" unique_id=1954605997 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 256)
+
+[node name="CustomWall126" parent="Exploration3/Elements/Boarder Wall" unique_id=1373287113 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 256)
+
+[node name="CustomWall127" parent="Exploration3/Elements/Boarder Wall" unique_id=1608830883 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 256)
+
+[node name="CustomWall142" parent="Exploration3/Elements/Boarder Wall" unique_id=1216815094 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 272)
+
+[node name="CustomWall143" parent="Exploration3/Elements/Boarder Wall" unique_id=890775744 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 272)
+
+[node name="CustomWall144" parent="Exploration3/Elements/Boarder Wall" unique_id=2041746476 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 176)
+
+[node name="CustomWall145" parent="Exploration3/Elements/Boarder Wall" unique_id=1135410420 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 160)
+
+[node name="CustomWall146" parent="Exploration3/Elements/Boarder Wall" unique_id=1185386736 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 144)
+
+[node name="CustomWall147" parent="Exploration3/Elements/Boarder Wall" unique_id=438293507 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 128)
+
+[node name="CustomWall148" parent="Exploration3/Elements/Boarder Wall" unique_id=1885739232 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 112)
+
+[node name="CustomWall149" parent="Exploration3/Elements/Boarder Wall" unique_id=1553135998 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 112)
+
+[node name="CustomWall150" parent="Exploration3/Elements/Boarder Wall" unique_id=413824303 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 112)
+
+[node name="CustomWall151" parent="Exploration3/Elements/Boarder Wall" unique_id=268949237 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 128)
+
+[node name="CustomWall152" parent="Exploration3/Elements/Boarder Wall" unique_id=1597023597 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 144)
+atlas_source_id = 21
+
+[node name="CustomWall153" parent="Exploration3/Elements/Boarder Wall" unique_id=727616195 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 144)
+
+[node name="CustomWall154" parent="Exploration3/Elements/Boarder Wall" unique_id=918587119 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 144)
+
+[node name="CustomWall155" parent="Exploration3/Elements/Boarder Wall" unique_id=598427022 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 144)
+
+[node name="CustomWall156" parent="Exploration3/Elements/Boarder Wall" unique_id=377346948 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 144)
+
+[node name="CustomWall157" parent="Exploration3/Elements/Boarder Wall" unique_id=1476840743 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 160)
+
+[node name="CustomWall158" parent="Exploration3/Elements/Boarder Wall" unique_id=372350111 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 176)
+
+[node name="CustomWall159" parent="Exploration3/Elements/Boarder Wall" unique_id=236480350 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 176)
+
+[node name="CustomWall160" parent="Exploration3/Elements/Boarder Wall" unique_id=1178384088 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 176)
+
+[node name="CustomWall128" parent="Exploration3/Elements/Boarder Wall" unique_id=596042846 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 240)
+
+[node name="CustomWall129" parent="Exploration3/Elements/Boarder Wall" unique_id=746275118 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 224)
+
+[node name="CustomWall130" parent="Exploration3/Elements/Boarder Wall" unique_id=889653626 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 208)
+
+[node name="CustomWall131" parent="Exploration3/Elements/Boarder Wall" unique_id=1118742392 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 208)
+
+[node name="CustomWall137" parent="Exploration3/Elements/Boarder Wall" unique_id=340806873 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 208)
+
+[node name="CustomWall138" parent="Exploration3/Elements/Boarder Wall" unique_id=488386351 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 224)
+
+[node name="CustomWall139" parent="Exploration3/Elements/Boarder Wall" unique_id=86736437 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 224)
+
+[node name="CustomWall140" parent="Exploration3/Elements/Boarder Wall" unique_id=723543855 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 240)
+
+[node name="CustomWall141" parent="Exploration3/Elements/Boarder Wall" unique_id=1610937210 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 256)
+
+[node name="CustomWall132" parent="Exploration3/Elements/Boarder Wall" unique_id=405787934 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 176)
+
+[node name="CustomWall133" parent="Exploration3/Elements/Boarder Wall" unique_id=1774717119 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 176)
+
+[node name="CustomWall134" parent="Exploration3/Elements/Boarder Wall" unique_id=2136757899 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 176)
+
+[node name="CustomWall135" parent="Exploration3/Elements/Boarder Wall" unique_id=159379763 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 176)
+
+[node name="CustomWall136" parent="Exploration3/Elements/Boarder Wall" unique_id=1661035178 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 176)
+
+[node name="CustomWall63" parent="Exploration3/Elements/Boarder Wall" unique_id=1130738186 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 304)
+
+[node name="CustomWall64" parent="Exploration3/Elements/Boarder Wall" unique_id=1529169124 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 304)
+
+[node name="CustomWall65" parent="Exploration3/Elements/Boarder Wall" unique_id=1450719364 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 304)
+
+[node name="CustomWall66" parent="Exploration3/Elements/Boarder Wall" unique_id=1557853349 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 304)
+atlas_source_id = 1
+tile_rotation_steps = 1
+
+[node name="CustomWall67" parent="Exploration3/Elements/Boarder Wall" unique_id=368435165 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 304)
+
+[node name="CustomWall68" parent="Exploration3/Elements/Boarder Wall" unique_id=1333693046 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 304)
+
+[node name="CustomWall69" parent="Exploration3/Elements/Boarder Wall" unique_id=524263063 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 304)
+
+[node name="CustomWall70" parent="Exploration3/Elements/Boarder Wall" unique_id=521653344 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 304)
+
+[node name="CustomWall71" parent="Exploration3/Elements/Boarder Wall" unique_id=397598296 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 304)
+
+[node name="CustomWall72" parent="Exploration3/Elements/Boarder Wall" unique_id=859811843 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 304)
+
+[node name="CustomWall73" parent="Exploration3/Elements/Boarder Wall" unique_id=846749136 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 304)
+
+[node name="CustomWall74" parent="Exploration3/Elements/Boarder Wall" unique_id=2127546719 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 304)
+
+[node name="CustomWall2" parent="Exploration3/Elements/Boarder Wall" unique_id=1522768315 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 176)
+
+[node name="CustomWall3" parent="Exploration3/Elements/Boarder Wall" unique_id=359716567 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 192)
+
+[node name="CustomWall4" parent="Exploration3/Elements/Boarder Wall" unique_id=250877467 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 208)
+
+[node name="CustomWall5" parent="Exploration3/Elements/Boarder Wall" unique_id=482060900 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 224)
+
+[node name="CustomWall6" parent="Exploration3/Elements/Boarder Wall" unique_id=6325671 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 240)
+
+[node name="CustomWall7" parent="Exploration3/Elements/Boarder Wall" unique_id=501782172 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 256)
+
+[node name="CustomWall8" parent="Exploration3/Elements/Boarder Wall" unique_id=1388540515 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 272)
+
+[node name="CustomWall9" parent="Exploration3/Elements/Boarder Wall" unique_id=385476741 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 288)
+
+[node name="CustomWall11" parent="Exploration3/Elements/Boarder Wall" unique_id=1796071568 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 288)
+
+[node name="CustomWall17" parent="Exploration3/Elements/Boarder Wall" unique_id=183114982 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 288)
+
+[node name="CustomWall18" parent="Exploration3/Elements/Boarder Wall" unique_id=492062659 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 288)
+
+[node name="CustomWall20" parent="Exploration3/Elements/Boarder Wall" unique_id=874477775 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 272)
+
+[node name="CustomWall21" parent="Exploration3/Elements/Boarder Wall" unique_id=904722970 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 256)
+
+[node name="CustomWall22" parent="Exploration3/Elements/Boarder Wall" unique_id=1616219571 instance=ExtResource("7_r44b6")]
+position = Vector2(256, 288)
+
+[node name="CustomWall23" parent="Exploration3/Elements/Boarder Wall" unique_id=23509150 instance=ExtResource("7_r44b6")]
+position = Vector2(272, 272)
+
+[node name="CustomWall24" parent="Exploration3/Elements/Boarder Wall" unique_id=782931926 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 288)
+
+[node name="CustomWall25" parent="Exploration3/Elements/Boarder Wall" unique_id=1041673573 instance=ExtResource("7_r44b6")]
+position = Vector2(288, 240)
+
+[node name="CustomWall12" parent="Exploration3/Elements/Boarder Wall" unique_id=2070296536 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 272)
+
+[node name="CustomWall13" parent="Exploration3/Elements/Boarder Wall" unique_id=1857836133 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 288)
+
+[node name="CustomWall14" parent="Exploration3/Elements/Boarder Wall" unique_id=1409296275 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 256)
+
+[node name="CustomWall27" parent="Exploration3/Elements/Boarder Wall" unique_id=850149056 instance=ExtResource("7_r44b6")]
+position = Vector2(16, 240)
+
+[node name="CustomWall15" parent="Exploration3/Elements/Boarder Wall" unique_id=1371193372 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 272)
+
+[node name="CustomWall26" parent="Exploration3/Elements/Boarder Wall" unique_id=2017757833 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 288)
+
+[node name="CustomWall16" parent="Exploration3/Elements/Boarder Wall" unique_id=1146457798 instance=ExtResource("7_r44b6")]
+position = Vector2(48, 288)
+
+[node name="CustomWall47" parent="Exploration3/Elements/Boarder Wall" unique_id=115281315 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 48)
+
+[node name="CustomWall48" parent="Exploration3/Elements/Boarder Wall" unique_id=1442125481 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 64)
+
+[node name="CustomWall55" parent="Exploration3/Elements/Boarder Wall" unique_id=1448015363 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 16)
+
+[node name="CustomWall56" parent="Exploration3/Elements/Boarder Wall" unique_id=447530837 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 32)
+
+[node name="CustomWall116" parent="Exploration3/Elements/Boarder Wall" unique_id=1722634088 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -16)
+
+[node name="CustomWall117" parent="Exploration3/Elements/Boarder Wall" unique_id=1104597976 instance=ExtResource("7_r44b6")]
+
+[node name="CustomWall118" parent="Exploration3/Elements/Boarder Wall" unique_id=670531157 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -48)
+
+[node name="CustomWall119" parent="Exploration3/Elements/Boarder Wall" unique_id=1637470595 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -32)
+
+[node name="CustomWall120" parent="Exploration3/Elements/Boarder Wall" unique_id=514340279 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -80)
+
+[node name="CustomWall121" parent="Exploration3/Elements/Boarder Wall" unique_id=1213316294 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -64)
+
+[node name="CustomWall122" parent="Exploration3/Elements/Boarder Wall" unique_id=915320027 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -112)
+
+[node name="CustomWall123" parent="Exploration3/Elements/Boarder Wall" unique_id=1930331429 instance=ExtResource("7_r44b6")]
+position = Vector2(0, -96)
+
+[node name="CustomWall49" parent="Exploration3/Elements/Boarder Wall" unique_id=1313564737 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 80)
+
+[node name="CustomWall50" parent="Exploration3/Elements/Boarder Wall" unique_id=1092941525 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 96)
+
+[node name="CustomWall51" parent="Exploration3/Elements/Boarder Wall" unique_id=64360107 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 112)
+
+[node name="CustomWall52" parent="Exploration3/Elements/Boarder Wall" unique_id=1499668178 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 128)
+
+[node name="CustomWall53" parent="Exploration3/Elements/Boarder Wall" unique_id=274556159 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 144)
+
+[node name="CustomWall54" parent="Exploration3/Elements/Boarder Wall" unique_id=982294541 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 160)
+
+[node name="CustomWall75" parent="Exploration3/Elements/Boarder Wall" unique_id=1086829633 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 176)
+
+[node name="CustomWall76" parent="Exploration3/Elements/Boarder Wall" unique_id=1608498480 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 192)
+
+[node name="CustomWall77" parent="Exploration3/Elements/Boarder Wall" unique_id=1758290110 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 208)
+
+[node name="CustomWall78" parent="Exploration3/Elements/Boarder Wall" unique_id=994153979 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 224)
+
+[node name="CustomWall79" parent="Exploration3/Elements/Boarder Wall" unique_id=1513382349 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 240)
+
+[node name="CustomWall80" parent="Exploration3/Elements/Boarder Wall" unique_id=1117054027 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 256)
+
+[node name="CustomWall81" parent="Exploration3/Elements/Boarder Wall" unique_id=554916732 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 272)
+
+[node name="CustomWall82" parent="Exploration3/Elements/Boarder Wall" unique_id=1995335606 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 288)
+
+[node name="CustomWall83" parent="Exploration3/Elements/Boarder Wall" unique_id=119275009 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 48)
+
+[node name="CustomWall84" parent="Exploration3/Elements/Boarder Wall" unique_id=1253168027 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 64)
+
+[node name="CustomWall85" parent="Exploration3/Elements/Boarder Wall" unique_id=1531722413 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -144)
+
+[node name="CustomWall86" parent="Exploration3/Elements/Boarder Wall" unique_id=54518185 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 32)
+
+[node name="CustomWall106" parent="Exploration3/Elements/Boarder Wall" unique_id=2039176605 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 16)
+
+[node name="CustomWall107" parent="Exploration3/Elements/Boarder Wall" unique_id=1038165825 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -16)
+
+[node name="CustomWall108" parent="Exploration3/Elements/Boarder Wall" unique_id=1479162508 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 0)
+
+[node name="CustomWall109" parent="Exploration3/Elements/Boarder Wall" unique_id=1243418967 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -32)
+
+[node name="CustomWall115" parent="Exploration3/Elements/Boarder Wall" unique_id=815347555 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -64)
+
+[node name="CustomWall110" parent="Exploration3/Elements/Boarder Wall" unique_id=11705233 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -48)
+
+[node name="CustomWall111" parent="Exploration3/Elements/Boarder Wall" unique_id=715267549 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -96)
+
+[node name="CustomWall112" parent="Exploration3/Elements/Boarder Wall" unique_id=152790014 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -80)
+
+[node name="CustomWall113" parent="Exploration3/Elements/Boarder Wall" unique_id=1932227098 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -112)
+
+[node name="CustomWall114" parent="Exploration3/Elements/Boarder Wall" unique_id=198894385 instance=ExtResource("7_r44b6")]
+position = Vector2(304, -128)
+
+[node name="CustomWall87" parent="Exploration3/Elements/Boarder Wall" unique_id=773563447 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 80)
+
+[node name="CustomWall88" parent="Exploration3/Elements/Boarder Wall" unique_id=580314498 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 96)
+
+[node name="CustomWall89" parent="Exploration3/Elements/Boarder Wall" unique_id=1449587931 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 112)
+
+[node name="CustomWall90" parent="Exploration3/Elements/Boarder Wall" unique_id=442829140 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 128)
+
+[node name="CustomWall91" parent="Exploration3/Elements/Boarder Wall" unique_id=1598667908 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 144)
+
+[node name="CustomWall92" parent="Exploration3/Elements/Boarder Wall" unique_id=656421820 instance=ExtResource("7_r44b6")]
+position = Vector2(304, 160)
+
+[node name="CustomWall10" parent="Exploration3/Elements/Boarder Wall" unique_id=2114543005 instance=ExtResource("7_r44b6")]
+position = Vector2(0, 304)
+atlas_source_id = 8
+
+[node name="Level Wall" type="Node2D" parent="Exploration3/Elements" unique_id=950377868]
 
 [node name="Level12" parent="." unique_id=1271032903 instance=ExtResource("2_5ekxl")]
 visible = false

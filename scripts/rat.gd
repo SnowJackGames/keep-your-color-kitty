@@ -60,6 +60,17 @@ static var directional_walk_animations := {
 	"Left" : "walk left"
 }
 
+static var eight_direction_to_four_directions := {
+	"Up Left" : "Up",
+	"Up" : "Up",
+	"Up Right" : "Up",
+	"Right" : "Right",
+	"Down Right" : "Down",
+	"Down" : "Down",
+	"Down Left" : "Down",
+	"Left" : "Left"
+}
+
 static var direction_slash_animation := {
 	"Up": "slash up",
 	"Down": "slash down",
@@ -117,7 +128,7 @@ func phase_one() -> void:
 		if push_target:
 			move(declared_move_pos)
 			await FinishedMove
-			sprite.animation = direction_slash_animation[facing]
+			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 			sprite.frame = 0
 			await get_tree().create_timer(0.15).timeout
 			sprite.frame = 1
@@ -132,7 +143,7 @@ func phase_one() -> void:
 			$AttackHint.global_position = declared_move_pos
 			$AttackHint.show()
 			await get_tree().create_timer(0.2).timeout
-			sprite.animation = direction_slash_animation[facing]
+			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 			sprite.frame = 0
 			await get_tree().create_timer(0.15).timeout
 			sprite.frame = 1

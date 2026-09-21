@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Debug="*uid://i8q3nygdq8fy"
 Globals="*uid://bgwd5m1kngn58"
+Globalaudio="*uid://v78ay82gpbo1"
 
 [display]
 

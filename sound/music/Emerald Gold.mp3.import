@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://eqb4k5o3jrbd"
+path="res://.godot/imported/Emerald Gold.mp3-86984e4e131ac332d60914b4c3d0ce1f.mp3str"
+
+[deps]
+
+source_file="res://sound/music/Emerald Gold.mp3"
+dest_files=["res://.godot/imported/Emerald Gold.mp3-86984e4e131ac332d60914b4c3d0ce1f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

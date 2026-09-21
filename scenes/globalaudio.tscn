@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://v78ay82gpbo1"]
+
+[ext_resource type="Script" uid="uid://dcrodp8pnl0vp" path="res://scripts/globalaudio.gd" id="1_57bhw"]
+[ext_resource type="AudioStream" uid="uid://c8bejh8bqanm6" path="res://sound/music/Spurr.mp3" id="1_p0q5j"]
+
+[node name="Globalaudio" type="AudioStreamPlayer" unique_id=927855227]
+stream = ExtResource("1_p0q5j")
+script = ExtResource("1_57bhw")
