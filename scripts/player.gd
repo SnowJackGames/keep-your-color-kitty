@@ -357,10 +357,18 @@ func move_hint(valid_dir: Array, shouldload: bool) -> void:
 func move(vector_pos: Vector2):
 	if Globals.game_mode == 1:
 		can_action = false
-	position += vector_pos
-	sprite.frame = (sprite.frame + 1) % 2
-	# Move animation
-	await get_tree().create_timer(0.15).timeout
+	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
+	var frame_target = sprite.frame
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
+	position += 0.5 * vector_pos
+	await get_tree().create_timer(0.2).timeout
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
+	position += 0.5 * vector_pos
+	await get_tree().create_timer(0.2).timeout
 	check_for_tile_damage()
 	FinishedMove.emit()
 #endregion
@@ -547,6 +555,7 @@ func declare_pounce() -> void:
 		# then cannot pounce
 		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
 		var tile_detection_check_2 = (dir_inputs[dir] * Globals.grid_size * 2) + position + kitty_center_offset
+		print(dir)
 		if tile_detection.pounceoverable(tile_detection_check) and tile_detection.pounceoverable(tile_detection_check_2):
 			print("can pounce over both")
 			valid_target = true
@@ -556,9 +565,8 @@ func declare_pounce() -> void:
 		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 3) + position + kitty_center_offset
 		if !tile_detection.landonable(tile_detection_check):
 			valid_target = false
-			print("can land on")
 		else:
-			print("can NOT land on")
+			valid_target = true
 			
 		if valid_target:
 			valid_dir.append(directional_facing[dir])
@@ -876,7 +884,7 @@ func knight() -> void:
 	knight_hint([], false)
 	var damage_spot = knight_spot
 	var target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
-	var push_spot : Vector2
+	var push_spot
 	position = damage_spot
 	await tile_detection.damage_object(damage_spot, knight_damage)
 	if knight_direction in ["UpUpLeft", "UpUpRight"]:

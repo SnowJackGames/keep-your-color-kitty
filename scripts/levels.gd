@@ -2,14 +2,6 @@ extends Node2D
 
 
 @onready var level_order = [
-	$Level4,
-	$Level1,
-	$Level2,
-	$Level3,
-	$Level4,
-	$Level5,
-	$Exploration1,
-	$Level6, 
 	$Level7,
 	$Exploration2,
 	$Level8, 
@@ -23,6 +15,12 @@ extends Node2D
 	$Level16,
 	$Level17,
 	$Level18,
+	$Level1,
+	$Level2,
+	$Level3,
+	$Level4,
+	$Level5,
+	$Exploration1,
 	
 ]
 
