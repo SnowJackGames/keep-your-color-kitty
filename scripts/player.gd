@@ -98,7 +98,7 @@ static var knight_direction_to_walk_animation := {
 static var directional_knight_animations := {
 	"UpUpLeft" : "knight up up left",
 	"UpUpRight" : "knight up up right",
-	"LeftLeftUp" : "knight left left left up",
+	"LeftLeftUp" : "knight left left up",
 	"RightRightUp" : "knight right right up",
 	"LeftLeftDown" : "knight left left down",
 	"RightRightDown" : "knight right right down",

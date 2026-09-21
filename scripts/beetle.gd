@@ -84,6 +84,16 @@ static var direction_slash_animation := {
 	"Down Left" : "slash down",
 	"Down Right" : "slash down"
 }
+static var direction_bump_slash_animation := {
+	"Up": "bump up",
+	"Down": "bump down",
+	"Left": "bump left",
+	"Right": "bump right",
+	"Up Left" : "bump up",
+	"Up Right" : "bump up",
+	"Down Left" : "bump down",
+	"Down Right" : "bump down"
+}
 
 static var direction_hurt_animation := {
 	"Up": "hurt up",
