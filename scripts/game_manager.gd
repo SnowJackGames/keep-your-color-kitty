@@ -50,7 +50,7 @@ func next_turn () -> void:
 		#pass
 	#else:
 		#push_error("Impossible state in game_manager player phase")
-
+	update_camera_target()
 	await player_character.FinishedTurn
 	# Current enemy in ai_array takes player_character.damage_dealt
 	
@@ -106,19 +106,27 @@ func increment_active_level() -> void:
 		current_level.process_mode = Node.PROCESS_MODE_INHERIT
 		
 		# Move player to starting position of level
-		print(player_character.position)
 		player_character.position = current_level.player_start_position
-		print(player_character.position)
-		print(current_level.name)
-		print(current_level.player_start_position)
+	update_camera_target()
 
 
-func update_camera_target() -> void:
+func update_camera_target() -> void: 	
+	$Player/RemoteTransform2D.remote_path = NodePath("")  
+	
+	await get_tree().process_frame
+
 	Globals.level_camera = current_level.get_node("Camera2D")
-	if Globals.level_camera:
+	
+	if Globals.level_camera: 
+		Globals.level_camera.make_current()
+		$Player/RemoteTransform2D.use_global_coordinates = true
 		$Player/RemoteTransform2D.remote_path = Globals.level_camera.get_path()
-	else:
+		$Player/RemoteTransform2D.force_update_cache()
+		Globals.level_camera.global_position = $Player.global_position
+		print($Player/RemoteTransform2D.remote_path)
+	else: 
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
+
 
 
 # calculate ai_array
@@ -141,7 +149,6 @@ func _ready() -> void:
 	levels_scene.show()
 	player_character.show()
 	increment_active_level()
-	update_camera_target()
 	next_turn()
 
 	

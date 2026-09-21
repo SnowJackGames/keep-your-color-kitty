@@ -14,6 +14,7 @@ metadata/_edit_vertical_guides_ = [-496.0, 352.0]
 metadata/_edit_horizontal_guides_ = [352.0, 288.0, 352.0, -112.0]
 
 [node name="Level1" parent="." unique_id=69772821 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(144, 240)
 
 [node name="Floor" parent="Level1" unique_id=43372653 instance=ExtResource("3_jj4e6")]
@@ -22,7 +23,6 @@ floor_size = Vector2(560, 560)
 
 [node name="Camera2D" type="Camera2D" parent="Level1" unique_id=1307517871]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 48
 limit_right = 240
@@ -377,16 +377,14 @@ atlas_source_id = 8
 [node name="Level Wall" type="Node2D" parent="Level1/Elements" unique_id=203626727]
 
 [node name="Level2" parent="." unique_id=1148507802 instance=ExtResource("2_5ekxl")]
-visible = false
-set_player_start_position = Vector2(352, 224)
+set_player_start_position = Vector2(224, 352)
 
 [node name="Floor" parent="Level2" unique_id=177752272 instance=ExtResource("3_jj4e6")]
 position = Vector2(-144, -304)
 floor_size = Vector2(800, 800)
 
-[node name="Camera2D" type="Camera2D" parent="Level2" unique_id=956140988]
+[node name="Camera2D" type="Camera2D" parent="Level2" unique_id=821526603]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 128
 limit_top = -240
 limit_right = 352
