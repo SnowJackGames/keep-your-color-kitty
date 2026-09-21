@@ -11,6 +11,15 @@ extends CharacterBody2D
 @onready var moveonable := false
 @onready var is_enemy := true
 
+
+var ratattack = preload("res://sound/sfx/RatAttack.mp3")  
+var ratdeath = preload("res://sound/sfx/RatDeath.mp3")  
+var ratsteps = preload("res://sound/sfx/RatSteps-glued.mp3")  
+var ratdamage = preload("res://sound/sfx/OtherDamage.mp3")  
+
+
+
+
 const rat_center_offset := Vector2(8,8)
 
 var facing := "Up"
@@ -226,6 +235,7 @@ func attack_hint() -> void:
 			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
+	Globalaudio.play_FX(ratattack)
 	sprite.animation = direction_slash_animation[facing]
 	sprite.frame = 0
 	await get_tree().create_timer(0.15).timeout
@@ -245,6 +255,7 @@ func attack() -> void:
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
+	Globalaudio.play_FX(ratsteps)
 	sprite.animation = directional_walk_animations[facing]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
@@ -258,7 +269,7 @@ func move(pos: Vector2):
 	frame_target %= 4
 	sprite.frame = frame_target
 	$MoveHint.hide()
-	$AttackHint.show()
+	$AttackHint.hide()
 	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
 	frame_target += 1
@@ -325,6 +336,7 @@ func where_can_be_pushed(source_direction) -> Variant:
 	return push_spot
 
 func take_damage (damage : int):
+	Globalaudio.play_FX(ratdamage)
 	var attack_shown = $AttackHint.visible
 	var attack2_shown = $AttackHint2.visible
 	sprite.animation = direction_hurt_animation[facing]
@@ -347,7 +359,9 @@ func take_damage (damage : int):
 		await get_tree().create_timer(0.1).timeout
 		sprite.animation = directional_walk_animations[facing]
 	if cur_health <= 0:
+		Globalaudio.play_FX(ratdeath)
 		queue_free()
+		
 	else:
 		if attack_shown:
 			$AttackHint.show()

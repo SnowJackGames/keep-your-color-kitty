@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var landonable := true
 @onready var moveonable := false
 @onready var is_enemy := true
+@onready var died := false
 
 const beetle_center_offset := Vector2(8,8)
 
@@ -358,4 +359,5 @@ func take_damage (damage : int):
 		hide()
 		await get_tree().create_timer(0.01).timeout
 		# Should always die in one hit
+		died = true
 		queue_free()

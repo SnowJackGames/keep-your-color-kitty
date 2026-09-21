@@ -34,7 +34,6 @@ static var knight_damage = 3
 var cur_health : int
 var max_health : int
 
-signal OnTakeDamage (health : int)
 # signal OnHeal (health : int)
 # signal CantMoveHere
 signal FinishedTurn
@@ -301,7 +300,6 @@ func await_inputs_clear() -> void:
 
 #region Move
 func declare_move() -> void:
-	Globalaudio.play_FX(menu_fx2)
 	var valid_dir := [] # "Up", etc
 	for dir in directional_facing: # directional_facing: ui_up -> Up
 		var valid_target := true
@@ -988,14 +986,13 @@ func knight() -> void:
 	await tile_detection.damage_enemy(damage_spot, knight_damage)
 	# check if enemy exists after taking initial damage
 	target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
-	if target_enemy:
+	if target_enemy.get("pushed_onto"):
 		if knight_direction in ["UpUpLeft", "UpUpRight"]:
 			push_spot = target_enemy.where_can_be_pushed("Up")
 			if target_enemy.where_can_be_pushed("Up"):
 				await target_enemy.pushed_onto(push_spot)
 			else:
-				print("trying to push enemy upwards")
-				await tile_detection.damage_enemy(damage_spot, knight_damage)
+				tile_detection.damage_enemy(damage_spot, knight_damage)
 		elif knight_direction in ["LeftLeftUp", "LeftLeftDown"]:
 			push_spot = target_enemy.where_can_be_pushed("Left")
 			if target_enemy.where_can_be_pushed("Left"):
