@@ -541,19 +541,24 @@ func declare_pounce() -> void:
 	var valid_dir := [] # "Up", etc
 	var tile_detection_check : Vector2
 	for dir in directional_facing: # directional_facing: ui_up -> Up
-		var valid_target := true
+		var valid_target := false
 		# move tile_detection to each increasing spot towards the target
 		# if 1 and 2 away cannot be pounced over, or 3 away cannot be landed on,
 		# then cannot pounce
-		for i in range(1, 2):
-			tile_detection_check = (dir_inputs[dir] * Globals.grid_size * i) + position + kitty_center_offset
-			if !tile_detection.pounceoverable(tile_detection_check):
-				valid_target = false
-				break
+		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
+		var tile_detection_check_2 = (dir_inputs[dir] * Globals.grid_size * 2) + position + kitty_center_offset
+		if tile_detection.pounceoverable(tile_detection_check) and tile_detection.pounceoverable(tile_detection_check_2):
+			print("can pounce over both")
+			valid_target = true
+		else:
+			print("can NOT pounce over both")
 		
 		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 3) + position + kitty_center_offset
 		if !tile_detection.landonable(tile_detection_check):
 			valid_target = false
+			print("can land on")
+		else:
+			print("can NOT land on")
 			
 		if valid_target:
 			valid_dir.append(directional_facing[dir])
