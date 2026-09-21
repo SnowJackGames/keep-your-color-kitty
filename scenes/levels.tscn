@@ -7423,6 +7423,7 @@ atlas_source_id = 3
 tile_rotation_steps = 1
 
 [node name="Level8" parent="." unique_id=1699381707 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(192, 192)
 
 [node name="Floor" parent="Level8" unique_id=1765796615 instance=ExtResource("3_jj4e6")]
@@ -8369,7 +8370,6 @@ position = Vector2(176, 160)
 atlas_source_id = 3
 
 [node name="Level10" parent="." unique_id=1318668282 instance=ExtResource("2_5ekxl")]
-visible = false
 set_player_start_position = Vector2(192, 208)
 
 [node name="Floor" parent="Level10" unique_id=295061027 instance=ExtResource("3_jj4e6")]

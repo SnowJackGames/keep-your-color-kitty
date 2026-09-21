@@ -57,17 +57,17 @@ static var directional_swipe_animations := {
 }
 
 static var directional_pounce_animations_exploration := {
-	'ui_up': "swipe up",
-	'ui_down': "swipe down",
-	'ui_left': "swipe left",
-	'ui_right': "swipe right"
+	'ui_up': "pounce up exploration",
+	'ui_down': "pounce down exploration",
+	'ui_left': "pounce left exploration",
+	'ui_right': "pounce right exploration"
 }
 
 static var directional_pounce_animations_combat := {
-	'ui_up': "swipe up",
-	'ui_down': "swipe down",
-	'ui_left': "swipe left",
-	'ui_right': "swipe right"
+	'ui_up': "pounce up combat",
+	'ui_down': "pounce down combat",
+	'ui_left': "pounce left combat",
+	'ui_right': "pounce right combat"
 }
 
 static var knight_direction_to_walk_animation := {
@@ -290,7 +290,7 @@ func declare_move() -> void:
 		Debug.say("No valid movement")
 		await get_tree().create_timer(0.1).timeout
 		can_move = false
-		FinishedAction.emit()
+		FinishedMove.emit()
 
 
 func attempt_move(valid_dir) -> void:
@@ -702,18 +702,28 @@ func pounce_hint(valid_dir: Array, shouldload: bool) -> void:
 func pounce() -> void:
 	Globals.ui.hide_all()
 	pounce_hint([], false)
+	if Globals.game_mode == 1:
+		sprite.animation = directional_pounce_animations_exploration[directional_facing.find_key(facing)]
+	else:
+		sprite.animation = directional_pounce_animations_combat[directional_facing.find_key(facing)]
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
 	var pounce_vector_pos : Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
 	var damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3) + position
 	# We animate moving
-	position += pounce_vector_pos
-	await tile_detection.damage_object(damage_spot, pounce_damage)
-	await get_tree().create_timer(0.3).timeout
-	# We move there [we can make this smoother]
-	# We deal damage to whatever is there
-	# i.e anything there takes a damage
+	sprite.frame = 0
 	Debug.say("Pounce " + facing + "!")
-
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 1
+	position += 0.5 * pounce_vector_pos
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 2
+	position += 0.25 * pounce_vector_pos
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 3
+	position += 0.25 * pounce_vector_pos
+	await get_tree().create_timer(0.15).timeout
+	await tile_detection.damage_object(damage_spot, pounce_damage)
+	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 	# If pounced onto damaging spot, take damage
 	check_for_tile_damage()
 	end_turn()
