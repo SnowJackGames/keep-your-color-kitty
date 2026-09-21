@@ -49,6 +49,27 @@ static var directional_walk_animations := {
 	'ui_right': "walk right"
 }
 
+static var directional_swipe_animations := {
+	'ui_up': "swipe up",
+	'ui_down': "swipe down",
+	'ui_left': "swipe left",
+	'ui_right': "swipe right"
+}
+
+static var directional_pounce_animations_exploration := {
+	'ui_up': "swipe up",
+	'ui_down': "swipe down",
+	'ui_left': "swipe left",
+	'ui_right': "swipe right"
+}
+
+static var directional_pounce_animations_combat := {
+	'ui_up': "swipe up",
+	'ui_down': "swipe down",
+	'ui_left': "swipe left",
+	'ui_right': "swipe right"
+}
+
 static var knight_direction_to_walk_animation := {
 	"UpUpLeft" : "walk up",
 	"UpUpRight" : "walk up",
@@ -118,12 +139,15 @@ func reset_status() -> void:
 	max_health = 15
 	on_level_exit = false
 	Debug.say("Full health!")
+	facing = "Up"
+	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 
 func _ready() -> void:
 	$Targetting/Pounce.hide()
 	$Targetting/Slash.hide()
 	$Targetting/Move.hide()
 	$Targetting/Knight.hide()
+	facing = ""
 
 func _process (_delta: float) -> void:
 	if can_move == true:
@@ -363,12 +387,12 @@ func move(vector_pos: Vector2):
 	frame_target %= 4
 	sprite.frame = frame_target
 	position += 0.5 * vector_pos
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.15).timeout
 	frame_target += 1
 	frame_target %= 4
 	sprite.frame = frame_target
 	position += 0.5 * vector_pos
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.15).timeout
 	check_for_tile_damage()
 	FinishedMove.emit()
 #endregion
@@ -521,18 +545,38 @@ func slash(valid_dir: Array) -> void:
 	var damage_spot : Vector2
 	# Near slash
 	if valid_dir.has((facing + "Near")) and !valid_dir.has((facing + "Far")):
+		sprite.animation = directional_swipe_animations[directional_facing.find_key(facing)]
 		Debug.say("Slash " + facing + " Near!")
+		sprite.frame = 0
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 1
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 2
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 3
+		await get_tree().create_timer(0.2).timeout
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1) + position
-		await tile_detection.damage_object(damage_spot, slash_damage)
-		# Animate near slash
-		await get_tree().create_timer(0.3).timeout
+		await tile_detection.damage_enemy(damage_spot, slash_damage)
+		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
+		sprite.frame = 0
+		await get_tree().create_timer(0.2).timeout
 	# Far slash
 	elif valid_dir.has((facing + "Far")) and !valid_dir.has((facing + "Near")):
-		Debug.say("Slash " + facing + " Far!")
+		sprite.animation = directional_swipe_animations[directional_facing.find_key(facing)]
+		Debug.say("Slash " + facing + " Near!")
+		sprite.frame = 0
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 1
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 2
+		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 3
+		await get_tree().create_timer(0.2).timeout
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 2) + position
-		await tile_detection.damage_object(damage_spot, slash_damage)
-		# Animate far slash
-		await get_tree().create_timer(0.3).timeout
+		await tile_detection.damage_enemy(damage_spot, slash_damage)
+		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
+		sprite.frame = 0
+		await get_tree().create_timer(0.2).timeout
 
 	elif valid_dir.has((facing + "Near")) and valid_dir.has((facing + "Far")):
 		push_error("Cannot slash both near and far")
@@ -549,24 +593,21 @@ func declare_pounce() -> void:
 	var valid_dir := [] # "Up", etc
 	var tile_detection_check : Vector2
 	for dir in directional_facing: # directional_facing: ui_up -> Up
-		var valid_target := false
+		var valid_target
 		# move tile_detection to each increasing spot towards the target
 		# if 1 and 2 away cannot be pounced over, or 3 away cannot be landed on,
 		# then cannot pounce
 		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
 		var tile_detection_check_2 = (dir_inputs[dir] * Globals.grid_size * 2) + position + kitty_center_offset
-		print(dir)
 		if tile_detection.pounceoverable(tile_detection_check) and tile_detection.pounceoverable(tile_detection_check_2):
-			print("can pounce over both")
 			valid_target = true
 		else:
-			print("can NOT pounce over both")
+			valid_target = false
 		
 		tile_detection_check = (dir_inputs[dir] * Globals.grid_size * 3) + position + kitty_center_offset
-		if !tile_detection.landonable(tile_detection_check):
-			valid_target = false
-		else:
-			valid_target = true
+		if valid_target == true:
+			if !tile_detection.landonable(tile_detection_check):
+				valid_target = false
 			
 		if valid_target:
 			valid_dir.append(directional_facing[dir])
@@ -892,6 +933,7 @@ func knight() -> void:
 		if target_enemy.where_can_be_pushed("Up"):
 			await target_enemy.pushed_onto(push_spot)
 		else:
+			print("trying to push enemy upwards")
 			await tile_detection.damage_object(damage_spot, knight_damage)
 	elif knight_direction in ["LeftLeftUp", "LeftLeftDown"]:
 		push_spot = target_enemy.where_can_be_pushed("Left")
