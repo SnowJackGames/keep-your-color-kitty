@@ -93,9 +93,8 @@ animations = [{
 }]
 
 [node name="gas" type="StaticBody2D" unique_id=369884562]
-z_index = 1
+z_index = 3
 script = ExtResource("1_fdl3e")
-shape = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=68033917]
 visible = false
@@ -103,9 +102,8 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nish5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1826976048]
-z_index = -1
 sprite_frames = SubResource("SpriteFrames_nish5")
 animation = &"single"
-frame_progress = 0.24706374
+frame_progress = 0.4418977
 speed_scale = 0.4
 offset = Vector2(8, 8)

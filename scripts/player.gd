@@ -134,6 +134,7 @@ func _process (_delta: float) -> void:
 						set_process(false)
 						declare_move()
 						await FinishedMove
+						print(position)
 						set_process(true)
 						break
 		# Combat

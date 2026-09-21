@@ -106,7 +106,11 @@ func increment_active_level() -> void:
 		current_level.process_mode = Node.PROCESS_MODE_INHERIT
 		
 		# Move player to starting position of level
+		print(player_character.position)
 		player_character.position = current_level.player_start_position
+		print(player_character.position)
+		print(current_level.name)
+		print(current_level.player_start_position)
 
 
 func update_camera_target() -> void:

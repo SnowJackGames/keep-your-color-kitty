@@ -9,7 +9,7 @@
 script = ExtResource("1_iweij")
 
 [node name="Player" parent="." unique_id=1727976728 instance=ExtResource("1_req00")]
-position = Vector2(-64, -48)
+position = Vector2(144, 208)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player" unique_id=439446228]
 

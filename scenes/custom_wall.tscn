@@ -9,13 +9,19 @@
 [ext_resource type="Texture2D" uid="uid://ck18lgyix4vve" path="res://art/wall/V5Wall Broken 3.png" id="7_myvl6"]
 [ext_resource type="Texture2D" uid="uid://duoiu7bamuhuy" path="res://art/wall/V5Wall Broken 4.png" id="8_2ykfp"]
 [ext_resource type="Texture2D" uid="uid://cnfo5dqpyj1fg" path="res://art/wall/V5Wall Broken 5.png" id="9_w0qfy"]
+[ext_resource type="Texture2D" uid="uid://cpfbny30k7a5t" path="res://art/wall/V5 Wall Blank.png" id="10_jau6i"]
 [ext_resource type="Texture2D" uid="uid://bsm3unyjuk3dk" path="res://art/wall/V5Wall 2.png" id="10_shwwn"]
 [ext_resource type="Texture2D" uid="uid://o74oi8b4xpvg" path="res://art/wall/V5Wall 3.png" id="11_ptnh3"]
+[ext_resource type="Texture2D" uid="uid://cad4jrwifs507" path="res://art/wall/V5 Wall Blank 2.png" id="11_sfokw"]
+[ext_resource type="Texture2D" uid="uid://cmh2us3t5el1t" path="res://art/wall/Barrell.png" id="12_3kcn4"]
 [ext_resource type="Texture2D" uid="uid://bo1dyhq6v8e5d" path="res://art/wall/V5Wall 4.png" id="12_bq55m"]
 [ext_resource type="Texture2D" uid="uid://cj4wcxeiohcb7" path="res://art/wall/V5Wall 5.png" id="13_7be5p"]
+[ext_resource type="Texture2D" uid="uid://cm0fu0tjiuofl" path="res://art/wall/RandomWall3.png" id="13_jhpvo"]
 [ext_resource type="Texture2D" uid="uid://g3v71nsokmbs" path="res://art/wall/V5Wall 6.png" id="14_cg5ik"]
 [ext_resource type="Texture2D" uid="uid://341ag1t7rvbd" path="res://art/wall/V5Wall 7.png" id="15_4unk3"]
+[ext_resource type="Texture2D" uid="uid://bymrjql320gwt" path="res://art/wall/bones.png" id="15_myvl6"]
 [ext_resource type="Texture2D" uid="uid://d2assx0vvhu7f" path="res://art/wall/V5Wall 8.png" id="16_2u4uq"]
+[ext_resource type="Texture2D" uid="uid://di61fitp0v8b8" path="res://art/wall/Skull.png" id="16_2ykfp"]
 [ext_resource type="Texture2D" uid="uid://cshatjjst4w3t" path="res://art/wall/V5Wall 9.png" id="17_ouf64"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kd8pg"]
@@ -53,8 +59,32 @@ texture = ExtResource("8_2ykfp")
 texture = ExtResource("9_w0qfy")
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfokw"]
+texture = ExtResource("10_jau6i")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3kcn4"]
+texture = ExtResource("11_sfokw")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhpvo"]
+texture = ExtResource("12_3kcn4")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_115m5"]
+texture = ExtResource("13_jhpvo")
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_11a0q"]
 texture = ExtResource("10_shwwn")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0qfy"]
+texture = ExtResource("15_myvl6")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_shwwn"]
+texture = ExtResource("16_2ykfp")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d1s28"]
@@ -102,8 +132,15 @@ sources/12 = SubResource("TileSetAtlasSource_j671m")
 sources/13 = SubResource("TileSetAtlasSource_xv5ym")
 sources/14 = SubResource("TileSetAtlasSource_b1b4n")
 sources/15 = SubResource("TileSetAtlasSource_ohrbl")
+sources/16 = SubResource("TileSetAtlasSource_sfokw")
+sources/17 = SubResource("TileSetAtlasSource_3kcn4")
+sources/18 = SubResource("TileSetAtlasSource_jhpvo")
+sources/19 = SubResource("TileSetAtlasSource_115m5")
+sources/20 = SubResource("TileSetAtlasSource_w0qfy")
+sources/21 = SubResource("TileSetAtlasSource_shwwn")
 
 [node name="CustomWall" type="StaticBody2D" unique_id=51517795]
+z_index = 1
 script = ExtResource("1_0fknu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1601401377]
