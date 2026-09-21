@@ -19,6 +19,13 @@ var knight_direction
 var knight_spot_dictionary : Dictionary[String, Vector2]
 var just_took_damage := false
 
+var catdamage_fx = preload("res://sound/sfx/CatDamage.mp3")    
+var menu_fx1 = preload("res://sound/sfx/MenuMove.mp3")	
+var menu_fx2 = preload("res://sound/sfx/MenuClick.mp3")	
+var menu_fx3 = preload("res://sound/sfx/OptionsMenu.mp3")
+var catattack_fx = preload("res://sound/sfx/CatAttack.mp3")
+
+
 static var is_player := true
 static var cornered_damage = 3
 static var slash_damage = 3
@@ -227,12 +234,14 @@ func _process (_delta: float) -> void:
 
 func attack_selection() -> Callable:
 	await_inputs_clear()
+	Globalaudio.play_FX(menu_fx1)
 	await InputsClear
 	var chose_option := false
 	var selection_just_changed := true
 	while !chose_option:
 		# Left
 		if Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+			Globalaudio.play_FX(menu_fx2)
 			if combat_attack_selection_index == 0:
 				combat_attack_selection_index = 3
 			else:
@@ -241,15 +250,18 @@ func attack_selection() -> Callable:
 			await get_tree().create_timer(0.05).timeout
 		# Right
 		if Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+			Globalaudio.play_FX(menu_fx2)
 			combat_attack_selection_index += 1
 			combat_attack_selection_index %= 4
 			selection_just_changed = true
 			await get_tree().create_timer(0.05).timeout
 		# (A) select
 		if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+			Globalaudio.play_FX(menu_fx2)
 			chose_option = true
 		# (B) skip
 		if Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+			Globalaudio.play_FX(menu_fx2)
 			combat_attack_selection_index = 3
 			chose_option = true
 		# Show the correct UI version
@@ -289,6 +301,7 @@ func await_inputs_clear() -> void:
 
 #region Move
 func declare_move() -> void:
+	Globalaudio.play_FX(menu_fx2)
 	var valid_dir := [] # "Up", etc
 	for dir in directional_facing: # directional_facing: ui_up -> Up
 		var valid_target := true
@@ -559,6 +572,7 @@ func slash_hint(valid_dir: Array, shouldload: bool = false) -> void:
 		get_node(slash_ui).hide()
 
 func slash(valid_dir: Array) -> void:
+	Globalaudio.play_FX(catattack_fx)
 	Globals.ui.hide_all()
 	slash_hint([], false)
 	var damage_spot : Vector2
@@ -721,6 +735,7 @@ func pounce_hint(valid_dir: Array, shouldload: bool) -> void:
 func pounce() -> void:
 	Globals.ui.hide_all()
 	pounce_hint([], false)
+	Globalaudio.play_FX(catattack_fx)
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
 	var pounce_vector_pos : Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
 	var damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3) + position
@@ -953,6 +968,7 @@ func knight_hint(valid_dir: Array, shouldload: bool) -> void:
 func knight() -> void:
 	Globals.ui.hide_all()
 	knight_hint([], false)
+	Globalaudio.play_FX(catattack_fx)
 	var damage_spot = knight_spot
 	var target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
 	var push_spot
@@ -1064,6 +1080,7 @@ func where_can_be_pushed(source_direction) -> Variant:
 
 func take_damage (damage : int):
 	if damage > 0:
+		Globalaudio.play_FX(catdamage_fx)
 		cur_health -= damage
 		# Take damage animation
 		var prev_animation = sprite.animation

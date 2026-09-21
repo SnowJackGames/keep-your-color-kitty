@@ -28,7 +28,6 @@ var bump_slash_damage := 3
 var quick_attack_damage := 3
 
 signal FinishedPhase
-signal FinishedMove
 
 static var direction_dictionary = {
 	"Up Left" : Vector2.UP + Vector2.LEFT,
@@ -126,8 +125,7 @@ func phase_one() -> void:
 		var push_target = player.where_can_be_pushed(direction_towards_player)
 		# declare initial position, then move position halfway towards player?
 		if push_target:
-			move(declared_move_pos)
-			await FinishedMove
+			await move(declared_move_pos)
 			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 			sprite.frame = 0
 			await get_tree().create_timer(0.15).timeout
@@ -169,8 +167,7 @@ func phase_one() -> void:
 					closest_tile_to_player = tile_detection_check
 					distance_to_player = tile_detection_check.distance_to(player.position)
 		declared_move_pos = closest_tile_to_player
-		move(declared_move_pos)
-		await FinishedMove
+		await move(declared_move_pos)
 		# Declare attack
 		declare_attack()
 	await get_tree().create_timer(0.2).timeout
@@ -270,7 +267,6 @@ func move(pos: Vector2):
 	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
 	check_for_tile_damage()
-	FinishedMove.emit()
 	
 
 func check_for_tile_damage() -> void:

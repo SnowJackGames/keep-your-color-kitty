@@ -78,6 +78,10 @@ static var direction_slash_animation := {
 	"Down": "slash down",
 	"Left": "slash left",
 	"Right": "slash right",
+	"Up Left" : "slash up",
+	"Up Right" : "slash up",
+	"Down Left" : "slash down",
+	"Down Right" : "slash down"
 }
 
 static var direction_hurt_animation := {
@@ -233,28 +237,47 @@ func attack_hint() -> void:
 			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
+	sprite.animation = direction_slash_animation[facing]
+	sprite.frame = 0
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 1
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 2
+	await get_tree().create_timer(0.15).timeout
 	if declared_attack:
 		for attack_spot in [declared_attack_pos_1, declared_attack_pos_2, declared_attack_pos_3, declared_attack_pos_4]:
 			if attack_spot != null:
 				if tile_detection.player_on_tile(attack_spot):
 					await player.take_damage(spit_attack_damage)
-	await get_tree().create_timer(0.2).timeout
+	
 	$AttackHint.hide()
 	$AttackHint2.hide()
 	$AttackHint3.hide()
 	$AttackHint4.hide()
+	sprite.animation = directional_walk_animations[facing]
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
+	sprite.animation = directional_walk_animations[facing]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
 	await get_tree().create_timer(0.2).timeout
+	var frame_target = sprite.frame
+	var movement_vector = pos - position
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
 	$MoveHint.hide()
-	position = pos
-	# Move animation, maybe hinting?
-	sprite.animation = directional_walk_animations[facing]
+	position += 0.5 * movement_vector
+	await get_tree().create_timer(0.15).timeout
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
+	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
 	check_for_tile_damage()
+	sprite.animation = directional_walk_animations[facing]
+	
 	
 
 func check_for_tile_damage() -> void:
