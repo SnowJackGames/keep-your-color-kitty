@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://u08yy4mkm2w8"]
 
-[ext_resource type="Script" uid="uid://cypl1kyyb5r61" path="res://bird sequences/pause_menu.gd" id="1_vwxmx"]
-[ext_resource type="Texture2D" uid="uid://cqmg53u40o5hj" path="res://bird sequences/sequence_assets/options-menu-Sheet.png" id="2_vwxmx"]
-[ext_resource type="Texture2D" uid="uid://fimwb076xj66" path="res://bird sequences/sequence_assets/controls.png" id="3_a0tss"]
+[ext_resource type="Script" uid="uid://cypl1kyyb5r61" path="res://scripts/pause_menu.gd" id="1_vwxmx"]
+[ext_resource type="Texture2D" uid="uid://cqmg53u40o5hj" path="res://art/sequence_assets/options-menu-Sheet.png" id="2_vwxmx"]
+[ext_resource type="Texture2D" uid="uid://fimwb076xj66" path="res://art/sequence_assets/controls.png" id="3_a0tss"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpbv2"]
 atlas = ExtResource("2_vwxmx")
@@ -16,18 +16,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vwxmx")
 
-[node name="menu" type="TextureRect" parent="." unique_id=405621427]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=913509764]
+
+[node name="menu" type="TextureRect" parent="CanvasLayer" unique_id=405621427]
 anchors_preset = -1
 anchor_left = 0.010000001
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -6.4000006
+offset_left = -1.6000001
+offset_right = 480.0
 texture = SubResource("AtlasTexture_xpbv2")
 stretch_mode = 4
 
-[node name="controls" type="TextureRect" parent="." unique_id=224926217]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="controls" type="TextureRect" parent="CanvasLayer" unique_id=224926217]
+offset_right = 166.0
+offset_bottom = 144.0
 texture = ExtResource("3_a0tss")

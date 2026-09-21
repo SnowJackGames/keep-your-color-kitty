@@ -1,7 +1,7 @@
 extends Control
 
 #signals when it's time to reload the room
-signal load_room
+signal reload_room
 
 @onready var animation_player = $CanvasLayer/AnimationPlayer
 
@@ -14,5 +14,5 @@ func _ready() -> void:
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	print("no longer waiting")
-	load_room.emit()
+	reload_room.emit()
 	$CanvasLayer.hide()

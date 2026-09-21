@@ -12,12 +12,11 @@
 
 [node name="Levels" type="Node2D" unique_id=272764069]
 script = ExtResource("1_hk6qi")
-metadata/_edit_vertical_guides_ = [-496.0, 224.0]
-metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0]
+metadata/_edit_vertical_guides_ = [-496.0, 224.0, 160.0]
+metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0, 304.0]
 
 [node name="Exploration0" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
-visible = false
-set_player_start_position = Vector2(256, 288)
+set_player_start_position = Vector2(160, 304)
 
 [node name="Floor" parent="Exploration0" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
@@ -81,6 +80,54 @@ tile_rotation_steps = 1
 
 [node name="CustomWall36" parent="Exploration0/Elements/Boarder Wall" unique_id=17009793 instance=ExtResource("7_r44b6")]
 position = Vector2(32, 0)
+
+[node name="CustomWall107" parent="Exploration0/Elements/Boarder Wall" unique_id=1085022444 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 0)
+
+[node name="CustomWall113" parent="Exploration0/Elements/Boarder Wall" unique_id=1854459975 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 32)
+atlas_source_id = 18
+
+[node name="CustomWall132" parent="Exploration0/Elements/Boarder Wall" unique_id=2070640104 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 32)
+atlas_source_id = 18
+
+[node name="CustomWall139" parent="Exploration0/Elements/Boarder Wall" unique_id=1798267757 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 32)
+atlas_source_id = 18
+
+[node name="CustomWall146" parent="Exploration0/Elements/Boarder Wall" unique_id=2005766083 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 32)
+atlas_source_id = 18
+tile_rotation_steps = 1
+
+[node name="CustomWall147" parent="Exploration0/Elements/Boarder Wall" unique_id=1258921023 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 112)
+atlas_source_id = 20
+
+[node name="CustomWall140" parent="Exploration0/Elements/Boarder Wall" unique_id=1913193638 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 64)
+atlas_source_id = 18
+
+[node name="CustomWall141" parent="Exploration0/Elements/Boarder Wall" unique_id=871561443 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 64)
+atlas_source_id = 18
+
+[node name="CustomWall142" parent="Exploration0/Elements/Boarder Wall" unique_id=20916997 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 64)
+atlas_source_id = 18
+
+[node name="CustomWall143" parent="Exploration0/Elements/Boarder Wall" unique_id=952074589 instance=ExtResource("7_r44b6")]
+position = Vector2(32, 96)
+atlas_source_id = 18
+
+[node name="CustomWall144" parent="Exploration0/Elements/Boarder Wall" unique_id=1664381945 instance=ExtResource("7_r44b6")]
+position = Vector2(64, 96)
+atlas_source_id = 18
+
+[node name="CustomWall145" parent="Exploration0/Elements/Boarder Wall" unique_id=1837168242 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 96)
+atlas_source_id = 18
 
 [node name="CustomWall37" parent="Exploration0/Elements/Boarder Wall" unique_id=1374591664 instance=ExtResource("7_r44b6")]
 position = Vector2(288, 0)
@@ -441,6 +488,7 @@ atlas_source_id = 1
 
 [node name="CustomWall110" parent="Exploration0/Elements/Boarder Wall" unique_id=1499391506 instance=ExtResource("7_r44b6")]
 position = Vector2(48, 128)
+atlas_source_id = 6
 
 [node name="CustomWall111" parent="Exploration0/Elements/Boarder Wall" unique_id=1216074109 instance=ExtResource("7_r44b6")]
 position = Vector2(32, 128)
@@ -465,6 +513,7 @@ position = Vector2(304, 208)
 
 [node name="CustomWall78" parent="Exploration0/Elements/Boarder Wall" unique_id=1741181616 instance=ExtResource("7_r44b6")]
 position = Vector2(304, 224)
+atlas_source_id = 14
 
 [node name="CustomWall79" parent="Exploration0/Elements/Boarder Wall" unique_id=1048071139 instance=ExtResource("7_r44b6")]
 position = Vector2(304, 240)
@@ -7922,6 +7971,7 @@ atlas_source_id = 3
 tile_rotation_steps = 1
 
 [node name="Level8" parent="." unique_id=1699381707 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(192, 192)
 
 [node name="Floor" parent="Level8" unique_id=1765796615 instance=ExtResource("3_jj4e6")]

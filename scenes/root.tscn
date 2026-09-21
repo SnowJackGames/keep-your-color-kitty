@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cy5rsu8fvqqs0"]
+
+[ext_resource type="Script" uid="uid://1e6a8ryyixkv" path="res://scripts/Root.gd" id="1_lrqlo"]
+[ext_resource type="PackedScene" uid="uid://bvivttt157co2" path="res://scenes/Node2D.tscn" id="2_sqa0i"]
+[ext_resource type="PackedScene" uid="uid://h5cah04osrbd" path="res://scenes/start_sequence.tscn" id="3_jh1ax"]
+
+[node name="Root" type="Node" unique_id=829224941]
+script = ExtResource("1_lrqlo")
+
+[node name="GameManager" parent="." unique_id=1141408967 instance=ExtResource("2_sqa0i")]
+
+[node name="StartSequence" parent="." unique_id=2089239307 instance=ExtResource("3_jh1ax")]
