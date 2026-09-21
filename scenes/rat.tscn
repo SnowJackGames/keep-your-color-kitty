@@ -61,9 +61,9 @@ tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint" type="TileMapLayer" parent="." unique_id=809907438]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint2" type="TileMapLayer" parent="." unique_id=934580440]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")

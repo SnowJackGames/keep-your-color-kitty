@@ -27,7 +27,7 @@ var declared_move_pos
 var player : CharacterBody2D
 
 var max_health := 3
-var spit_attack_damage := 4
+var spit_attack_damage := 3
 
 signal FinishedPhase
 
