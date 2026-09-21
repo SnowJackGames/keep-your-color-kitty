@@ -21,6 +21,7 @@ texture = ExtResource("7_nnna8")
 sources/0 = SubResource("TileSetAtlasSource_po2hf")
 
 [node name="Rat" type="CharacterBody2D" unique_id=934275049]
+z_index = 1
 script = ExtResource("1_1l88y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820156663]
@@ -31,7 +32,6 @@ shape = SubResource("RectangleShape2D_1l88y")
 position = Vector2(8, 8)
 sprite_frames = ExtResource("2_3csnj")
 animation = &"walk down"
-frame_progress = 0.32381463
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": false,
@@ -57,16 +57,13 @@ metadata/_aseprite_wizard_config_ = {
 position = Vector2(8, 8)
 
 [node name="MoveHint" type="TileMapLayer" parent="." unique_id=1009878094]
-z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint" type="TileMapLayer" parent="." unique_id=809907438]
-z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint2" type="TileMapLayer" parent="." unique_id=934580440]
-z_index = 2
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")

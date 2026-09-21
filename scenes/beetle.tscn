@@ -21,7 +21,7 @@ texture = ExtResource("4_okydf")
 sources/0 = SubResource("TileSetAtlasSource_po2hf")
 
 [node name="Beetle" type="CharacterBody2D" unique_id=934275049]
-z_index = 1
+z_index = 3
 script = ExtResource("1_c3xpc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820156663]
@@ -58,26 +58,26 @@ metadata/_aseprite_wizard_config_ = {
 position = Vector2(8, 8)
 
 [node name="MoveHint" type="TileMapLayer" parent="." unique_id=1009878094]
-z_index = 2
+z_index = -1
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint" type="TileMapLayer" parent="." unique_id=809907438]
-z_index = 2
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+z_index = -1
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint2" type="TileMapLayer" parent="." unique_id=934580440]
-z_index = 2
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+z_index = -1
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint3" type="TileMapLayer" parent="." unique_id=756323825]
-z_index = 2
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+z_index = -2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
 
 [node name="AttackHint4" type="TileMapLayer" parent="." unique_id=1297590050]
-z_index = 2
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+z_index = -2
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_nish5")
