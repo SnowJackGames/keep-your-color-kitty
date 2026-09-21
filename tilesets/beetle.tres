@@ -1,0 +1,84 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ceb6y13s3o3ul"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"bump down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"bump left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"bump right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"bump up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"hurt down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"hurt left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"hurt right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"hurt up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"slash down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"slash left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"slash right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"slash up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"walk down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"walk left",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"walk right",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"walk up",
+"speed": 5.0
+}]

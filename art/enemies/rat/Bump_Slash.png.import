@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dur12w3wpyrew"
-path="res://.godot/imported/Beetle Walks and Attacks-Sheet.png-d4f82d4c96e442fd02e3fd26aba1ee5c.ctex"
+uid="uid://ci3n1xipi87nj"
+path="res://.godot/imported/Bump_Slash.png-3a7af19895c62bad812206310d024db4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/enemies/beetle/Beetle Walks and Attacks-Sheet.png"
-dest_files=["res://.godot/imported/Beetle Walks and Attacks-Sheet.png-d4f82d4c96e442fd02e3fd26aba1ee5c.ctex"]
+source_file="res://art/enemies/rat/Bump_Slash.png"
+dest_files=["res://.godot/imported/Bump_Slash.png-3a7af19895c62bad812206310d024db4.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://77n78hftlih"
-path="res://.godot/imported/Rat Walks etc.png-020c474154ee976dc4f5f05ab92365fc.ctex"
+uid="uid://dt0vpi4uofj8c"
+path="res://.godot/imported/Rat_Walks_etc.png-e5181fafc44137dc2995f247316a0a09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/enemies/rat/Rat Walks etc.png"
-dest_files=["res://.godot/imported/Rat Walks etc.png-020c474154ee976dc4f5f05ab92365fc.ctex"]
+source_file="res://art/enemies/rat/Rat_Walks_etc.png"
+dest_files=["res://.godot/imported/Rat_Walks_etc.png-e5181fafc44137dc2995f247316a0a09.ctex"]
 
 [params]
 

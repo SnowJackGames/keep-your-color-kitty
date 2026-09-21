@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cak0hse4xwae3"]
 
 [ext_resource type="Script" uid="uid://c5heyai2avf1t" path="res://scripts/beetle.gd" id="1_c3xpc"]
-[ext_resource type="SpriteFrames" uid="uid://df8ytdi0peqj7" path="res://tilesets/rat.tres" id="2_crflu"]
+[ext_resource type="SpriteFrames" uid="uid://ceb6y13s3o3ul" path="res://tilesets/beetle.tres" id="2_c3xpc"]
 [ext_resource type="PackedScene" uid="uid://cqvsv861olabi" path="res://scenes/tile_detection.tscn" id="3_rxbui"]
 [ext_resource type="Texture2D" uid="uid://bg7kbkhqrde3b" path="res://art/UI/targeting-Sheet.png" id="4_okydf"]
 
@@ -30,9 +30,8 @@ shape = SubResource("RectangleShape2D_1l88y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=729522034]
 position = Vector2(8, 8)
-sprite_frames = ExtResource("2_crflu")
-animation = &"walk down"
-frame_progress = 0.32381463
+sprite_frames = ExtResource("2_c3xpc")
+animation = &"hurt down"
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": false,

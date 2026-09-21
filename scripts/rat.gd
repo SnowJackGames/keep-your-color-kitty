@@ -60,6 +60,20 @@ static var directional_walk_animations := {
 	"Left" : "walk left"
 }
 
+static var direction_slash_animation := {
+	"Up": "slash up",
+	"Down": "slash down",
+	"Left": "slash left",
+	"Right": "slash right",
+}
+
+static var direction_hurt_animation := {
+	"Up": "hurt up",
+	"Down": "hurt down",
+	"Left": "hurt left",
+	"Right": "hurt right",
+}
+
 
 
 func begin_turn() -> void:
@@ -80,6 +94,7 @@ func _ready() -> void:
 	$MoveHint.hide()
 	$AttackHint.hide()
 	$AttackHint2.hide()
+	sprite.animation = directional_walk_animations[facing]
 
 # Determine if rat should either bump slash, or move then declare attack
 func phase_one() -> void:
@@ -99,16 +114,32 @@ func phase_one() -> void:
 		facing = direction_towards_player
 		var push_target = player.where_can_be_pushed(direction_towards_player)
 		# declare initial position, then move position halfway towards player?
-		
 		if push_target:
 			move(declared_move_pos)
 			await FinishedMove
+			sprite.animation = direction_slash_animation[facing]
+			sprite.frame = 0
+			await get_tree().create_timer(0.15).timeout
+			sprite.frame = 1
+			await get_tree().create_timer(0.15).timeout
+			sprite.frame = 2
+			await get_tree().create_timer(0.15).timeout
+			sprite.animation = directional_walk_animations[facing]
 			await player.take_damage(bump_slash_damage)
 			player.pushed_onto(push_target - rat_center_offset)
+			$AttackHint.hide()
 		else:
 			$AttackHint.global_position = declared_move_pos
 			$AttackHint.show()
 			await get_tree().create_timer(0.2).timeout
+			sprite.animation = direction_slash_animation[facing]
+			sprite.frame = 0
+			await get_tree().create_timer(0.15).timeout
+			sprite.frame = 1
+			await get_tree().create_timer(0.15).timeout
+			sprite.frame = 2
+			await get_tree().create_timer(0.15).timeout
+			sprite.animation = directional_walk_animations[facing]
 			await player.take_damage(player.cornered_damage)
 			await player.take_damage(bump_slash_damage)
 			$AttackHint.hide()
@@ -187,28 +218,44 @@ func attack_hint() -> void:
 			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
+	sprite.animation = direction_slash_animation[facing]
+	sprite.frame = 0
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 1
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 2
+	await get_tree().create_timer(0.15).timeout
 	if declared_attack:
 		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
 			if attack_spot != null:
 				if tile_detection.player_on_tile(attack_spot):
 					await player.take_damage(quick_attack_damage)
-	await get_tree().create_timer(0.2).timeout
+	
 	$AttackHint.hide()
 	$AttackHint2.hide()
+	sprite.animation = directional_walk_animations[facing]
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
+	sprite.animation = directional_walk_animations[facing]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
+	await get_tree().create_timer(0.15).timeout
+	var frame_target = sprite.frame
+	var movement_vector = pos - position
 	if bump_attacking:
 		$AttackHint.global_position = pos
 		$AttackHint.show()
-	await get_tree().create_timer(0.2).timeout
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
 	$MoveHint.hide()
-	$AttackHint.hide()
-	position = pos
-	# Move animation, maybe hinting?
-	sprite.animation = directional_walk_animations[facing]
+	position += 0.5 * movement_vector
+	await get_tree().create_timer(0.15).timeout
+	frame_target += 1
+	frame_target %= 4
+	sprite.frame = frame_target
+	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
 	check_for_tile_damage()
 	FinishedMove.emit()
@@ -272,6 +319,7 @@ func where_can_be_pushed(source_direction) -> Variant:
 func take_damage (damage : int):
 	var attack_shown = $AttackHint.visible
 	var attack2_shown = $AttackHint2.visible
+	sprite.animation = direction_hurt_animation[facing]
 	if damage > 0:
 		cur_health -= damage
 		# Take damage animation
@@ -279,13 +327,17 @@ func take_damage (damage : int):
 			$AttackHint.hide()
 		if attack2_shown:
 			$AttackHint2.hide()
-		hide()
+		sprite.frame = 1
 		await get_tree().create_timer(0.1).timeout
-		show()
+		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
-		hide()
+		sprite.frame = 1
 		await get_tree().create_timer(0.1).timeout
-		show()
+		sprite.frame = 0
+		await get_tree().create_timer(0.1).timeout
+		sprite.frame = 1
+		await get_tree().create_timer(0.1).timeout
+		sprite.animation = directional_walk_animations[facing]
 	if cur_health <= 0:
 		queue_free()
 	else:

@@ -49,71 +49,68 @@ region = Rect2(48, 0, 48, 48)
 atlas = ExtResource("2_f1ej7")
 region = Rect2(144, 0, 48, 48)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f1ej7"]
-load_path = "res://.godot/imported/Knight Moves-Sheet.png-940140cb40e5bd9bd24014a274c50399.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_vau08"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsb7e"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjsmb"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(192, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mwp2n"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(288, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0yhus"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(0, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jlll7"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(96, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qk6i7"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(192, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6c3st"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(288, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1da1t"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(48, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p21yu"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(144, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irpag"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(240, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bpsgo"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(336, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jx8is"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(0, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vx63k"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(96, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lw0jh"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(192, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ry8ed"]
-atlas = SubResource("CompressedTexture2D_f1ej7")
+atlas = ExtResource("2_jej6c")
 region = Rect2(288, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_au8ao"]
@@ -946,7 +943,7 @@ shape = SubResource("RectangleShape2D_nish5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=655308639]
 position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_nish5")
-animation = &"hurt down"
+animation = &"pounce up exploration"
 
 [node name="TileDetection" parent="." unique_id=195151570 instance=ExtResource("6_y4r1p")]
 position = Vector2(8, 8)

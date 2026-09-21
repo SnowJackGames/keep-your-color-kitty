@@ -70,6 +70,13 @@ static var directional_pounce_animations_combat := {
 	'ui_right': "pounce right combat"
 }
 
+static var directional_hurt_animations := {
+	'ui_up': "hurt up",
+	'ui_down': "hurt down",
+	'ui_left': "hurt left",
+	'ui_right': "hurt right"
+}
+
 static var knight_direction_to_walk_animation := {
 	"UpUpLeft" : "walk up",
 	"UpUpRight" : "walk up",
@@ -713,13 +720,14 @@ func pounce_hint(valid_dir: Array, shouldload: bool) -> void:
 func pounce() -> void:
 	Globals.ui.hide_all()
 	pounce_hint([], false)
-	if Globals.game_mode == 1:
-		sprite.animation = directional_pounce_animations_exploration[directional_facing.find_key(facing)]
-	else:
-		sprite.animation = directional_pounce_animations_combat[directional_facing.find_key(facing)]
 	# Facing: Up -> directional_facing: ui_up -> dir_inputs: Vector2.UP
 	var pounce_vector_pos : Vector2 = dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3
 	var damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 3) + position
+	if Globals.game_mode == 1 or !tile_detection.enemy_on_tile(damage_spot):
+		sprite.animation = directional_pounce_animations_exploration[directional_facing.find_key(facing)]
+	else:
+		sprite.animation = directional_pounce_animations_combat[directional_facing.find_key(facing)]
+
 	# We animate moving
 	sprite.frame = 0
 	Debug.say("Pounce " + facing + "!")
@@ -947,7 +955,19 @@ func knight() -> void:
 	var damage_spot = knight_spot
 	var target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
 	var push_spot
-	position = damage_spot
+	var movement_vector = damage_spot - position
+	sprite.animation = directional_knight_animations[knight_direction]
+	sprite.frame = 0
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 1
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 2
+	position += 0.75 * movement_vector
+	await get_tree().create_timer(0.15).timeout
+	sprite.frame = 3
+	position += 0.25 * movement_vector
+	await get_tree().create_timer(0.15).timeout
+
 	await tile_detection.damage_enemy(damage_spot, knight_damage)
 	if knight_direction in ["UpUpLeft", "UpUpRight"]:
 		push_spot = target_enemy.where_can_be_pushed("Up")
@@ -976,9 +996,9 @@ func knight() -> void:
 			await tile_detection.damage_enemy(damage_spot, knight_damage)
 	else:
 		push_error("knight_direction " + knight_direction + "not valid")
-	await get_tree().create_timer(0.3).timeout
 	Debug.say("Knight " + knight_direction + "!")
 	# If pounced onto damaging spot, take damage
+	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 	check_for_tile_damage()
 	end_turn()
 	FinishedAction.emit()
@@ -1042,14 +1062,19 @@ func take_damage (damage : int):
 	if damage > 0:
 		cur_health -= damage
 		# Take damage animation
-		hide()
+		var prev_animation = sprite.animation
+		sprite.animation = directional_hurt_animations[directional_facing.find_key(facing)]
+		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
-		show()
+		sprite.frame = 1
 		await get_tree().create_timer(0.1).timeout
-		hide()
+		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
-		show()
-		await get_tree().create_timer(0.2).timeout
+		sprite.frame = 1
+		await get_tree().create_timer(0.1).timeout
+		sprite.frame = 0
+		await get_tree().create_timer(0.1).timeout
+		sprite.animation = prev_animation
 		OnTakeDamage.emit()
 	#
 #func heal (amount : int):
