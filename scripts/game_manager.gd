@@ -215,7 +215,6 @@ func _ready() -> void:
 	Globals.ui = $UI
 	Globals.GameManager = self
 	show()
-	print("hi")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
