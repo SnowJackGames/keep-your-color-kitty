@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://h5cah04osrbd"]
 
-[ext_resource type="Script" uid="uid://bgwwcsh7gwrva" path="res://bird sequences/start_sequence.gd" id="1_1nnug"]
-[ext_resource type="Script" uid="uid://d00a7eoqqsw4f" path="res://bird sequences/intro.gd" id="2_1nnug"]
-[ext_resource type="Texture2D" uid="uid://fimwb076xj66" path="res://bird sequences/sequence_assets/controls.png" id="3_1nnug"]
-[ext_resource type="Texture2D" uid="uid://bc1ncfaohomvh" path="res://bird sequences/sequence_assets/snowjack-splash.png" id="4_n6hct"]
-[ext_resource type="Texture2D" uid="uid://bv5u2l8p8dnny" path="res://bird sequences/sequence_assets/gbjam14-splash.png" id="5_3s0v3"]
-[ext_resource type="Texture2D" uid="uid://cexunyltiyvb3" path="res://bird sequences/sequence_assets/half-black-screen.png" id="6_je1xk"]
-[ext_resource type="Texture2D" uid="uid://c730btcse8kre" path="res://bird sequences/sequence_assets/black-screen.png" id="7_0qai1"]
-[ext_resource type="Script" uid="uid://bdlbglqct6781" path="res://bird sequences/title_screen.gd" id="8_wf8yn"]
-[ext_resource type="Texture2D" uid="uid://csp1jpo3cl24d" path="res://bird sequences/sequence_assets/final-title-New.png" id="9_mk77i"]
-[ext_resource type="Texture2D" uid="uid://c3lurysarwgxy" path="res://bird sequences/sequence_assets/final-title-Load.png" id="10_rs3uk"]
-[ext_resource type="Texture2D" uid="uid://jxst3iitnq50" path="res://bird sequences/sequence_assets/final-title-1.png" id="11_wf8yn"]
+[ext_resource type="Script" uid="uid://bgwwcsh7gwrva" path="res://scripts/start_sequence.gd" id="1_1nnug"]
+[ext_resource type="Script" uid="uid://d00a7eoqqsw4f" path="res://scripts/intro.gd" id="2_1nnug"]
+[ext_resource type="Texture2D" uid="uid://fimwb076xj66" path="res://art/sequence_assets/controls.png" id="3_1nnug"]
+[ext_resource type="Texture2D" uid="uid://bc1ncfaohomvh" path="res://art/sequence_assets/snowjack-splash.png" id="4_n6hct"]
+[ext_resource type="Texture2D" uid="uid://bv5u2l8p8dnny" path="res://art/sequence_assets/gbjam14-splash.png" id="5_3s0v3"]
+[ext_resource type="Texture2D" uid="uid://cexunyltiyvb3" path="res://art/sequence_assets/half-black-screen.png" id="6_je1xk"]
+[ext_resource type="Texture2D" uid="uid://c730btcse8kre" path="res://art/sequence_assets/black-screen.png" id="7_0qai1"]
+[ext_resource type="Script" uid="uid://bdlbglqct6781" path="res://scripts/title_screen.gd" id="8_wf8yn"]
+[ext_resource type="Texture2D" uid="uid://csp1jpo3cl24d" path="res://art/sequence_assets/final-title-New.png" id="9_mk77i"]
+[ext_resource type="Texture2D" uid="uid://c3lurysarwgxy" path="res://art/sequence_assets/final-title-Load.png" id="10_rs3uk"]
+[ext_resource type="Texture2D" uid="uid://jxst3iitnq50" path="res://art/sequence_assets/final-title-1.png" id="11_wf8yn"]
 
 [sub_resource type="Animation" id="Animation_lgwnu"]
 length = 0.001
@@ -209,3 +209,5 @@ texture = ExtResource("11_wf8yn")
 offset_right = 166.0
 offset_bottom = 144.0
 texture = ExtResource("3_1nnug")
+
+[connection signal="animation_finished" from="intro/intro_animation" to="." method="_on_intro_animation_animation_finished"]

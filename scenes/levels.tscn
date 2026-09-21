@@ -16,6 +16,7 @@ metadata/_edit_vertical_guides_ = [-496.0, 224.0, 160.0]
 metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0, 304.0]
 
 [node name="Exploration0" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
+visible = false
 set_player_start_position = Vector2(160, 304)
 
 [node name="Floor" parent="Exploration0" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
@@ -12824,6 +12825,7 @@ limit_bottom = 400
 
 [node name="Stairs" parent="Level18/Elements" unique_id=474396161 instance=ExtResource("3_r44b6")]
 position = Vector2(240, -96)
+atlas_source_id = 2
 
 [node name="Boarder Wall" type="Node2D" parent="Level18/Elements" unique_id=440052865]
 

@@ -3,21 +3,29 @@
 [ext_resource type="Script" uid="uid://4tmb2v17jmdf" path="res://scripts/stairs.gd" id="1_t8gvg"]
 [ext_resource type="Texture2D" uid="uid://bff8fk7b368" path="res://art/floor/Stairs1.png" id="2_t8gvg"]
 [ext_resource type="Texture2D" uid="uid://cgwenas0mhlry" path="res://art/floor/Stairs2.png" id="3_alqbs"]
+[ext_resource type="Texture2D" uid="uid://cjx54ijyuk45x" path="res://art/floor/plain-rod.png" id="4_alqbs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nish5"]
 size = Vector2(16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_frutw"]
 texture = ExtResource("2_t8gvg")
+1:1/0 = 0
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1w5o"]
 texture = ExtResource("3_alqbs")
+1:1/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l6j1o"]
+texture = ExtResource("4_alqbs")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_coc74"]
 sources/0 = SubResource("TileSetAtlasSource_frutw")
 sources/1 = SubResource("TileSetAtlasSource_h1w5o")
+sources/2 = SubResource("TileSetAtlasSource_l6j1o")
 
 [node name="Stairs" type="StaticBody2D" unique_id=369884562]
 script = ExtResource("1_t8gvg")
@@ -27,5 +35,4 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_nish5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1209576093]
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_coc74")

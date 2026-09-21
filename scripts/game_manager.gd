@@ -205,6 +205,7 @@ func resume_play():
 
 func begin_game():
 	playing = true
+	show()
 	levels_scene.show()
 	player_character.show()
 	increment_active_level()
@@ -214,10 +215,10 @@ func _ready() -> void:
 	Globals.player = $Player
 	Globals.ui = $UI
 	Globals.GameManager = self
-	show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	print("process")
 	# Player Damage
 	if player_character.just_took_damage:
 		set_process(false)

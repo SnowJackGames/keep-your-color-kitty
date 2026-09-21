@@ -40,15 +40,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if screen == "controls":
 		if Input.is_action_just_pressed("ui_accept"):
+			print("pressed!")
 			$controls.hide()
 			if menu == 1: screen = "menu1"
 			if menu == 2: screen = "menu2"
-	if screen == "menu1":
+	elif screen == "menu1":
 		if Input.is_action_just_pressed("ui_accept"):
 			print("start new game!")
 			start_new_game.emit()
 			hide()
-	if screen == "menu2":
+	elif screen == "menu2":
 		if Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_left"):
 			if button == "new":
 				button = "load"
