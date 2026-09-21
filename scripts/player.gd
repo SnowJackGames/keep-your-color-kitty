@@ -977,7 +977,6 @@ func knight() -> void:
 	else:
 		push_error("knight_direction " + knight_direction + "not valid")
 	await get_tree().create_timer(0.3).timeout
-	await get_tree().create_timer(0.3).timeout
 	Debug.say("Knight " + knight_direction + "!")
 	# If pounced onto damaging spot, take damage
 	check_for_tile_damage()

@@ -154,7 +154,6 @@ func declare_attack() -> void:
 			break
 		# If it's a tile we can slash through or if its an enemy
 		elif tile_detection.slashthroughable(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check):
-			print("we see slashthroughable at: " + direction)
 			# confirm that we will be attacking
 			declared_attack = true
 			# If there's a tile closer, we choose that one

@@ -107,6 +107,8 @@ func increment_active_level() -> void:
 		# Move player to starting position of level
 		player_character.position = current_level.player_start_position
 	update_camera_target()
+	
+	
 
 
 func update_camera_target() -> void: 	
