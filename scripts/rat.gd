@@ -164,8 +164,12 @@ func declare_attack() -> void:
 				declared_attack_pos_near = tile_detection_check
 	declared_attack_direction = direction_towards_player
 	
+	# Discard attack if its trying to attack its own tile, bc that's the closest tile
+	if declared_attack_pos_near == position:
+		declared_attack = false
+	
 	# If we can attack 1 tile away, let's see if we attack 2 tiles away
-	if declared_attack:
+	if declared_attack and declared_attack_direction:
 		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 2 + position
 		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
 			declared_attack_pos_far = tile_detection_check

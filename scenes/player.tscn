@@ -149,7 +149,9 @@ shape = SubResource("RectangleShape2D_nish5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=655308639]
 position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_nish5")
-animation = &"walk up"
+animation = &"walk down"
+frame = 1
+frame_progress = 0.2741805
 
 [node name="TileDetection" parent="." unique_id=195151570 instance=ExtResource("6_y4r1p")]
 position = Vector2(8, 8)

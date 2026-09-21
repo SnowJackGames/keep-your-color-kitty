@@ -15,6 +15,8 @@ var game_mode := 0
 
 @onready var entity_to_damage : CharacterBody2D
 
+@onready var GameManager : Node2D
+
 #
 ## Deleting something, like a bomb or an enemy dying
 #func remove_object(object_full_path : String) -> void:

@@ -4,14 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://y3sogwged16r" path="res://scenes/level.tscn" id="2_5ekxl"]
 [ext_resource type="PackedScene" uid="uid://c1k51mno8dg0j" path="res://scenes/floor.tscn" id="3_jj4e6"]
 [ext_resource type="PackedScene" uid="uid://co70r7wdwc8uo" path="res://scenes/stairs.tscn" id="3_r44b6"]
+[ext_resource type="PackedScene" uid="uid://db8ebj05sakt1" path="res://scenes/rat.tscn" id="4_1jewu"]
 [ext_resource type="PackedScene" uid="uid://b8qgufxjxuq3f" path="res://scenes/sludge.tscn" id="4_byla0"]
 [ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="7_1jewu"]
 [ext_resource type="PackedScene" uid="uid://dp78uphin41ox" path="res://scenes/custom_wall.tscn" id="7_r44b6"]
+[ext_resource type="PackedScene" uid="uid://cak0hse4xwae3" path="res://scenes/beetle.tscn" id="9_ibiju"]
 
 [node name="Levels" type="Node2D" unique_id=272764069]
 script = ExtResource("1_hk6qi")
-metadata/_edit_vertical_guides_ = [-496.0, 352.0]
-metadata/_edit_horizontal_guides_ = [352.0, 288.0, 352.0, -112.0]
+metadata/_edit_vertical_guides_ = [-496.0, 224.0]
+metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0]
 
 [node name="Level1" parent="." unique_id=69772821 instance=ExtResource("2_5ekxl")]
 visible = false
@@ -30,6 +32,9 @@ limit_bottom = 272
 
 [node name="Elements" type="Node2D" parent="Level1" unique_id=1743373771]
 
+[node name="Rat" parent="Level1/Elements" unique_id=934275049 instance=ExtResource("4_1jewu")]
+position = Vector2(144, 160)
+
 [node name="Stairs" parent="Level1/Elements" unique_id=620811506 instance=ExtResource("3_r44b6")]
 position = Vector2(160, 64)
 
@@ -39,251 +44,9 @@ position = Vector2(160, 64)
 position = Vector2(112, 48)
 atlas_source_id = 8
 
-[node name="CustomWall14" parent="Level1/Elements/Boarder Wall" unique_id=995380007 instance=ExtResource("7_r44b6")]
-position = Vector2(144, 48)
-
-[node name="CustomWall15" parent="Level1/Elements/Boarder Wall" unique_id=1849442290 instance=ExtResource("7_r44b6")]
-position = Vector2(160, 48)
-
-[node name="CustomWall16" parent="Level1/Elements/Boarder Wall" unique_id=1458984936 instance=ExtResource("7_r44b6")]
-position = Vector2(176, 48)
-
-[node name="CustomWall17" parent="Level1/Elements/Boarder Wall" unique_id=48403160 instance=ExtResource("7_r44b6")]
-position = Vector2(128, 48)
-
-[node name="CustomWall19" parent="Level1/Elements/Boarder Wall" unique_id=863466302 instance=ExtResource("7_r44b6")]
+[node name="CustomWall12" parent="Level1/Elements/Boarder Wall" unique_id=51517795 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 48)
 atlas_source_id = 8
-
-[node name="CustomWall20" parent="Level1/Elements/Boarder Wall" unique_id=1307480581 instance=ExtResource("7_r44b6")]
-position = Vector2(192, 128)
-
-[node name="CustomWall29" parent="Level1/Elements/Boarder Wall" unique_id=1447051418 instance=ExtResource("7_r44b6")]
-position = Vector2(192, 112)
-
-[node name="CustomWall41" parent="Level1/Elements/Boarder Wall" unique_id=1660375264 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 112)
-atlas_source_id = 17
-
-[node name="CustomWall42" parent="Level1/Elements/Boarder Wall" unique_id=1728474749 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 96)
-atlas_source_id = 17
-
-[node name="CustomWall43" parent="Level1/Elements/Boarder Wall" unique_id=1647874043 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 80)
-atlas_source_id = 17
-
-[node name="CustomWall44" parent="Level1/Elements/Boarder Wall" unique_id=24976965 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 64)
-atlas_source_id = 17
-
-[node name="CustomWall45" parent="Level1/Elements/Boarder Wall" unique_id=99636892 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 128)
-atlas_source_id = 17
-
-[node name="CustomWall46" parent="Level1/Elements/Boarder Wall" unique_id=1063871513 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 144)
-atlas_source_id = 17
-
-[node name="CustomWall47" parent="Level1/Elements/Boarder Wall" unique_id=472651423 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 160)
-atlas_source_id = 17
-
-[node name="CustomWall48" parent="Level1/Elements/Boarder Wall" unique_id=1060346924 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 176)
-atlas_source_id = 17
-
-[node name="CustomWall49" parent="Level1/Elements/Boarder Wall" unique_id=1447105519 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 192)
-atlas_source_id = 17
-
-[node name="CustomWall50" parent="Level1/Elements/Boarder Wall" unique_id=1506006984 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 208)
-atlas_source_id = 17
-
-[node name="CustomWall51" parent="Level1/Elements/Boarder Wall" unique_id=90158440 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 224)
-atlas_source_id = 17
-
-[node name="CustomWall52" parent="Level1/Elements/Boarder Wall" unique_id=1122212333 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 224)
-atlas_source_id = 17
-
-[node name="CustomWall53" parent="Level1/Elements/Boarder Wall" unique_id=159205942 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 208)
-atlas_source_id = 17
-
-[node name="CustomWall54" parent="Level1/Elements/Boarder Wall" unique_id=1764635041 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 240)
-atlas_source_id = 17
-
-[node name="CustomWall55" parent="Level1/Elements/Boarder Wall" unique_id=1875955828 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 240)
-atlas_source_id = 17
-
-[node name="CustomWall56" parent="Level1/Elements/Boarder Wall" unique_id=1635192857 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 192)
-atlas_source_id = 17
-
-[node name="CustomWall57" parent="Level1/Elements/Boarder Wall" unique_id=1489705788 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 176)
-atlas_source_id = 17
-
-[node name="CustomWall58" parent="Level1/Elements/Boarder Wall" unique_id=181285303 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 160)
-atlas_source_id = 17
-
-[node name="CustomWall59" parent="Level1/Elements/Boarder Wall" unique_id=1728781837 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 144)
-atlas_source_id = 17
-
-[node name="CustomWall60" parent="Level1/Elements/Boarder Wall" unique_id=189230249 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 128)
-atlas_source_id = 17
-
-[node name="CustomWall61" parent="Level1/Elements/Boarder Wall" unique_id=362466775 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 112)
-atlas_source_id = 17
-
-[node name="CustomWall62" parent="Level1/Elements/Boarder Wall" unique_id=459619853 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 96)
-atlas_source_id = 17
-
-[node name="CustomWall63" parent="Level1/Elements/Boarder Wall" unique_id=1107304960 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 80)
-atlas_source_id = 17
-
-[node name="CustomWall64" parent="Level1/Elements/Boarder Wall" unique_id=1120177495 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 64)
-atlas_source_id = 17
-
-[node name="CustomWall65" parent="Level1/Elements/Boarder Wall" unique_id=2136102875 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 112)
-atlas_source_id = 17
-
-[node name="CustomWall66" parent="Level1/Elements/Boarder Wall" unique_id=508316244 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 96)
-atlas_source_id = 17
-
-[node name="CustomWall67" parent="Level1/Elements/Boarder Wall" unique_id=730373815 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 80)
-atlas_source_id = 17
-
-[node name="CustomWall68" parent="Level1/Elements/Boarder Wall" unique_id=1640864816 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 64)
-atlas_source_id = 17
-
-[node name="CustomWall69" parent="Level1/Elements/Boarder Wall" unique_id=1993423428 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 128)
-atlas_source_id = 17
-
-[node name="CustomWall70" parent="Level1/Elements/Boarder Wall" unique_id=813365757 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 144)
-atlas_source_id = 17
-
-[node name="CustomWall71" parent="Level1/Elements/Boarder Wall" unique_id=913171274 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 160)
-atlas_source_id = 17
-
-[node name="CustomWall72" parent="Level1/Elements/Boarder Wall" unique_id=350156566 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 176)
-atlas_source_id = 17
-
-[node name="CustomWall73" parent="Level1/Elements/Boarder Wall" unique_id=1585057006 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 192)
-atlas_source_id = 17
-
-[node name="CustomWall74" parent="Level1/Elements/Boarder Wall" unique_id=1502751758 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 208)
-atlas_source_id = 17
-
-[node name="CustomWall75" parent="Level1/Elements/Boarder Wall" unique_id=582898784 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 224)
-atlas_source_id = 17
-
-[node name="CustomWall76" parent="Level1/Elements/Boarder Wall" unique_id=525891339 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 224)
-atlas_source_id = 17
-
-[node name="CustomWall77" parent="Level1/Elements/Boarder Wall" unique_id=2008743987 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 208)
-atlas_source_id = 17
-
-[node name="CustomWall78" parent="Level1/Elements/Boarder Wall" unique_id=1149831864 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 240)
-atlas_source_id = 17
-
-[node name="CustomWall79" parent="Level1/Elements/Boarder Wall" unique_id=1465826963 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 240)
-atlas_source_id = 17
-
-[node name="CustomWall80" parent="Level1/Elements/Boarder Wall" unique_id=1787822807 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 192)
-atlas_source_id = 17
-
-[node name="CustomWall81" parent="Level1/Elements/Boarder Wall" unique_id=1578270548 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 176)
-atlas_source_id = 17
-
-[node name="CustomWall82" parent="Level1/Elements/Boarder Wall" unique_id=706113271 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 160)
-atlas_source_id = 17
-
-[node name="CustomWall83" parent="Level1/Elements/Boarder Wall" unique_id=467175329 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 144)
-atlas_source_id = 17
-
-[node name="CustomWall84" parent="Level1/Elements/Boarder Wall" unique_id=246350401 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 128)
-atlas_source_id = 17
-
-[node name="CustomWall85" parent="Level1/Elements/Boarder Wall" unique_id=972734385 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 112)
-atlas_source_id = 17
-
-[node name="CustomWall86" parent="Level1/Elements/Boarder Wall" unique_id=1809369713 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 96)
-atlas_source_id = 17
-
-[node name="CustomWall87" parent="Level1/Elements/Boarder Wall" unique_id=411152972 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 80)
-atlas_source_id = 17
-
-[node name="CustomWall88" parent="Level1/Elements/Boarder Wall" unique_id=133836978 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 64)
-atlas_source_id = 17
-
-[node name="CustomWall89" parent="Level1/Elements/Boarder Wall" unique_id=1825670575 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 48)
-atlas_source_id = 17
-
-[node name="CustomWall90" parent="Level1/Elements/Boarder Wall" unique_id=375489783 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 48)
-atlas_source_id = 17
-
-[node name="CustomWall91" parent="Level1/Elements/Boarder Wall" unique_id=19167861 instance=ExtResource("7_r44b6")]
-position = Vector2(80, 256)
-atlas_source_id = 17
-
-[node name="CustomWall92" parent="Level1/Elements/Boarder Wall" unique_id=401044031 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 256)
-atlas_source_id = 17
-
-[node name="CustomWall93" parent="Level1/Elements/Boarder Wall" unique_id=14125010 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 256)
-atlas_source_id = 17
-
-[node name="CustomWall94" parent="Level1/Elements/Boarder Wall" unique_id=231177571 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 256)
-atlas_source_id = 17
-
-[node name="CustomWall95" parent="Level1/Elements/Boarder Wall" unique_id=595279292 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 48)
-atlas_source_id = 17
-
-[node name="CustomWall96" parent="Level1/Elements/Boarder Wall" unique_id=872972896 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 48)
-atlas_source_id = 17
 
 [node name="CustomWall30" parent="Level1/Elements/Boarder Wall" unique_id=1877023247 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 96)
@@ -293,6 +56,18 @@ position = Vector2(192, 80)
 
 [node name="CustomWall36" parent="Level1/Elements/Boarder Wall" unique_id=2008261151 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 64)
+
+[node name="CustomWall42" parent="Level1/Elements/Boarder Wall" unique_id=1199927802 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 48)
+
+[node name="CustomWall43" parent="Level1/Elements/Boarder Wall" unique_id=1282964686 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 48)
+
+[node name="CustomWall44" parent="Level1/Elements/Boarder Wall" unique_id=163038261 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 48)
+
+[node name="CustomWall45" parent="Level1/Elements/Boarder Wall" unique_id=466766727 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 48)
 
 [node name="CustomWall37" parent="Level1/Elements/Boarder Wall" unique_id=815827395 instance=ExtResource("7_r44b6")]
 position = Vector2(112, 64)
@@ -308,6 +83,12 @@ position = Vector2(112, 112)
 
 [node name="CustomWall21" parent="Level1/Elements/Boarder Wall" unique_id=315301263 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 144)
+
+[node name="CustomWall29" parent="Level1/Elements/Boarder Wall" unique_id=782016867 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 128)
+
+[node name="CustomWall41" parent="Level1/Elements/Boarder Wall" unique_id=2060474201 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 112)
 
 [node name="CustomWall22" parent="Level1/Elements/Boarder Wall" unique_id=1517504538 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 160)
@@ -370,6 +151,174 @@ position = Vector2(112, 224)
 [node name="CustomWall9" parent="Level1/Elements/Boarder Wall" unique_id=2052668974 instance=ExtResource("7_r44b6")]
 position = Vector2(112, 240)
 
+[node name="CustomWall46" parent="Level1/Elements/Boarder Wall" unique_id=37983122 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 64)
+
+[node name="CustomWall86" parent="Level1/Elements/Boarder Wall" unique_id=341766031 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 48)
+
+[node name="CustomWall47" parent="Level1/Elements/Boarder Wall" unique_id=361866194 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 80)
+
+[node name="CustomWall48" parent="Level1/Elements/Boarder Wall" unique_id=133066306 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 96)
+
+[node name="CustomWall49" parent="Level1/Elements/Boarder Wall" unique_id=26105207 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 112)
+
+[node name="CustomWall13" parent="Level1/Elements/Boarder Wall" unique_id=594035087 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 128)
+
+[node name="CustomWall14" parent="Level1/Elements/Boarder Wall" unique_id=62578889 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 144)
+
+[node name="CustomWall15" parent="Level1/Elements/Boarder Wall" unique_id=1576910060 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 160)
+
+[node name="CustomWall16" parent="Level1/Elements/Boarder Wall" unique_id=23876869 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 176)
+
+[node name="CustomWall17" parent="Level1/Elements/Boarder Wall" unique_id=1267815894 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 192)
+
+[node name="CustomWall18" parent="Level1/Elements/Boarder Wall" unique_id=585422721 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 208)
+
+[node name="CustomWall19" parent="Level1/Elements/Boarder Wall" unique_id=1633204598 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 224)
+
+[node name="CustomWall20" parent="Level1/Elements/Boarder Wall" unique_id=849602456 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 240)
+
+[node name="CustomWall92" parent="Level1/Elements/Boarder Wall" unique_id=1039318827 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 256)
+
+[node name="CustomWall50" parent="Level1/Elements/Boarder Wall" unique_id=2096123886 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 64)
+
+[node name="CustomWall88" parent="Level1/Elements/Boarder Wall" unique_id=1374818896 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 48)
+
+[node name="CustomWall51" parent="Level1/Elements/Boarder Wall" unique_id=1052141857 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 80)
+
+[node name="CustomWall52" parent="Level1/Elements/Boarder Wall" unique_id=1592444725 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 96)
+
+[node name="CustomWall53" parent="Level1/Elements/Boarder Wall" unique_id=205169435 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 112)
+
+[node name="CustomWall54" parent="Level1/Elements/Boarder Wall" unique_id=67936311 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 128)
+
+[node name="CustomWall55" parent="Level1/Elements/Boarder Wall" unique_id=1857873322 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 144)
+
+[node name="CustomWall56" parent="Level1/Elements/Boarder Wall" unique_id=838638222 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 160)
+
+[node name="CustomWall57" parent="Level1/Elements/Boarder Wall" unique_id=1918584971 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 176)
+
+[node name="CustomWall58" parent="Level1/Elements/Boarder Wall" unique_id=1751329754 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 192)
+
+[node name="CustomWall59" parent="Level1/Elements/Boarder Wall" unique_id=1684350473 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 208)
+
+[node name="CustomWall60" parent="Level1/Elements/Boarder Wall" unique_id=875719373 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 224)
+
+[node name="CustomWall61" parent="Level1/Elements/Boarder Wall" unique_id=1319004635 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 240)
+
+[node name="CustomWall90" parent="Level1/Elements/Boarder Wall" unique_id=661147036 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 256)
+
+[node name="CustomWall62" parent="Level1/Elements/Boarder Wall" unique_id=232246619 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 64)
+
+[node name="CustomWall89" parent="Level1/Elements/Boarder Wall" unique_id=605263635 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 48)
+
+[node name="CustomWall63" parent="Level1/Elements/Boarder Wall" unique_id=1340637960 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 80)
+
+[node name="CustomWall64" parent="Level1/Elements/Boarder Wall" unique_id=758953188 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 96)
+
+[node name="CustomWall65" parent="Level1/Elements/Boarder Wall" unique_id=2027732070 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 112)
+
+[node name="CustomWall66" parent="Level1/Elements/Boarder Wall" unique_id=783541374 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 128)
+
+[node name="CustomWall67" parent="Level1/Elements/Boarder Wall" unique_id=1790835436 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 144)
+
+[node name="CustomWall68" parent="Level1/Elements/Boarder Wall" unique_id=1212715017 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 160)
+
+[node name="CustomWall69" parent="Level1/Elements/Boarder Wall" unique_id=653030923 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 176)
+
+[node name="CustomWall70" parent="Level1/Elements/Boarder Wall" unique_id=971876849 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 192)
+
+[node name="CustomWall71" parent="Level1/Elements/Boarder Wall" unique_id=1138324664 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 208)
+
+[node name="CustomWall72" parent="Level1/Elements/Boarder Wall" unique_id=253128611 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 224)
+
+[node name="CustomWall73" parent="Level1/Elements/Boarder Wall" unique_id=1820822048 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 240)
+
+[node name="CustomWall91" parent="Level1/Elements/Boarder Wall" unique_id=691694302 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 256)
+
+[node name="CustomWall74" parent="Level1/Elements/Boarder Wall" unique_id=76117313 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 64)
+
+[node name="CustomWall87" parent="Level1/Elements/Boarder Wall" unique_id=255149574 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 48)
+
+[node name="CustomWall75" parent="Level1/Elements/Boarder Wall" unique_id=701969929 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 80)
+
+[node name="CustomWall76" parent="Level1/Elements/Boarder Wall" unique_id=1898576345 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 96)
+
+[node name="CustomWall77" parent="Level1/Elements/Boarder Wall" unique_id=1076457730 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 112)
+
+[node name="CustomWall78" parent="Level1/Elements/Boarder Wall" unique_id=1649129776 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 128)
+
+[node name="CustomWall79" parent="Level1/Elements/Boarder Wall" unique_id=837003836 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 144)
+
+[node name="CustomWall80" parent="Level1/Elements/Boarder Wall" unique_id=1790885795 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 160)
+
+[node name="CustomWall81" parent="Level1/Elements/Boarder Wall" unique_id=1364110090 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 176)
+
+[node name="CustomWall82" parent="Level1/Elements/Boarder Wall" unique_id=701473010 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 192)
+
+[node name="CustomWall83" parent="Level1/Elements/Boarder Wall" unique_id=2046295825 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 208)
+
+[node name="CustomWall84" parent="Level1/Elements/Boarder Wall" unique_id=623815897 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 224)
+
+[node name="CustomWall85" parent="Level1/Elements/Boarder Wall" unique_id=585038740 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 240)
+
+[node name="CustomWall93" parent="Level1/Elements/Boarder Wall" unique_id=1399014347 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 256)
+
 [node name="CustomWall10" parent="Level1/Elements/Boarder Wall" unique_id=1826553048 instance=ExtResource("7_r44b6")]
 position = Vector2(112, 256)
 atlas_source_id = 8
@@ -377,7 +326,8 @@ atlas_source_id = 8
 [node name="Level Wall" type="Node2D" parent="Level1/Elements" unique_id=203626727]
 
 [node name="Level2" parent="." unique_id=1148507802 instance=ExtResource("2_5ekxl")]
-set_player_start_position = Vector2(224, 352)
+visible = false
+set_player_start_position = Vector2(240, 352)
 
 [node name="Floor" parent="Level2" unique_id=177752272 instance=ExtResource("3_jj4e6")]
 position = Vector2(-144, -304)
@@ -391,6 +341,12 @@ limit_right = 352
 limit_bottom = 432
 
 [node name="Elements" type="Node2D" parent="Level2" unique_id=775132783]
+
+[node name="Rat" parent="Level2/Elements" unique_id=236097695 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 272)
+
+[node name="Rat2" parent="Level2/Elements" unique_id=431751920 instance=ExtResource("4_1jewu")]
+position = Vector2(224, 256)
 
 [node name="Level Three Assets" type="Node2D" parent="Level2/Elements" unique_id=1994234316]
 position = Vector2(0, -336)
@@ -543,7 +499,7 @@ atlas_source_id = 6
 [node name="CustomWall38" parent="Level2/Elements/Level Three Assets/Boarder Wall" unique_id=1921225114 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 208)
 
-[node name="CustomWall44" parent="Level2/Elements/Level Three Assets/Boarder Wall" unique_id=51517795 instance=ExtResource("7_r44b6")]
+[node name="CustomWall44" parent="Level2/Elements/Level Three Assets/Boarder Wall" unique_id=1279051834 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 192)
 
 [node name="CustomWall39" parent="Level2/Elements/Level Three Assets/Boarder Wall" unique_id=1117941016 instance=ExtResource("7_r44b6")]
@@ -1270,6 +1226,7 @@ position = Vector2(240, -192)
 
 [node name="CustomWall20" parent="Level2/Elements/Boarder Wall" unique_id=1305984450 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 240)
+atlas_source_id = 1
 
 [node name="CustomWall38" parent="Level2/Elements/Boarder Wall" unique_id=1126824570 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 208)
@@ -1283,6 +1240,7 @@ position = Vector2(256, 256)
 
 [node name="CustomWall22" parent="Level2/Elements/Boarder Wall" unique_id=946147658 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 272)
+atlas_source_id = 1
 
 [node name="CustomWall23" parent="Level2/Elements/Boarder Wall" unique_id=786423288 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 288)
@@ -1911,12 +1869,14 @@ position = Vector2(304, 368)
 
 [node name="CustomWall24" parent="Level2/Elements/Boarder Wall" unique_id=1018752710 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 304)
+atlas_source_id = 1
 
 [node name="CustomWall25" parent="Level2/Elements/Boarder Wall" unique_id=151646034 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 320)
 
 [node name="CustomWall26" parent="Level2/Elements/Boarder Wall" unique_id=1351080256 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 336)
+atlas_source_id = 1
 
 [node name="CustomWall27" parent="Level2/Elements/Boarder Wall" unique_id=658301971 instance=ExtResource("7_r44b6")]
 position = Vector2(256, 352)
@@ -1935,24 +1895,28 @@ atlas_source_id = 1
 
 [node name="CustomWall2" parent="Level2/Elements/Boarder Wall" unique_id=1189411377 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 240)
+atlas_source_id = 1
 
 [node name="CustomWall3" parent="Level2/Elements/Boarder Wall" unique_id=1865811293 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 256)
 
 [node name="CustomWall4" parent="Level2/Elements/Boarder Wall" unique_id=785566707 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 272)
+atlas_source_id = 1
 
 [node name="CustomWall5" parent="Level2/Elements/Boarder Wall" unique_id=578563356 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 288)
 
 [node name="CustomWall6" parent="Level2/Elements/Boarder Wall" unique_id=1848682773 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 304)
+atlas_source_id = 1
 
 [node name="CustomWall7" parent="Level2/Elements/Boarder Wall" unique_id=570757184 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 320)
 
 [node name="CustomWall8" parent="Level2/Elements/Boarder Wall" unique_id=488682116 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 336)
+atlas_source_id = 1
 
 [node name="CustomWall9" parent="Level2/Elements/Boarder Wall" unique_id=788016817 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 352)
@@ -1975,20 +1939,22 @@ atlas_source_id = 8
 
 [node name="Level3" parent="." unique_id=1161302557 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(176, 192)
+set_player_start_position = Vector2(192, 176)
 
 [node name="Floor" parent="Level3" unique_id=483742122 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level3" unique_id=1555411316]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
-limit_bottom = 240
+limit_bottom = 224
 
 [node name="Elements" type="Node2D" parent="Level3" unique_id=1071851917]
+
+[node name="Rat" parent="Level3/Elements" unique_id=1065767298 instance=ExtResource("4_1jewu")]
+position = Vector2(160, 128)
 
 [node name="Stairs" parent="Level3/Elements" unique_id=1333034884 instance=ExtResource("3_r44b6")]
 position = Vector2(160, 176)
@@ -2234,20 +2200,31 @@ atlas_source_id = 8
 
 [node name="Level4" parent="." unique_id=1468679079 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 160)
+set_player_start_position = Vector2(160, 208)
 
 [node name="Floor" parent="Level4" unique_id=200912535 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level4" unique_id=1439558832]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level4" unique_id=1725875579]
+
+[node name="Rat" parent="Level4/Elements" unique_id=1857256057 instance=ExtResource("4_1jewu")]
+position = Vector2(112, 128)
+
+[node name="Rat2" parent="Level4/Elements" unique_id=326409467 instance=ExtResource("4_1jewu")]
+position = Vector2(128, 96)
+
+[node name="Rat3" parent="Level4/Elements" unique_id=634543787 instance=ExtResource("4_1jewu")]
+position = Vector2(160, 112)
+
+[node name="Rat4" parent="Level4/Elements" unique_id=1172763486 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 96)
 
 [node name="Stairs" parent="Level4/Elements" unique_id=2019068821 instance=ExtResource("3_r44b6")]
 position = Vector2(208, 160)
@@ -2416,7 +2393,7 @@ position = Vector2(128, 144)
 
 [node name="Level5" parent="." unique_id=587214858 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(352, 240)
+set_player_start_position = Vector2(240, 352.01)
 
 [node name="Floor" parent="Level5" unique_id=1842330420 instance=ExtResource("3_jj4e6")]
 position = Vector2(0, -16)
@@ -2424,7 +2401,6 @@ floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level5" unique_id=257666030]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 128
 limit_top = 112
 limit_right = 352
@@ -3289,14 +3265,13 @@ atlas_source_id = 6
 
 [node name="Exploration1" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(288, 256)
+set_player_start_position = Vector2(256, 288)
 
 [node name="Floor" parent="Exploration1" unique_id=1357818769 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Exploration1" unique_id=1318779263]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 0
 limit_top = 0
 limit_right = 320
@@ -3862,14 +3837,13 @@ atlas_source_id = 20
 
 [node name="Level6" parent="." unique_id=1412166649 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(192, 112)
+set_player_start_position = Vector2(112, 192)
 
 [node name="Floor" parent="Level6" unique_id=857996473 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level6" unique_id=636482966]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 96
 limit_right = 240
@@ -3877,10 +3851,13 @@ limit_bottom = 256
 
 [node name="Elements" type="Node2D" parent="Level6" unique_id=1030534062]
 
+[node name="Rat" parent="Level6/Elements" unique_id=785374485 instance=ExtResource("4_1jewu")]
+position = Vector2(144, 144)
+
 [node name="Sludge" type="Node2D" parent="Level6/Elements" unique_id=262850148]
 
 [node name="Sludge" parent="Level6/Elements/Sludge" unique_id=1183353181 instance=ExtResource("4_byla0")]
-position = Vector2(144, 144)
+position = Vector2(128, 128)
 atlas_source_id = 6
 
 [node name="Sludge2" parent="Level6/Elements/Sludge" unique_id=243369227 instance=ExtResource("4_byla0")]
@@ -4120,23 +4097,34 @@ position = Vector2(176, 192)
 
 [node name="Level7" parent="." unique_id=1769009253 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 176)
+set_player_start_position = Vector2(176, 208)
 
 [node name="Floor" parent="Level7" unique_id=1880062665 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level7" unique_id=1495778317]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
-limit_right = 240
+limit_right = 256
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level7" unique_id=1508696452]
 
+[node name="Rat" parent="Level7/Elements" unique_id=1850553660 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 96)
+
+[node name="Rat2" parent="Level7/Elements" unique_id=1441023342 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 192)
+
+[node name="Rat3" parent="Level7/Elements" unique_id=358194296 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 160)
+
+[node name="Rat4" parent="Level7/Elements" unique_id=881133118 instance=ExtResource("4_1jewu")]
+position = Vector2(224, 144)
+
 [node name="Stairs" parent="Level7/Elements" unique_id=2032925568 instance=ExtResource("3_r44b6")]
-position = Vector2(144, 208)
+position = Vector2(176, 176)
 
 [node name="Boarder Wall" type="Node2D" parent="Level7/Elements" unique_id=1797308504]
 
@@ -4169,24 +4157,27 @@ position = Vector2(192, 80)
 [node name="CustomWall18" parent="Level7/Elements/Boarder Wall" unique_id=747430017 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 80)
 
-[node name="CustomWall19" parent="Level7/Elements/Boarder Wall" unique_id=898276728 instance=ExtResource("7_r44b6")]
+[node name="CustomWall39" parent="Level7/Elements/Boarder Wall" unique_id=1690484522 instance=ExtResource("7_r44b6")]
 position = Vector2(224, 80)
+
+[node name="CustomWall19" parent="Level7/Elements/Boarder Wall" unique_id=898276728 instance=ExtResource("7_r44b6")]
+position = Vector2(240, 80)
 atlas_source_id = 8
 
 [node name="CustomWall20" parent="Level7/Elements/Boarder Wall" unique_id=878845232 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 96)
+position = Vector2(240, 96)
 
 [node name="CustomWall21" parent="Level7/Elements/Boarder Wall" unique_id=1130998032 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 112)
+position = Vector2(240, 112)
 
 [node name="CustomWall22" parent="Level7/Elements/Boarder Wall" unique_id=1207427366 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 128)
+position = Vector2(240, 128)
 
 [node name="CustomWall23" parent="Level7/Elements/Boarder Wall" unique_id=2037767637 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 144)
+position = Vector2(240, 144)
 
 [node name="CustomWall24" parent="Level7/Elements/Boarder Wall" unique_id=110111616 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 160)
+position = Vector2(240, 160)
 atlas_source_id = 2
 
 [node name="CustomWall37" parent="Level7/Elements/Boarder Wall" unique_id=897470531 instance=ExtResource("7_r44b6")]
@@ -4198,20 +4189,23 @@ position = Vector2(128, 224)
 atlas_source_id = 2
 
 [node name="CustomWall25" parent="Level7/Elements/Boarder Wall" unique_id=971427776 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 176)
+position = Vector2(240, 176)
 
 [node name="CustomWall26" parent="Level7/Elements/Boarder Wall" unique_id=188586983 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 192)
+position = Vector2(240, 192)
 
 [node name="CustomWall27" parent="Level7/Elements/Boarder Wall" unique_id=1941142709 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 208)
+position = Vector2(240, 208)
 
 [node name="CustomWall28" parent="Level7/Elements/Boarder Wall" unique_id=1749450836 instance=ExtResource("7_r44b6")]
-position = Vector2(224, 224)
+position = Vector2(240, 224)
 atlas_source_id = 8
 
 [node name="CustomWall29" parent="Level7/Elements/Boarder Wall" unique_id=960169586 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 224)
+
+[node name="CustomWall34" parent="Level7/Elements/Boarder Wall" unique_id=2097082616 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 224)
 
 [node name="CustomWall30" parent="Level7/Elements/Boarder Wall" unique_id=155923584 instance=ExtResource("7_r44b6")]
 position = Vector2(192, 224)
@@ -4323,7 +4317,7 @@ atlas_source_id = 6
 
 [node name="Exploration2" parent="." unique_id=1392512160 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 144)
+set_player_start_position = Vector2(144, 208)
 
 [node name="Floor" parent="Exploration2" unique_id=2120835144 instance=ExtResource("3_jj4e6")]
 position = Vector2(-576, -480)
@@ -4351,7 +4345,6 @@ possible_source_ids = Array[int]([1, 2, 3, 4, 5, 6])
 
 [node name="Camera2D" type="Camera2D" parent="Exploration2" unique_id=1755817022]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = -496
 limit_top = -384
 limit_right = 240
@@ -7431,20 +7424,22 @@ tile_rotation_steps = 1
 
 [node name="Level8" parent="." unique_id=1699381707 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 144)
+set_player_start_position = Vector2(192, 192)
 
 [node name="Floor" parent="Level8" unique_id=1765796615 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level8" unique_id=1269935680]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level8" unique_id=2001639369]
+
+[node name="Beetle" parent="Level8/Elements" unique_id=1347353864 instance=ExtResource("9_ibiju")]
+position = Vector2(112, 112)
 
 [node name="Stairs" parent="Level8/Elements" unique_id=825001279 instance=ExtResource("3_r44b6")]
 position = Vector2(192, 112)
@@ -7520,6 +7515,114 @@ position = Vector2(112, 208)
 [node name="CustomWall3" parent="Level8/Elements/Boarder Wall" unique_id=746978826 instance=ExtResource("7_r44b6")]
 position = Vector2(96, 112)
 
+[node name="CustomWall9" parent="Level8/Elements/Boarder Wall" unique_id=919094068 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 112)
+
+[node name="CustomWall11" parent="Level8/Elements/Boarder Wall" unique_id=1105609201 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 96)
+
+[node name="CustomWall18" parent="Level8/Elements/Boarder Wall" unique_id=920165294 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 80)
+
+[node name="CustomWall41" parent="Level8/Elements/Boarder Wall" unique_id=1039460399 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 160)
+
+[node name="CustomWall42" parent="Level8/Elements/Boarder Wall" unique_id=1132422274 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 144)
+
+[node name="CustomWall43" parent="Level8/Elements/Boarder Wall" unique_id=1493064523 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 128)
+
+[node name="CustomWall44" parent="Level8/Elements/Boarder Wall" unique_id=282558988 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 208)
+
+[node name="CustomWall45" parent="Level8/Elements/Boarder Wall" unique_id=383660072 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 192)
+
+[node name="CustomWall46" parent="Level8/Elements/Boarder Wall" unique_id=2016551796 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 176)
+
+[node name="CustomWall47" parent="Level8/Elements/Boarder Wall" unique_id=86303562 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 112)
+
+[node name="CustomWall48" parent="Level8/Elements/Boarder Wall" unique_id=1289609787 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 96)
+
+[node name="CustomWall49" parent="Level8/Elements/Boarder Wall" unique_id=1635319011 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 80)
+
+[node name="CustomWall50" parent="Level8/Elements/Boarder Wall" unique_id=655857331 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 160)
+
+[node name="CustomWall51" parent="Level8/Elements/Boarder Wall" unique_id=1293897450 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 144)
+
+[node name="CustomWall52" parent="Level8/Elements/Boarder Wall" unique_id=834986941 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 128)
+
+[node name="CustomWall53" parent="Level8/Elements/Boarder Wall" unique_id=985936072 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 208)
+
+[node name="CustomWall54" parent="Level8/Elements/Boarder Wall" unique_id=1776807874 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 192)
+
+[node name="CustomWall55" parent="Level8/Elements/Boarder Wall" unique_id=328341049 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 176)
+
+[node name="CustomWall27" parent="Level8/Elements/Boarder Wall" unique_id=1599957118 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 80)
+
+[node name="CustomWall20" parent="Level8/Elements/Boarder Wall" unique_id=1923914126 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 80)
+
+[node name="CustomWall29" parent="Level8/Elements/Boarder Wall" unique_id=1481447853 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 80)
+
+[node name="CustomWall36" parent="Level8/Elements/Boarder Wall" unique_id=1510668244 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 80)
+
+[node name="CustomWall37" parent="Level8/Elements/Boarder Wall" unique_id=1340356131 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 80)
+
+[node name="CustomWall38" parent="Level8/Elements/Boarder Wall" unique_id=1591266577 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 80)
+
+[node name="CustomWall39" parent="Level8/Elements/Boarder Wall" unique_id=103933363 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 80)
+
+[node name="CustomWall40" parent="Level8/Elements/Boarder Wall" unique_id=1382477867 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 80)
+
+[node name="CustomWall56" parent="Level8/Elements/Boarder Wall" unique_id=1172236491 instance=ExtResource("7_r44b6")]
+position = Vector2(80, 224)
+
+[node name="CustomWall57" parent="Level8/Elements/Boarder Wall" unique_id=292612484 instance=ExtResource("7_r44b6")]
+position = Vector2(224, 224)
+
+[node name="CustomWall58" parent="Level8/Elements/Boarder Wall" unique_id=1585141045 instance=ExtResource("7_r44b6")]
+position = Vector2(112, 224)
+
+[node name="CustomWall59" parent="Level8/Elements/Boarder Wall" unique_id=508740004 instance=ExtResource("7_r44b6")]
+position = Vector2(96, 224)
+
+[node name="CustomWall60" parent="Level8/Elements/Boarder Wall" unique_id=1891967480 instance=ExtResource("7_r44b6")]
+position = Vector2(128, 224)
+
+[node name="CustomWall61" parent="Level8/Elements/Boarder Wall" unique_id=2070780335 instance=ExtResource("7_r44b6")]
+position = Vector2(160, 224)
+
+[node name="CustomWall62" parent="Level8/Elements/Boarder Wall" unique_id=305306751 instance=ExtResource("7_r44b6")]
+position = Vector2(144, 224)
+
+[node name="CustomWall63" parent="Level8/Elements/Boarder Wall" unique_id=348200771 instance=ExtResource("7_r44b6")]
+position = Vector2(176, 224)
+
+[node name="CustomWall64" parent="Level8/Elements/Boarder Wall" unique_id=1905975726 instance=ExtResource("7_r44b6")]
+position = Vector2(208, 224)
+
+[node name="CustomWall65" parent="Level8/Elements/Boarder Wall" unique_id=1753130923 instance=ExtResource("7_r44b6")]
+position = Vector2(192, 224)
+
 [node name="CustomWall4" parent="Level8/Elements/Boarder Wall" unique_id=931479146 instance=ExtResource("7_r44b6")]
 position = Vector2(96, 128)
 
@@ -7545,20 +7648,22 @@ atlas_source_id = 8
 
 [node name="Level9" parent="." unique_id=1021913819 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(240, 160)
+set_player_start_position = Vector2(160, 224)
 
 [node name="Floor" parent="Level9" unique_id=1775036050 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level9" unique_id=1277094788]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 48
 limit_right = 240
 limit_bottom = 272
 
 [node name="Elements" type="Node2D" parent="Level9" unique_id=854557098]
+
+[node name="Beetle" parent="Level9/Elements" unique_id=2049615222 instance=ExtResource("9_ibiju")]
+position = Vector2(128, 176)
 
 [node name="Stairs" parent="Level9/Elements" unique_id=1306241092 instance=ExtResource("3_r44b6")]
 position = Vector2(128, 160)
@@ -8266,20 +8371,34 @@ atlas_source_id = 3
 
 [node name="Level10" parent="." unique_id=1318668282 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 192)
+set_player_start_position = Vector2(192, 208)
 
 [node name="Floor" parent="Level10" unique_id=295061027 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level10" unique_id=484671166]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level10" unique_id=1030324797]
+
+[node name="Rat" parent="Level10/Elements" unique_id=888470999 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 144)
+
+[node name="Rat2" parent="Level10/Elements" unique_id=519908504 instance=ExtResource("4_1jewu")]
+position = Vector2(112, 128)
+
+[node name="Rat3" parent="Level10/Elements" unique_id=666019600 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 208)
+
+[node name="Rat4" parent="Level10/Elements" unique_id=695550567 instance=ExtResource("4_1jewu")]
+position = Vector2(112, 192)
+
+[node name="Beetle" parent="Level10/Elements" unique_id=41676165 instance=ExtResource("9_ibiju")]
+position = Vector2(192, 96)
 
 [node name="Stairs" parent="Level10/Elements" unique_id=1583890334 instance=ExtResource("3_r44b6")]
 position = Vector2(96, 160)
@@ -8445,20 +8564,37 @@ position = Vector2(144, 128)
 
 [node name="Level11" parent="." unique_id=792089944 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 144)
+set_player_start_position = Vector2(144, 208)
 
 [node name="Floor" parent="Level11" unique_id=1640491280 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level11" unique_id=386107384]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level11" unique_id=1415656035]
+
+[node name="Beetle" parent="Level11/Elements" unique_id=1467704773 instance=ExtResource("9_ibiju")]
+position = Vector2(144, 128)
+
+[node name="Beetle2" parent="Level11/Elements" unique_id=399645764 instance=ExtResource("9_ibiju")]
+position = Vector2(160, 144)
+
+[node name="Rat" parent="Level11/Elements" unique_id=231546546 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 96)
+
+[node name="Rat2" parent="Level11/Elements" unique_id=1579952102 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 208)
+
+[node name="Rat3" parent="Level11/Elements" unique_id=2050354117 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 208)
+
+[node name="Rat4" parent="Level11/Elements" unique_id=2055118653 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 96)
 
 [node name="Stairs" parent="Level11/Elements" unique_id=1930591564 instance=ExtResource("3_r44b6")]
 position = Vector2(176, 96)
@@ -8623,7 +8759,7 @@ position = Vector2(112, 128)
 
 [node name="Level12" parent="." unique_id=1271032903 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(368, 224)
+set_player_start_position = Vector2(240, 354)
 
 [node name="Floor" parent="Level12" unique_id=1307741382 instance=ExtResource("3_jj4e6")]
 position = Vector2(0, 32)
@@ -8631,13 +8767,15 @@ floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level12" unique_id=531794384]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 128
 limit_top = 112
 limit_right = 352
 limit_bottom = 432
 
 [node name="Elements" type="Node2D" parent="Level12" unique_id=525421624]
+
+[node name="Beetle" parent="Level12/Elements" unique_id=1594093437 instance=ExtResource("9_ibiju")]
+position = Vector2(224, 240)
 
 [node name="Stairs" parent="Level12/Elements" unique_id=827464339 instance=ExtResource("3_r44b6")]
 position = Vector2(240, 240)
@@ -9572,20 +9710,31 @@ tile_rotation_steps = 2
 
 [node name="Level13" parent="." unique_id=785932462 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(352, 240)
+set_player_start_position = Vector2(240, 352)
 
 [node name="Floor" parent="Level13" unique_id=1872592386 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level13" unique_id=883015267]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 160
 limit_top = 192
 limit_right = 320
 limit_bottom = 384
 
 [node name="Elements" type="Node2D" parent="Level13" unique_id=670791652]
+
+[node name="Rat" parent="Level13/Elements" unique_id=1542974736 instance=ExtResource("4_1jewu")]
+position = Vector2(192, 272)
+
+[node name="Rat2" parent="Level13/Elements" unique_id=1794390613 instance=ExtResource("4_1jewu")]
+position = Vector2(176, 304)
+
+[node name="Rat3" parent="Level13/Elements" unique_id=1897508665 instance=ExtResource("4_1jewu")]
+position = Vector2(288, 272)
+
+[node name="Beetle" parent="Level13/Elements" unique_id=357066427 instance=ExtResource("9_ibiju")]
+position = Vector2(240, 240)
 
 [node name="Stairs" parent="Level13/Elements" unique_id=1312015225 instance=ExtResource("3_r44b6")]
 position = Vector2(288, 224)
@@ -9800,7 +9949,7 @@ atlas_source_id = 6
 
 [node name="Level14" parent="." unique_id=1632588062 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(336, 256)
+set_player_start_position = Vector2(256, 336)
 
 [node name="Floor" parent="Level14" unique_id=1211776513 instance=ExtResource("3_jj4e6")]
 position = Vector2(0, -16)
@@ -9808,13 +9957,30 @@ floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level14" unique_id=380353359]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 160
 limit_top = 80
 limit_right = 320
 limit_bottom = 384
 
 [node name="Elements" type="Node2D" parent="Level14" unique_id=701817925]
+
+[node name="Rat" parent="Level14/Elements" unique_id=1426255892 instance=ExtResource("4_1jewu")]
+position = Vector2(272, 112)
+
+[node name="Rat2" parent="Level14/Elements" unique_id=837386660 instance=ExtResource("4_1jewu")]
+position = Vector2(288, 96)
+
+[node name="Rat3" parent="Level14/Elements" unique_id=1382287705 instance=ExtResource("4_1jewu")]
+position = Vector2(224, 336)
+
+[node name="Rat4" parent="Level14/Elements" unique_id=1991425556 instance=ExtResource("4_1jewu")]
+position = Vector2(224, 288)
+
+[node name="Rat5" parent="Level14/Elements" unique_id=660177775 instance=ExtResource("4_1jewu")]
+position = Vector2(272, 224)
+
+[node name="Beetle" parent="Level14/Elements" unique_id=1472743626 instance=ExtResource("9_ibiju")]
+position = Vector2(272, 160)
 
 [node name="Stairs" parent="Level14/Elements" unique_id=685446148 instance=ExtResource("3_r44b6")]
 position = Vector2(224, 352)
@@ -10113,14 +10279,13 @@ tile_rotation_steps = 1
 
 [node name="Level15" parent="." unique_id=2057816863 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(352, 240)
+set_player_start_position = Vector2(240, 352)
 
 [node name="Floor" parent="Level15" unique_id=113940090 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level15" unique_id=1848196182]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 160
 limit_top = 144
 limit_right = 320
@@ -10128,8 +10293,29 @@ limit_bottom = 384
 
 [node name="Elements" type="Node2D" parent="Level15" unique_id=806799290]
 
+[node name="Beetle" parent="Level15/Elements" unique_id=1430144353 instance=ExtResource("9_ibiju")]
+position = Vector2(288, 240)
+
+[node name="Rat" parent="Level15/Elements" unique_id=287031989 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 288)
+
+[node name="Rat2" parent="Level15/Elements" unique_id=944392169 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 256)
+
+[node name="Rat3" parent="Level15/Elements" unique_id=349312607 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 240)
+
+[node name="Rat4" parent="Level15/Elements" unique_id=1034398952 instance=ExtResource("4_1jewu")]
+position = Vector2(192, 208)
+
+[node name="Rat5" parent="Level15/Elements" unique_id=899306280 instance=ExtResource("4_1jewu")]
+position = Vector2(256, 208)
+
+[node name="Rat6" parent="Level15/Elements" unique_id=1198078557 instance=ExtResource("4_1jewu")]
+position = Vector2(256, 192)
+
 [node name="Stairs" parent="Level15/Elements" unique_id=1744315376 instance=ExtResource("3_r44b6")]
-position = Vector2(272, 224)
+position = Vector2(288, 160)
 
 [node name="Boarder Wall" type="Node2D" parent="Level15/Elements" unique_id=634881951]
 
@@ -10418,20 +10604,31 @@ atlas_source_id = 3
 
 [node name="Level16" parent="." unique_id=1604621609 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(208, 144)
+set_player_start_position = Vector2(144, 208)
 
 [node name="Floor" parent="Level16" unique_id=2024592934 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level16" unique_id=1782754329]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
 
 [node name="Elements" type="Node2D" parent="Level16" unique_id=1875717264]
+
+[node name="Rat" parent="Level16/Elements" unique_id=1719296781 instance=ExtResource("4_1jewu")]
+position = Vector2(96, 192)
+
+[node name="Rat2" parent="Level16/Elements" unique_id=1652039305 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 128)
+
+[node name="Rat3" parent="Level16/Elements" unique_id=1865413533 instance=ExtResource("4_1jewu")]
+position = Vector2(160, 192)
+
+[node name="Rat4" parent="Level16/Elements" unique_id=403499775 instance=ExtResource("4_1jewu")]
+position = Vector2(176, 208)
 
 [node name="Stairs" parent="Level16/Elements" unique_id=1433914471 instance=ExtResource("3_r44b6")]
 position = Vector2(192, 208)
@@ -10629,20 +10826,46 @@ atlas_source_id = 6
 
 [node name="Level17" parent="." unique_id=1420187933 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(352, 224)
+set_player_start_position = Vector2(224, 352)
 
 [node name="Floor" parent="Level17" unique_id=737334086 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level17" unique_id=1978214205]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 160
 limit_top = 64
 limit_right = 320
 limit_bottom = 384
 
 [node name="Elements" type="Node2D" parent="Level17" unique_id=747146078]
+
+[node name="Rat" parent="Level17/Elements" unique_id=24636827 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 128)
+
+[node name="Rat2" parent="Level17/Elements" unique_id=909374039 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 128)
+
+[node name="Rat3" parent="Level17/Elements" unique_id=1241508630 instance=ExtResource("4_1jewu")]
+position = Vector2(272, 128)
+
+[node name="Rat4" parent="Level17/Elements" unique_id=1518051993 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 208)
+
+[node name="Rat5" parent="Level17/Elements" unique_id=1437754611 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 208)
+
+[node name="Rat6" parent="Level17/Elements" unique_id=567672948 instance=ExtResource("4_1jewu")]
+position = Vector2(272, 208)
+
+[node name="Rat7" parent="Level17/Elements" unique_id=1915184912 instance=ExtResource("4_1jewu")]
+position = Vector2(208, 288)
+
+[node name="Rat8" parent="Level17/Elements" unique_id=1200962350 instance=ExtResource("4_1jewu")]
+position = Vector2(240, 288)
+
+[node name="Rat9" parent="Level17/Elements" unique_id=479899331 instance=ExtResource("4_1jewu")]
+position = Vector2(272, 288)
 
 [node name="Stairs" parent="Level17/Elements" unique_id=268757925 instance=ExtResource("3_r44b6")]
 position = Vector2(240, 80)
@@ -10963,7 +11186,7 @@ atlas_source_id = 6
 
 [node name="Level18" parent="." unique_id=1181135597 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(368, 240)
+set_player_start_position = Vector2(240, 368)
 
 [node name="Floor" parent="Level18" unique_id=1256516923 instance=ExtResource("3_jj4e6")]
 position = Vector2(-144, -448)
@@ -10971,7 +11194,6 @@ floor_size = Vector2(896, 896)
 
 [node name="Camera2D" type="Camera2D" parent="Level18" unique_id=1784180784]
 position = Vector2(112, 144)
-anchor_mode = 0
 limit_left = 128
 limit_top = -112
 limit_right = 352

@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://cafb6r831avqn"]
+
+[ext_resource type="Script" uid="uid://cjlc7010py4ji" path="res://bird sequences/game_over_sequence.gd" id="1_wu4wu"]
+[ext_resource type="Texture2D" uid="uid://c730btcse8kre" path="res://bird sequences/sequence_assets/black-screen.png" id="2_bh4ee"]
+[ext_resource type="Texture2D" uid="uid://dmoqkm7j5j08s" path="res://bird sequences/sequence_assets/cat-licking-Sheet.png" id="3_wu4wu"]
+[ext_resource type="Texture2D" uid="uid://cexunyltiyvb3" path="res://bird sequences/sequence_assets/half-black-screen.png" id="4_kgq13"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpbv2"]
+atlas = ExtResource("3_wu4wu")
+
+[sub_resource type="Animation" id="Animation_nykor"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("half-black:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("black:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cat-licking-atlas:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cat-licking-atlas:texture:region")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ig07d"]
+resource_name = "game_over"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("half-black:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 3.8333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("black:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 4.0333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cat-licking-atlas:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9, 3.8333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cat-licking-atlas:texture:region")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.73333335, 0.93333334, 1.1333333, 1.3333334, 1.5333333, 1.7333333, 1.9333333, 2.1333332, 2.3333333, 2.5333333, 2.7333336, 2.9333334, 3.1333332, 3.3333333, 3.5333335, 3.7333333),
+"transitions": PackedFloat32Array(0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 32, 0), Rect2(32, 0, 32, 0), Rect2(64, 0, 32, 0), Rect2(96, 0, 32, 0), Rect2(0, 0, 32, 0), Rect2(32, 0, 32, 0), Rect2(64, 0, 32, 0), Rect2(96, 0, 32, 0), Rect2(0, 0, 32, 0), Rect2(32, 0, 32, 0), Rect2(64, 0, 32, 0), Rect2(96, 0, 32, 0), Rect2(0, 0, 32, 0), Rect2(32, 0, 32, 0), Rect2(64, 0, 32, 0), Rect2(96, 0, 32, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kihyl"]
+_data = {
+&"RESET": SubResource("Animation_nykor"),
+&"game_over": SubResource("Animation_ig07d")
+}
+
+[node name="GameOverSequence" type="Control" unique_id=2100362117]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wu4wu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=755181790]
+
+[node name="black" type="TextureRect" parent="CanvasLayer" unique_id=1256017174]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_bh4ee")
+
+[node name="cat-licking-atlas" type="TextureRect" parent="CanvasLayer" unique_id=914522473]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_xpbv2")
+
+[node name="half-black" type="TextureRect" parent="CanvasLayer" unique_id=357542370]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_kgq13")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1425023805]
+libraries/ = SubResource("AnimationLibrary_kihyl")

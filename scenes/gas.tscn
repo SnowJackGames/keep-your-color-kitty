@@ -104,6 +104,6 @@ shape = SubResource("RectangleShape2D_nish5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1826976048]
 sprite_frames = SubResource("SpriteFrames_nish5")
 animation = &"single"
-frame_progress = 0.4418977
+frame_progress = 0.98540694
 speed_scale = 0.4
 offset = Vector2(8, 8)

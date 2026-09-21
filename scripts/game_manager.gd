@@ -8,13 +8,12 @@ extends Node2D
 @onready var ai_enemy : CharacterBody2D
 @onready var ai_array : Array[CharacterBody2D] = []
 
-var game_over := false
+signal game_over
+signal game_resume
 
 
 func next_turn () -> void:
 	Debug.say("starting turn")
-	if game_over:
-		return
 	
 	#region Enemy Phases
 	# Check to see if there's any ai_enemys (enemies). put them in ai_array based on position
@@ -123,7 +122,6 @@ func update_camera_target() -> void:
 		$Player/RemoteTransform2D.remote_path = Globals.level_camera.get_path()
 		$Player/RemoteTransform2D.force_update_cache()
 		Globals.level_camera.global_position = $Player.global_position
-		print($Player/RemoteTransform2D.remote_path)
 	else: 
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
 
@@ -145,6 +143,7 @@ func calc_ai_array() -> void:
 func _ready() -> void:
 	Globals.player = $Player
 	Globals.ui = $UI
+	Globals.GameManager = self
 	show()
 	levels_scene.show()
 	player_character.show()
@@ -163,5 +162,5 @@ func _process(_delta: float) -> void:
 	# Game Over
 	if player_character.cur_health <= 0:
 		player_character.hide()
-		get_tree().quit()
+		game_over.emit()
 	set_process(true)

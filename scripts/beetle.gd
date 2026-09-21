@@ -185,7 +185,7 @@ func declare_attack() -> void:
 	declared_attack_direction = direction_towards_player
 	
 	# If we can attack 1 tile away, let's see if we attack 2 tiles away, then 3, then 4
-	if declared_attack:
+	if declared_attack and declared_attack_direction:
 		tile_detection_check = direction_dictionary[declared_attack_direction] * Globals.grid_size * 2 + position
 		if tile_detection.player_on_tile(tile_detection_check) or tile_detection.enemy_on_tile(tile_detection_check) or tile_detection.slashthroughable(tile_detection_check):
 			declared_attack_pos_2 = tile_detection_check
