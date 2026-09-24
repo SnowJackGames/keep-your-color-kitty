@@ -10,8 +10,6 @@ extends Node2D
 
 @onready var game_over_player = $GameOverSequence
 @onready var pause_menu = $PauseMenu
-@onready var paused = false
-@onready var playing = false
 
 const steppin = preload("res://sound/music/Side Steppin'.mp3")
 const blurr = preload("res://sound/music/Blurr.mp3")
@@ -33,9 +31,11 @@ func next_turn () -> void:
 		Globals.game_mode = 2
 		await get_tree().create_timer(0.2).timeout
 		for ai in ai_array:
-			ai.begin_turn()
-			await ai.FinishedPhase
-			await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
+			if "is_alive" in ai:
+				if ai.is_alive:
+					ai.begin_turn()
+					await ai.FinishedPhase
+					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
 		Debug.say("AI completed phase one")
 	else:
 		# Combat
@@ -75,12 +75,13 @@ func next_turn () -> void:
 		# Disable player UI
 		# ENEMY ATTACK
 		for ai in ai_array:
-			if ai.declared_attack:
-				#ai enacts attack
-				ai.attack()
-				await ai.FinishedPhase
-				ai.end_turn()
-				await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # random slight delay btwn enemies
+			if "declared_attack" in ai:
+				if ai.declared_attack:
+					#ai enacts attack
+					ai.attack()
+					await ai.FinishedPhase
+					ai.end_turn()
+					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # random slight delay btwn enemies
 		await get_tree().create_timer(0.1).timeout # after finished
 	else:
 		Globals.game_mode = 1
@@ -98,8 +99,6 @@ func next_turn () -> void:
 	next_turn()
 
 func reload_level():
-	paused = false
-	await get_tree().create_timer(0.1).timeout 
 	unpause($Levels)
 	unpause($Player)
 	current_level.visible = false
@@ -109,6 +108,8 @@ func reload_level():
 	update_camera_target()
 	current_level.visible = true
 	#enemies need to be reset, too
+
+
 
 func increment_active_level() -> void:
 	player_character.reset_status()
@@ -144,7 +145,7 @@ func increment_active_level() -> void:
 	if current_level.name == "Level8": 
 		Globalaudio.play_music_level(teeter)
 	if current_level.name == "Exploration3": 
-		Globalaudio.play_music_level(spurr)
+		Globalaudio.play_music_level(magenta)
 	if current_level.name == "Level12": 
 		Globalaudio.play_music_level(spurr)
 	if current_level.name == "Level13": 
@@ -164,9 +165,13 @@ func update_camera_target() -> void:
 		$Player/RemoteTransform2D.use_global_coordinates = true
 		$Player/RemoteTransform2D.remote_path = Globals.level_camera.get_path()
 		$Player/RemoteTransform2D.force_update_cache()
-		Globals.level_camera.global_position = $Player.global_position
+		global_position = global_position.round()
+		Globals.level_camera.global_position = $Player.global_position.round()
+		#Globals.level_camera.global_position = $Player.global_position
 	else: 
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
+
+
 
 # calculate ai_array
 func calc_ai_array() -> void:
@@ -182,43 +187,34 @@ func calc_ai_array() -> void:
 	ai_array = unsorted_array
 	
 	# returns the int representing the current level index
-
 func load_game() -> int:
 	var file = FileAccess.open("user://save.save", FileAccess.READ)
 	if not FileAccess.file_exists("user://save.save"):
 		return -1 # if no save is present, returns the starting index
 	var saved_level = int(file.get_as_text())
 	return saved_level
-
+	
 func pause(branch : Node):
 	branch.process_mode = PROCESS_MODE_DISABLED
 
 func unpause(branch : Node):
 	branch.process_mode = PROCESS_MODE_INHERIT
 
-func resume_play():
-	await get_tree().create_timer(0.1).timeout 
-	unpause($Levels)
-	unpause($Player)
-	pause_menu.hide()
-	paused = false
-
-func begin_game():
-	playing = true
+func _ready() -> void:
+	Globals.player = $Player
+	Globals.ui = $UI
+	Globals.GameManager = self
 	show()
 	levels_scene.show()
 	player_character.show()
 	increment_active_level()
 	next_turn()
+	pause_menu.hide()
+	pause(pause_menu)
 
-func _ready() -> void:
-	Globals.player = $Player
-	Globals.ui = $UI
-	Globals.GameManager = self
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	print("process")
 	# Player Damage
 	if player_character.just_took_damage:
 		set_process(false)
@@ -228,20 +224,22 @@ func _process(_delta: float) -> void:
 		if player_character.cur_health <= 0:
 			pause($Levels)
 			pause($Player)
-			pause($PauseMenu)
 			await get_tree().create_timer(1.5).timeout 
 			game_over_player.play_game_over()
 			print("You Died!")
-			game_over_player.reload_room.connect(reload_level)
+			game_over_player.load_room.connect(reload_level)
 		await get_tree().create_timer(0.1).timeout 
 		set_process(true)
 	# Close
 	elif Input.is_action_just_pressed("ui_close_dialog"):
-		if paused == false and playing == true:
-			paused = true
-			print("pause!")
-			pause($Levels)
-			pause($Player)
-			pause_menu.show_menu()
-			pause_menu.load_room.connect(reload_level)
-			pause_menu.resume_game.connect(resume_play)
+		print("pause!")
+		pause($Levels)
+		pause($Player)
+		unpause(pause_menu)
+		pause_menu.show()
+		pause_menu.load_room.connect(reload_level)
+		if pause_menu.resume_game.connect():
+			unpause($Levels)
+			unpause($Player)
+			pause(pause_menu)
+			pause_menu.hide()

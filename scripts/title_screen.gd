@@ -24,7 +24,7 @@ func _ready() -> void:
 	$mm2_new.hide()
 	
 	#checks if there's a save
-	var current_level_index = -1 #load_game()
+	var current_level_index = 0 #load_game()
 	
 	#if there's no save, show the new player menu
 	if current_level_index <= 0:
@@ -40,16 +40,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if screen == "controls":
 		if Input.is_action_just_pressed("ui_accept"):
-			print("pressed!")
 			$controls.hide()
 			if menu == 1: screen = "menu1"
 			if menu == 2: screen = "menu2"
-	elif screen == "menu1":
+	if screen == "menu1":
 		if Input.is_action_just_pressed("ui_accept"):
-			print("start new game!")
 			start_new_game.emit()
-			hide()
-	elif screen == "menu2":
+	if screen == "menu2":
 		if Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_left"):
 			if button == "new":
 				button = "load"

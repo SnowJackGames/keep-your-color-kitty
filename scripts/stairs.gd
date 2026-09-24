@@ -11,7 +11,7 @@ extends StaticBody2D
 
 # We want to be able to customize every tile instance for specific textures / rotations
 @export_group("Visuals")
-@export_range(0, 2) var atlas_source_id : int = 0:
+@export_range(0, 1) var atlas_source_id : int = 0:
 	set(value):
 		atlas_source_id = value
 		_update_stairs()

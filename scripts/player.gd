@@ -40,6 +40,7 @@ signal FinishedTurn
 signal FinishedMove
 signal FinishedAction
 signal InputsClear
+signal MoveInputsClear
 
 #region Input Dictionaries
 static var dir_inputs : Dictionary[String, Vector2] = {
@@ -111,6 +112,13 @@ static var directional_facing := {
 	'ui_down': "Down",
 	'ui_left': "Left",
 	'ui_right': "Right"
+}
+
+static var directional_translate := {
+	'Up': "ui_up",
+	'Down': "ui_down",
+	'Left': "ui_left",
+	'Right': "ui_right"
 }
 
 var action_inputs := {
@@ -300,6 +308,7 @@ func await_inputs_clear() -> void:
 
 #region Move
 func declare_move() -> void:
+	print("stage0")
 	var valid_dir := [] # "Up", etc
 	for dir in directional_facing: # directional_facing: ui_up -> Up
 		var valid_target := true
@@ -321,6 +330,17 @@ func declare_move() -> void:
 		await get_tree().create_timer(0.1).timeout
 		can_move = false
 		FinishedMove.emit()
+
+
+
+
+func await_move_inputs_clear() -> void:
+	var can_move_on = false
+	while !can_move_on:
+		if !Input.is_action_pressed("ui_up") and !Input.is_action_pressed("ui_down") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+			can_move_on = true
+		await get_tree().create_timer(0.05).timeout
+	MoveInputsClear.emit()
 
 
 func attempt_move(valid_dir) -> void:
@@ -351,40 +371,103 @@ func attempt_move(valid_dir) -> void:
 					FinishedMove.emit()
 					break
 
+
 	#Combat
 	elif Globals.game_mode == 2:
 		Globals.ui.move_combat_hover()
 		var can_process_move := false
 		var should_move := false
-		while !can_process_move:
+		var confirmMove = false
+		var confirmMove2 = false
+		var facing2 
+		
+		while !can_process_move and !confirmMove:
+			if Input.is_action_pressed("ui_cancel"):
+				print("skip")
+				move_hint([], false)
+				can_move = false
+				can_process_move = true
+				confirmMove = false
+				FinishedMove.emit()
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir) and valid_dir.has(directional_facing[dir]):
 					# face correct direction, update move_hint
 					sprite.animation = directional_walk_animations[dir]
 					facing = directional_facing[dir]
+					facing2 = dir 
 					move_hint(valid_dir, true)
-			
+					confirmMove = true
+					print("stage1: " + dir)
+					#await get_tree().create_timer(0.05).timeout
+					
+			for dir in dir_inputs.keys():
+				if Input.is_action_just_released(dir):
+					print(dir)
+				
+		
 			# pressing (A) while facing a valid direction
-			if Input.is_action_pressed("ui_accept") and facing in valid_dir:
-				# hide the combat move UI
-				should_move = true
-				can_process_move = true
+			#if Input.is_action_pressed("ui_accept") and facing in valid_dir:
+			#for dir in dir_inputs.keys():
+				#if Input.is_action_pressed(dir) and facing in valid_dir:
 			
-			# pressing (B) skips movement
-			if Input.is_action_pressed("ui_cancel"):
-				can_process_move = true
+			
+			
 			
 			await get_tree().create_timer(0.1).timeout
 		await_inputs_clear()
 		await InputsClear
-		move_hint([], false)
-		can_move = false
-		if should_move:
-			move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
-		else:
-			FinishedMove.emit()
+		await_move_inputs_clear()
+		await MoveInputsClear
+		
+		
+		while confirmMove == true and should_move == false:
+			if Input.is_action_pressed("ui_cancel"):
+				print("skip")
+				can_process_move = true
+				confirmMove = false
+				move_hint([], false)
+				can_move = false
+				FinishedMove.emit()
+			for dir in dir_inputs.keys():
+				if Input.is_action_pressed(dir) and facing2 == dir and valid_dir.has(directional_facing[dir]):
+					#hide the combat move UI
+						should_move = true
+						can_process_move = true
+						confirmMove = false
+						confirmMove2 = false
+						facing2 = null
+						print("stage2 success:" + dir)
+						#await get_tree().create_timer(0.05).timeout
+						move_hint([], false)
+						can_move = false
+						if should_move:
+							move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
+						else:
+							FinishedMove.emit()
+				elif Input.is_action_pressed(dir) and facing2 != dir:
+						print("stage2 fail" + dir)
+						facing2 = null
+						should_move = false
+						can_process_move = false
+						confirmMove = false
+						#confirmMove2 = false
+						move_hint([], false)
+						can_move = false
+						declare_move()
+				# pressing (B) skips movement
+			
+						
+						
+			await get_tree().create_timer(0.1).timeout
+		await_inputs_clear()
+		await InputsClear
+		await_move_inputs_clear()
+		await MoveInputsClear
+		
+		
 	
 	else:
+		
 		push_error("Impossible state in attempt_move")
 
 
@@ -468,7 +551,7 @@ func declare_slash() -> void:
 	else:
 		Debug.say("No valid slash target!")
 		# Animate shake head
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(0.2).timeout
 		await_inputs_clear()
 		await InputsClear
 		FinishedAction.emit()
@@ -487,7 +570,7 @@ func attempt_slash(valid_dir: Array) -> void:
 						slash_hint(valid_dir, true)
 						break
 			# Reduce speed of loop waiting for key release
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.08).timeout
 		slash(valid_dir)
 		
 	# Combat
@@ -511,7 +594,7 @@ func attempt_slash(valid_dir: Array) -> void:
 					sprite.animation = directional_walk_animations[dir]
 					slash_hint(valid_dir, true)
 					break
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.08).timeout
 		await_inputs_clear()
 		await InputsClear
 		if go_back:
@@ -579,35 +662,35 @@ func slash(valid_dir: Array) -> void:
 		sprite.animation = directional_swipe_animations[directional_facing.find_key(facing)]
 		Debug.say("Slash " + facing + " Near!")
 		sprite.frame = 0
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.12).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.12).timeout
 		sprite.frame = 2
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.12).timeout
 		sprite.frame = 3
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.12).timeout
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1) + position
 		await tile_detection.damage_enemy(damage_spot, slash_damage)
 		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 		sprite.frame = 0
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.12).timeout
 	# Far slash
 	elif valid_dir.has((facing + "Far")) and !valid_dir.has((facing + "Near")):
 		sprite.animation = directional_swipe_animations[directional_facing.find_key(facing)]
 		Debug.say("Slash " + facing + " Near!")
 		sprite.frame = 0
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.15).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.15).timeout
 		sprite.frame = 2
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.15).timeout
 		sprite.frame = 3
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.15).timeout
 		damage_spot = (dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 2) + position
 		await tile_detection.damage_enemy(damage_spot, slash_damage)
 		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 		sprite.frame = 0
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.15).timeout
 
 	elif valid_dir.has((facing + "Near")) and valid_dir.has((facing + "Far")):
 		push_error("Cannot slash both near and far")
@@ -655,7 +738,7 @@ func declare_pounce() -> void:
 	else:
 		Debug.say("No valid pounce target!")
 		# Animate shake head
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(0.2).timeout
 		await_inputs_clear()
 		await InputsClear
 		FinishedAction.emit()
@@ -698,7 +781,7 @@ func attempt_pounce(valid_dir: Array) -> void:
 						sprite.animation = directional_walk_animations[dir]
 						pounce_hint(valid_dir, true)
 						break
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.08).timeout
 		await_inputs_clear()
 		await InputsClear
 		if go_back:
@@ -743,21 +826,37 @@ func pounce() -> void:
 		sprite.animation = directional_pounce_animations_combat[directional_facing.find_key(facing)]
 
 	# We animate moving
-	sprite.frame = 0
-	Debug.say("Pounce " + facing + "!")
-	await get_tree().create_timer(0.15).timeout
-	sprite.frame = 1
-	position += 0.5 * pounce_vector_pos
-	await get_tree().create_timer(0.15).timeout
-	sprite.frame = 2
-	position += 0.25 * pounce_vector_pos
-	await get_tree().create_timer(0.15).timeout
-	sprite.frame = 3
-	position += 0.25 * pounce_vector_pos
-	await get_tree().create_timer(0.15).timeout
-	await tile_detection.damage_enemy(damage_spot, pounce_damage)
-	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
+	if Globals.game_mode == 1:
+		sprite.frame = 0
+		Debug.say("Pounce " + facing + "!")
+		await get_tree().create_timer(0.085).timeout
+		sprite.frame = 1
+		position += 0.5 * pounce_vector_pos
+		await get_tree().create_timer(0.085).timeout
+		sprite.frame = 2
+		position += 0.25 * pounce_vector_pos
+		await get_tree().create_timer(0.085).timeout
+		sprite.frame = 3
+		position += 0.25 * pounce_vector_pos
+		await get_tree().create_timer(0.085).timeout
+		await tile_detection.damage_enemy(damage_spot, pounce_damage)
+		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 	# If pounced onto damaging spot, take damage
+	if Globals.game_mode == 2:
+		sprite.frame = 0
+		Debug.say("Pounce " + facing + "!")
+		await get_tree().create_timer(0.1).timeout
+		sprite.frame = 1
+		position += 0.5 * pounce_vector_pos
+		await get_tree().create_timer(0.12).timeout
+		sprite.frame = 2
+		position += 0.25 * pounce_vector_pos
+		await get_tree().create_timer(0.12).timeout
+		sprite.frame = 3
+		position += 0.25 * pounce_vector_pos
+		await get_tree().create_timer(0.12).timeout
+		await tile_detection.damage_enemy(damage_spot, pounce_damage)
+		sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
 	check_for_tile_damage()
 	end_turn()
 	FinishedAction.emit()
@@ -826,7 +925,7 @@ func declare_knight() -> void:
 	else:
 		Debug.say("No valid knight target!")
 		# Animate shake head
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(0.2).timeout
 		await_inputs_clear()
 		await InputsClear
 		FinishedAction.emit()
@@ -986,7 +1085,8 @@ func knight() -> void:
 	await tile_detection.damage_enemy(damage_spot, knight_damage)
 	# check if enemy exists after taking initial damage
 	target_enemy = get_node(tile_detection.get_enemy_path_from_spot(damage_spot))
-	if target_enemy.get("pushed_onto"):
+	if target_enemy.get("pushed_onto") and target_enemy.is_alive:
+		print("why")
 		if knight_direction in ["UpUpLeft", "UpUpRight"]:
 			push_spot = target_enemy.where_can_be_pushed("Up")
 			if target_enemy.where_can_be_pushed("Up"):
@@ -1083,15 +1183,15 @@ func take_damage (damage : int):
 		var prev_animation = sprite.animation
 		sprite.animation = directional_hurt_animations[directional_facing.find_key(facing)]
 		sprite.frame = 0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sprite.frame = 0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sprite.frame = 0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.06).timeout
 		sprite.animation = prev_animation
 		just_took_damage = true
 	#

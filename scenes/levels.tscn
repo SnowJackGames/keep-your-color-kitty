@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://cy1feuedew32n" path="res://scenes/random_wall.tscn" id="7_1jewu"]
 [ext_resource type="PackedScene" uid="uid://dp78uphin41ox" path="res://scenes/custom_wall.tscn" id="7_r44b6"]
 [ext_resource type="PackedScene" uid="uid://cak0hse4xwae3" path="res://scenes/beetle.tscn" id="9_ibiju"]
+[ext_resource type="PackedScene" uid="uid://duwb60ovxg80x" path="res://scenes/gas.tscn" id="10_00hpi"]
 
 [node name="Levels" type="Node2D" unique_id=272764069]
 script = ExtResource("1_hk6qi")
-metadata/_edit_vertical_guides_ = [-496.0, 224.0, 160.0]
+metadata/_edit_vertical_guides_ = [-496.0, 160.0]
 metadata/_edit_horizontal_guides_ = [352.0, -112.0, 352.0, 304.0]
 
 [node name="Exploration0" parent="." unique_id=1726280917 instance=ExtResource("2_5ekxl")]
@@ -23,11 +24,16 @@ set_player_start_position = Vector2(160, 304)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Exploration0" unique_id=1591195083]
-position = Vector2(112, 144)
+position = Vector2(160, 304)
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 320
 limit_bottom = 320
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.0
 
 [node name="Elements" type="Node2D" parent="Exploration0" unique_id=279365000]
 
@@ -81,54 +87,6 @@ tile_rotation_steps = 1
 
 [node name="CustomWall36" parent="Exploration0/Elements/Boarder Wall" unique_id=17009793 instance=ExtResource("7_r44b6")]
 position = Vector2(32, 0)
-
-[node name="CustomWall107" parent="Exploration0/Elements/Boarder Wall" unique_id=1085022444 instance=ExtResource("7_r44b6")]
-position = Vector2(32, 0)
-
-[node name="CustomWall113" parent="Exploration0/Elements/Boarder Wall" unique_id=1854459975 instance=ExtResource("7_r44b6")]
-position = Vector2(32, 32)
-atlas_source_id = 18
-
-[node name="CustomWall132" parent="Exploration0/Elements/Boarder Wall" unique_id=2070640104 instance=ExtResource("7_r44b6")]
-position = Vector2(64, 32)
-atlas_source_id = 18
-
-[node name="CustomWall139" parent="Exploration0/Elements/Boarder Wall" unique_id=1798267757 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 32)
-atlas_source_id = 18
-
-[node name="CustomWall146" parent="Exploration0/Elements/Boarder Wall" unique_id=2005766083 instance=ExtResource("7_r44b6")]
-position = Vector2(208, 32)
-atlas_source_id = 18
-tile_rotation_steps = 1
-
-[node name="CustomWall147" parent="Exploration0/Elements/Boarder Wall" unique_id=1258921023 instance=ExtResource("7_r44b6")]
-position = Vector2(192, 112)
-atlas_source_id = 20
-
-[node name="CustomWall140" parent="Exploration0/Elements/Boarder Wall" unique_id=1913193638 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 64)
-atlas_source_id = 18
-
-[node name="CustomWall141" parent="Exploration0/Elements/Boarder Wall" unique_id=871561443 instance=ExtResource("7_r44b6")]
-position = Vector2(64, 64)
-atlas_source_id = 18
-
-[node name="CustomWall142" parent="Exploration0/Elements/Boarder Wall" unique_id=20916997 instance=ExtResource("7_r44b6")]
-position = Vector2(32, 64)
-atlas_source_id = 18
-
-[node name="CustomWall143" parent="Exploration0/Elements/Boarder Wall" unique_id=952074589 instance=ExtResource("7_r44b6")]
-position = Vector2(32, 96)
-atlas_source_id = 18
-
-[node name="CustomWall144" parent="Exploration0/Elements/Boarder Wall" unique_id=1664381945 instance=ExtResource("7_r44b6")]
-position = Vector2(64, 96)
-atlas_source_id = 18
-
-[node name="CustomWall145" parent="Exploration0/Elements/Boarder Wall" unique_id=1837168242 instance=ExtResource("7_r44b6")]
-position = Vector2(96, 96)
-atlas_source_id = 18
 
 [node name="CustomWall37" parent="Exploration0/Elements/Boarder Wall" unique_id=1374591664 instance=ExtResource("7_r44b6")]
 position = Vector2(288, 0)
@@ -489,7 +447,6 @@ atlas_source_id = 1
 
 [node name="CustomWall110" parent="Exploration0/Elements/Boarder Wall" unique_id=1499391506 instance=ExtResource("7_r44b6")]
 position = Vector2(48, 128)
-atlas_source_id = 6
 
 [node name="CustomWall111" parent="Exploration0/Elements/Boarder Wall" unique_id=1216074109 instance=ExtResource("7_r44b6")]
 position = Vector2(32, 128)
@@ -514,7 +471,6 @@ position = Vector2(304, 208)
 
 [node name="CustomWall78" parent="Exploration0/Elements/Boarder Wall" unique_id=1741181616 instance=ExtResource("7_r44b6")]
 position = Vector2(304, 224)
-atlas_source_id = 14
 
 [node name="CustomWall79" parent="Exploration0/Elements/Boarder Wall" unique_id=1048071139 instance=ExtResource("7_r44b6")]
 position = Vector2(304, 240)
@@ -573,11 +529,15 @@ position = Vector2(-112, -176)
 floor_size = Vector2(560, 560)
 
 [node name="Camera2D" type="Camera2D" parent="Level1" unique_id=1307517871]
-position = Vector2(112, 144)
+position = Vector2(160, 224)
 limit_left = 80
 limit_top = 48
 limit_right = 240
 limit_bottom = 272
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+rotation_smoothing_enabled = true
 
 [node name="Elements" type="Node2D" parent="Level1" unique_id=1743373771]
 
@@ -883,11 +843,13 @@ position = Vector2(-144, -304)
 floor_size = Vector2(800, 800)
 
 [node name="Camera2D" type="Camera2D" parent="Level2" unique_id=821526603]
-position = Vector2(112, 144)
+position = Vector2(240, 336)
 limit_left = 128
 limit_top = -240
 limit_right = 352
 limit_bottom = 432
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level2" unique_id=775132783]
 
@@ -2494,11 +2456,13 @@ set_player_start_position = Vector2(192, 176)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level3" unique_id=1555411316]
-position = Vector2(112, 144)
+position = Vector2(160, 144)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 224
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level3" unique_id=1071851917]
 
@@ -2755,11 +2719,13 @@ set_player_start_position = Vector2(160, 208)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level4" unique_id=1439558832]
-position = Vector2(112, 144)
+position = Vector2(160, 176)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level4" unique_id=1725875579]
 
@@ -2949,11 +2915,13 @@ position = Vector2(0, -16)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level5" unique_id=257666030]
-position = Vector2(112, 144)
+position = Vector2(240, 336)
 limit_left = 128
 limit_top = 112
 limit_right = 352
 limit_bottom = 432
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level5" unique_id=1216453527]
 
@@ -3820,11 +3788,13 @@ set_player_start_position = Vector2(256, 288)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Exploration1" unique_id=1318779263]
-position = Vector2(112, 144)
+position = Vector2(240, 240)
 limit_left = 0
 limit_top = 0
 limit_right = 320
 limit_bottom = 320
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Exploration1" unique_id=1216284646]
 
@@ -4392,11 +4362,13 @@ set_player_start_position = Vector2(112, 192)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level6" unique_id=636482966]
-position = Vector2(112, 144)
+position = Vector2(128, 192)
 limit_left = 80
 limit_top = 96
 limit_right = 240
 limit_bottom = 256
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level6" unique_id=1030534062]
 
@@ -4652,11 +4624,13 @@ set_player_start_position = Vector2(176, 208)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level7" unique_id=1495778317]
-position = Vector2(112, 144)
+position = Vector2(176, 160)
 limit_left = 80
 limit_top = 80
 limit_right = 256
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level7" unique_id=1508696452]
 
@@ -4893,11 +4867,13 @@ position = Vector2(-896, -368)
 possible_source_ids = Array[int]([1, 2, 3, 4, 5, 6])
 
 [node name="Camera2D" type="Camera2D" parent="Exploration2" unique_id=1755817022]
-position = Vector2(112, 144)
+position = Vector2(160, 176)
 limit_left = -496
 limit_top = -384
 limit_right = 240
 limit_bottom = 352
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Exploration2" unique_id=1952255267]
 
@@ -7979,11 +7955,13 @@ set_player_start_position = Vector2(192, 192)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level8" unique_id=1269935680]
-position = Vector2(112, 144)
+position = Vector2(160, 160)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level8" unique_id=2001639369]
 
@@ -8203,11 +8181,13 @@ set_player_start_position = Vector2(160, 224)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level9" unique_id=1277094788]
-position = Vector2(112, 144)
+position = Vector2(176, 224)
 limit_left = 80
 limit_top = 48
 limit_right = 240
 limit_bottom = 272
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level9" unique_id=854557098]
 
@@ -8923,19 +8903,18 @@ visible = false
 set_player_start_position = Vector2(192, 208)
 
 [node name="Floor" parent="Level10" unique_id=295061027 instance=ExtResource("3_jj4e6")]
-visible = false
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level10" unique_id=484671166]
-visible = false
-position = Vector2(112, 144)
+position = Vector2(176, 176)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level10" unique_id=1030324797]
-visible = false
 
 [node name="Rat" parent="Level10/Elements" unique_id=888470999 instance=ExtResource("4_1jewu")]
 position = Vector2(96, 144)
@@ -9122,11 +9101,13 @@ set_player_start_position = Vector2(144, 208)
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level11" unique_id=386107384]
-position = Vector2(112, 144)
+position = Vector2(160, 176)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level11" unique_id=1415656035]
 
@@ -9311,18 +9292,20 @@ position = Vector2(112, 128)
 
 [node name="Exploration3" parent="." unique_id=215496794 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(256, 288)
+set_player_start_position = Vector2(208, 288)
 
 [node name="Floor" parent="Exploration3" unique_id=2081017107 instance=ExtResource("3_jj4e6")]
 position = Vector2(-288, -384)
 floor_size = Vector2(896, 896)
 
 [node name="Camera2D" type="Camera2D" parent="Exploration3" unique_id=423027372]
-position = Vector2(112, 144)
+position = Vector2(160, 256)
 limit_left = 0
 limit_top = -160
 limit_right = 320
 limit_bottom = 320
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Exploration3" unique_id=1111918664]
 
@@ -10388,11 +10371,13 @@ position = Vector2(0, 32)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level12" unique_id=531794384]
-position = Vector2(112, 144)
+position = Vector2(240, 352)
 limit_left = 128
 limit_top = 112
 limit_right = 352
 limit_bottom = 432
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level12" unique_id=525421624]
 
@@ -11338,11 +11323,13 @@ set_player_start_position = Vector2(240, 352)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level13" unique_id=883015267]
-position = Vector2(112, 144)
+position = Vector2(240, 320)
 limit_left = 160
 limit_top = 192
 limit_right = 320
 limit_bottom = 384
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level13" unique_id=670791652]
 
@@ -11578,11 +11565,13 @@ position = Vector2(0, -16)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level14" unique_id=380353359]
-position = Vector2(112, 144)
+position = Vector2(256, 320)
 limit_left = 160
 limit_top = 80
 limit_right = 320
 limit_bottom = 384
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level14" unique_id=701817925]
 
@@ -11907,11 +11896,13 @@ set_player_start_position = Vector2(240, 352)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level15" unique_id=1848196182]
-position = Vector2(112, 144)
+position = Vector2(256, 320)
 limit_left = 160
 limit_top = 144
 limit_right = 320
 limit_bottom = 384
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level15" unique_id=806799290]
 
@@ -12116,9 +12107,6 @@ position = Vector2(208, 272)
 [node name="CustomWall21" parent="Level15/Elements/Level Wall" unique_id=1259217420 instance=ExtResource("7_r44b6")]
 position = Vector2(208, 256)
 
-[node name="CustomWall25" parent="Level15/Elements/Level Wall" unique_id=668276487 instance=ExtResource("7_r44b6")]
-position = Vector2(288, 256)
-
 [node name="CustomWall26" parent="Level15/Elements/Level Wall" unique_id=548216652 instance=ExtResource("7_r44b6")]
 position = Vector2(272, 256)
 
@@ -12226,17 +12214,19 @@ atlas_source_id = 3
 
 [node name="Level16" parent="." unique_id=1604621609 instance=ExtResource("2_5ekxl")]
 visible = false
-set_player_start_position = Vector2(144, 208)
+set_player_start_position = Vector2(128, 208)
 
 [node name="Floor" parent="Level16" unique_id=2024592934 instance=ExtResource("3_jj4e6")]
 floor_size = Vector2(320, 320)
 
 [node name="Camera2D" type="Camera2D" parent="Level16" unique_id=1782754329]
-position = Vector2(112, 144)
+position = Vector2(176, 160)
 limit_left = 80
 limit_top = 80
 limit_right = 240
 limit_bottom = 240
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level16" unique_id=1875717264]
 
@@ -12253,7 +12243,7 @@ position = Vector2(160, 192)
 position = Vector2(176, 208)
 
 [node name="Stairs" parent="Level16/Elements" unique_id=1433914471 instance=ExtResource("3_r44b6")]
-position = Vector2(192, 208)
+position = Vector2(96, 96)
 
 [node name="Boarder Wall" type="Node2D" parent="Level16/Elements" unique_id=1385949541]
 
@@ -12454,11 +12444,13 @@ set_player_start_position = Vector2(224, 352)
 floor_size = Vector2(464, 464)
 
 [node name="Camera2D" type="Camera2D" parent="Level17" unique_id=1978214205]
-position = Vector2(112, 144)
+position = Vector2(240, 336)
 limit_left = 160
 limit_top = 64
 limit_right = 320
 limit_bottom = 384
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level17" unique_id=747146078]
 
@@ -12807,7 +12799,6 @@ position = Vector2(288, 144)
 atlas_source_id = 6
 
 [node name="Level18" parent="." unique_id=1181135597 instance=ExtResource("2_5ekxl")]
-visible = false
 set_player_start_position = Vector2(240, 368)
 
 [node name="Floor" parent="Level18" unique_id=1256516923 instance=ExtResource("3_jj4e6")]
@@ -12815,19 +12806,68 @@ position = Vector2(-144, -448)
 floor_size = Vector2(896, 896)
 
 [node name="Camera2D" type="Camera2D" parent="Level18" unique_id=1784180784]
-position = Vector2(112, 144)
+position = Vector2(240, 352)
 limit_left = 128
 limit_top = -112
 limit_right = 352
 limit_bottom = 400
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Elements" type="Node2D" parent="Level18" unique_id=911822221]
 
 [node name="Stairs" parent="Level18/Elements" unique_id=474396161 instance=ExtResource("3_r44b6")]
 position = Vector2(240, -96)
-atlas_source_id = 2
 
 [node name="Boarder Wall" type="Node2D" parent="Level18/Elements" unique_id=440052865]
+
+[node name="gas" parent="Level18/Elements/Boarder Wall" unique_id=1492406866 instance=ExtResource("10_00hpi")]
+position = Vector2(160, 32)
+
+[node name="gas2" parent="Level18/Elements/Boarder Wall" unique_id=1704158951 instance=ExtResource("10_00hpi")]
+position = Vector2(176, 32)
+
+[node name="gas3" parent="Level18/Elements/Boarder Wall" unique_id=791741564 instance=ExtResource("10_00hpi")]
+position = Vector2(192, 32)
+
+[node name="gas4" parent="Level18/Elements/Boarder Wall" unique_id=890418661 instance=ExtResource("10_00hpi")]
+position = Vector2(208, 32)
+
+[node name="gas5" parent="Level18/Elements/Boarder Wall" unique_id=700911142 instance=ExtResource("10_00hpi")]
+position = Vector2(208, 16)
+
+[node name="gas6" parent="Level18/Elements/Boarder Wall" unique_id=302294355 instance=ExtResource("10_00hpi")]
+position = Vector2(192, 16)
+
+[node name="gas7" parent="Level18/Elements/Boarder Wall" unique_id=1049346283 instance=ExtResource("10_00hpi")]
+position = Vector2(176, 16)
+
+[node name="gas8" parent="Level18/Elements/Boarder Wall" unique_id=1744051700 instance=ExtResource("10_00hpi")]
+position = Vector2(160, 16)
+
+[node name="gas9" parent="Level18/Elements/Boarder Wall" unique_id=569270225 instance=ExtResource("10_00hpi")]
+position = Vector2(256, 32)
+
+[node name="gas10" parent="Level18/Elements/Boarder Wall" unique_id=594264878 instance=ExtResource("10_00hpi")]
+position = Vector2(272, 32)
+
+[node name="gas11" parent="Level18/Elements/Boarder Wall" unique_id=1246757617 instance=ExtResource("10_00hpi")]
+position = Vector2(288, 32)
+
+[node name="gas12" parent="Level18/Elements/Boarder Wall" unique_id=51253069 instance=ExtResource("10_00hpi")]
+position = Vector2(304, 32)
+
+[node name="gas13" parent="Level18/Elements/Boarder Wall" unique_id=1118396930 instance=ExtResource("10_00hpi")]
+position = Vector2(304, 16)
+
+[node name="gas14" parent="Level18/Elements/Boarder Wall" unique_id=2034780640 instance=ExtResource("10_00hpi")]
+position = Vector2(288, 16)
+
+[node name="gas15" parent="Level18/Elements/Boarder Wall" unique_id=1916645540 instance=ExtResource("10_00hpi")]
+position = Vector2(272, 16)
+
+[node name="gas16" parent="Level18/Elements/Boarder Wall" unique_id=463282222 instance=ExtResource("10_00hpi")]
+position = Vector2(256, 16)
 
 [node name="CustomWall" parent="Level18/Elements/Boarder Wall" unique_id=67710517 instance=ExtResource("7_r44b6")]
 position = Vector2(128, -112)
@@ -13556,89 +13596,10 @@ tile_rotation_steps = 3
 
 [node name="Sludge54" parent="Level18/Elements/Hazard" unique_id=1924640078 instance=ExtResource("4_byla0")]
 position = Vector2(288, 96)
-atlas_source_id = 2
 tile_rotation_steps = 3
 
 [node name="Sludge56" parent="Level18/Elements/Hazard" unique_id=2136351421 instance=ExtResource("4_byla0")]
 position = Vector2(304, 96)
-atlas_source_id = 3
-tile_rotation_steps = 3
-
-[node name="Sludge57" parent="Level18/Elements/Hazard" unique_id=1580671867 instance=ExtResource("4_byla0")]
-position = Vector2(160, 16)
-atlas_source_id = 3
-tile_rotation_steps = 1
-
-[node name="Sludge58" parent="Level18/Elements/Hazard" unique_id=1188176848 instance=ExtResource("4_byla0")]
-position = Vector2(256, 16)
-atlas_source_id = 3
-tile_rotation_steps = 1
-
-[node name="Sludge59" parent="Level18/Elements/Hazard" unique_id=752821002 instance=ExtResource("4_byla0")]
-position = Vector2(208, 16)
-atlas_source_id = 3
-tile_rotation_steps = 2
-
-[node name="Sludge60" parent="Level18/Elements/Hazard" unique_id=1090943484 instance=ExtResource("4_byla0")]
-position = Vector2(208, 32)
-atlas_source_id = 3
-tile_rotation_steps = 3
-
-[node name="Sludge61" parent="Level18/Elements/Hazard" unique_id=1530457870 instance=ExtResource("4_byla0")]
-position = Vector2(176, 16)
-atlas_source_id = 2
-tile_rotation_steps = 1
-
-[node name="Sludge62" parent="Level18/Elements/Hazard" unique_id=1933090658 instance=ExtResource("4_byla0")]
-position = Vector2(192, 16)
-atlas_source_id = 2
-tile_rotation_steps = 1
-
-[node name="Sludge63" parent="Level18/Elements/Hazard" unique_id=2141456494 instance=ExtResource("4_byla0")]
-position = Vector2(272, 16)
-atlas_source_id = 2
-tile_rotation_steps = 1
-
-[node name="Sludge64" parent="Level18/Elements/Hazard" unique_id=1146773029 instance=ExtResource("4_byla0")]
-position = Vector2(288, 16)
-atlas_source_id = 2
-tile_rotation_steps = 1
-
-[node name="Sludge65" parent="Level18/Elements/Hazard" unique_id=1378324071 instance=ExtResource("4_byla0")]
-position = Vector2(304, 16)
-atlas_source_id = 3
-tile_rotation_steps = 2
-
-[node name="Sludge66" parent="Level18/Elements/Hazard" unique_id=53654050 instance=ExtResource("4_byla0")]
-position = Vector2(160, 32)
-atlas_source_id = 3
-
-[node name="Sludge67" parent="Level18/Elements/Hazard" unique_id=1315914914 instance=ExtResource("4_byla0")]
-position = Vector2(256, 32)
-atlas_source_id = 3
-
-[node name="Sludge68" parent="Level18/Elements/Hazard" unique_id=545526552 instance=ExtResource("4_byla0")]
-position = Vector2(176, 32)
-atlas_source_id = 2
-tile_rotation_steps = 3
-
-[node name="Sludge69" parent="Level18/Elements/Hazard" unique_id=483335680 instance=ExtResource("4_byla0")]
-position = Vector2(192, 32)
-atlas_source_id = 2
-tile_rotation_steps = 3
-
-[node name="Sludge70" parent="Level18/Elements/Hazard" unique_id=617687037 instance=ExtResource("4_byla0")]
-position = Vector2(272, 32)
-atlas_source_id = 2
-tile_rotation_steps = 3
-
-[node name="Sludge71" parent="Level18/Elements/Hazard" unique_id=807832042 instance=ExtResource("4_byla0")]
-position = Vector2(288, 32)
-atlas_source_id = 2
-tile_rotation_steps = 3
-
-[node name="Sludge72" parent="Level18/Elements/Hazard" unique_id=1747060560 instance=ExtResource("4_byla0")]
-position = Vector2(304, 32)
 atlas_source_id = 3
 tile_rotation_steps = 3
 

@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var landonable := true
 @onready var moveonable := false
 @onready var is_enemy := true
+@onready var is_alive := true
 
 
 var ratattack = preload("res://sound/sfx/RatAttack.mp3")  
@@ -137,27 +138,27 @@ func phase_one() -> void:
 			await move(declared_move_pos)
 			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 			sprite.frame = 0
-			await get_tree().create_timer(0.15).timeout
+			await get_tree().create_timer(0.05).timeout
 			sprite.frame = 1
-			await get_tree().create_timer(0.15).timeout
+			await get_tree().create_timer(0.05).timeout
 			sprite.frame = 2
-			await get_tree().create_timer(0.15).timeout
-			sprite.animation = directional_walk_animations[facing]
+			await get_tree().create_timer(0.05).timeout
+			sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 			await player.take_damage(bump_slash_damage)
 			player.pushed_onto(push_target - rat_center_offset)
 			$AttackHint.hide()
 		else:
 			$AttackHint.global_position = declared_move_pos
 			$AttackHint.show()
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.1).timeout
 			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 			sprite.frame = 0
-			await get_tree().create_timer(0.15).timeout
+			await get_tree().create_timer(0.10).timeout
 			sprite.frame = 1
-			await get_tree().create_timer(0.15).timeout
+			await get_tree().create_timer(0.10).timeout
 			sprite.frame = 2
-			await get_tree().create_timer(0.15).timeout
-			sprite.animation = directional_walk_animations[facing]
+			await get_tree().create_timer(0.10).timeout
+			sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 			await player.take_damage(player.cornered_damage)
 			await player.take_damage(bump_slash_damage)
 			$AttackHint.hide()
@@ -179,7 +180,7 @@ func phase_one() -> void:
 		await move(declared_move_pos)
 		# Declare attack
 		declare_attack()
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.1).timeout
 	FinishedPhase.emit()
 
 func declare_attack() -> void:
@@ -236,13 +237,13 @@ func attack_hint() -> void:
 
 func attack() -> void:
 	Globalaudio.play_FX(ratattack)
-	sprite.animation = direction_slash_animation[facing]
+	sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 	sprite.frame = 0
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	sprite.frame = 1
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	sprite.frame = 2
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	if declared_attack:
 		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
 			if attack_spot != null:
@@ -251,18 +252,18 @@ func attack() -> void:
 	
 	$AttackHint.hide()
 	$AttackHint2.hide()
-	sprite.animation = directional_walk_animations[facing]
+	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
 	Globalaudio.play_FX(ratsteps)
-	sprite.animation = directional_walk_animations[facing]
+	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
 	if bump_attacking:
 		$AttackHint.global_position = pos
 		$AttackHint.show()
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	var frame_target = sprite.frame
 	var movement_vector = pos - position
 	frame_target += 1
@@ -271,12 +272,12 @@ func move(pos: Vector2):
 	$MoveHint.hide()
 	$AttackHint.hide()
 	position += 0.5 * movement_vector
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	frame_target += 1
 	frame_target %= 4
 	sprite.frame = frame_target
 	position += 0.5 * movement_vector
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.10).timeout
 	check_for_tile_damage()
 	
 
@@ -286,7 +287,7 @@ func check_for_tile_damage() -> void:
 	tile_damage += tile_detection.tile_damage_ground(position)
 	tile_damage += tile_detection.tile_damage_air(position)
 	if tile_damage > 0:
-		take_damage(tile_damage)
+		await take_damage(tile_damage)
 
 func pushed_onto(pos : Vector2) -> void:
 	position = pos
@@ -294,7 +295,7 @@ func pushed_onto(pos : Vector2) -> void:
 	declared_attack = false
 	$AttackHint.hide()
 	$AttackHint2.hide()
-	check_for_tile_damage()
+	await check_for_tile_damage()
 
 func where_can_be_pushed(source_direction) -> Variant:
 	var push_spot = null
@@ -348,18 +349,20 @@ func take_damage (damage : int):
 		if attack2_shown:
 			$AttackHint2.hide()
 		sprite.frame = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		sprite.frame = 0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		sprite.frame = 0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		sprite.frame = 1
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 		sprite.animation = directional_walk_animations[facing]
 	if cur_health <= 0:
 		Globalaudio.play_FX(ratdeath)
+		is_alive = false
+		print("DIED")
 		queue_free()
 		
 	else:
@@ -367,4 +370,4 @@ func take_damage (damage : int):
 			$AttackHint.show()
 		if attack2_shown:
 			$AttackHint2.show()
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.1).timeout

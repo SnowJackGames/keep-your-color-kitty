@@ -13,6 +13,7 @@ extends CharacterBody2D
 @onready var moveonable := false
 @onready var is_enemy := true
 @onready var died := false
+@onready var is_alive := true
 
 const beetle_center_offset := Vector2(8,8)
 
@@ -104,6 +105,17 @@ static var direction_hurt_animation := {
 	"Up Right" : "hurt up",
 	"Down Left" : "hurt down",
 	"Down Right" : "hurt left",
+}
+
+static var eight_direction_to_four_directions := {
+	"Up Left" : "Up",
+	"Up" : "Up",
+	"Up Right" : "Up",
+	"Right" : "Right",
+	"Down Right" : "Down",
+	"Down" : "Down",
+	"Down Left" : "Down",
+	"Left" : "Left"
 }
 
 func begin_turn() -> void:
@@ -248,7 +260,7 @@ func attack_hint() -> void:
 			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
-	sprite.animation = direction_slash_animation[facing]
+	sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
 	sprite.frame = 0
 	await get_tree().create_timer(0.15).timeout
 	sprite.frame = 1
@@ -265,11 +277,11 @@ func attack() -> void:
 	$AttackHint2.hide()
 	$AttackHint3.hide()
 	$AttackHint4.hide()
-	sprite.animation = directional_walk_animations[facing]
+	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 	FinishedPhase.emit()
 		
 func move(pos: Vector2):
-	sprite.animation = directional_walk_animations[facing]
+	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 	$MoveHint.global_position = pos
 	$MoveHint.show()
 	await get_tree().create_timer(0.2).timeout
@@ -286,8 +298,8 @@ func move(pos: Vector2):
 	sprite.frame = frame_target
 	position += 0.5 * movement_vector
 	await get_tree().create_timer(0.15).timeout
-	check_for_tile_damage()
-	sprite.animation = directional_walk_animations[facing]
+	await check_for_tile_damage()
+	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
 	
 	
 
@@ -296,7 +308,7 @@ func check_for_tile_damage() -> void:
 	# They fly now
 	var tile_damage : int = tile_detection.tile_damage_air(position)
 	if tile_damage > 0:
-		take_damage(tile_damage)
+		await take_damage(tile_damage)
 
 func pushed_onto(pos : Vector2) -> void:
 	position = pos
@@ -306,7 +318,7 @@ func pushed_onto(pos : Vector2) -> void:
 	$AttackHint2.hide()
 	$AttackHint3.hide()
 	$AttackHint4.hide()
-	check_for_tile_damage()
+	await check_for_tile_damage()
 
 func where_can_be_pushed(source_direction) -> Variant:
 	var push_spot = null
@@ -351,11 +363,11 @@ func take_damage (damage : int):
 	if damage > 0:
 		$AttackHint.hide()
 		$AttackHint2.hide()
-		$AttackHint2.hide()
+		$AttackHint3.hide()
 		$AttackHint4.hide()
 		cur_health -= damage
 		# Take damage animation
-		sprite.animation = direction_hurt_animation[facing]
+		sprite.animation = direction_hurt_animation[eight_direction_to_four_directions[facing]]
 		sprite.frame = 0
 		await get_tree().create_timer(0.1).timeout
 		sprite.frame = 1
@@ -369,5 +381,6 @@ func take_damage (damage : int):
 		hide()
 		await get_tree().create_timer(0.01).timeout
 		# Should always die in one hit
+		is_alive = false
 		died = true
 		queue_free()
