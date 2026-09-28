@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var tile_detection : Marker2D = $TileDetection
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+var move = load("res://scripts/move.gd").new()
 
 const kitty_center_offset := Vector2(8,8)
 
@@ -105,7 +106,7 @@ static var directional_knight_animations := {
 	"DownDownRight" : "knight down down right",
 }
 
-static var directional_facing := {
+static var directional_facing : Dictionary[String, String] = {
 	'ui_up': "Up",
 	'ui_down': "Down",
 	'ui_left': "Left",
@@ -179,6 +180,8 @@ func _ready() -> void:
 	$Targetting/Move.hide()
 	$Targetting/Knight.hide()
 	facing = ""
+	move.player = self
+	move.tile_detection = tile_detection
 
 func _process (_delta: float) -> void:
 	if can_move == true:
@@ -187,7 +190,7 @@ func _process (_delta: float) -> void:
 			for dir in dir_inputs.keys():
 				if Input.is_action_pressed(dir):
 						set_process(false)
-						declare_move()
+						move.declare_move()
 						await FinishedMove
 						print(position)
 						set_process(true)
@@ -195,7 +198,7 @@ func _process (_delta: float) -> void:
 		# Combat
 		elif Globals.game_mode == 2:
 			set_process(false)
-			declare_move()
+			move.declare_move()
 			await FinishedMove
 			set_process(true)
 		
@@ -297,20 +300,13 @@ func attack_selection() -> Callable:
 ## [br]waits for those inputs to be [i]not[/i] being pressed down [br](i.e. being "clear") before continuing.
 ## [br][br]If not given a particular list, defaults to: [br][[br] [enum "ui_accept"][br] [enum "ui_cancel"]
 ## [br] [enum "ui_up"][br] [enum "ui_down"][br] [enum "ui_left"][br] [enum "ui_right"][br]]
-func inputs_clear(inputs = null) -> void:
-	# Type checking
-	if inputs is not Array or null:
-		push_error("await_inputs_clear() not given null or an Array")
-	if inputs is Array:
-		pass
-		for input in inputs:
-			if inputs is not String:
-				push_error("item in Array given to await_inputs_clear() was not a string")
+func inputs_clear(inputs : Array[String] = []) -> void:
+	for input in inputs:
+		if input is not String:
+			push_error("item in Array given to await_inputs_clear() was not a string")
 
 	var inputs_waiting_for : Array[String]
-	if inputs != null:
-		inputs_waiting_for = inputs
-	else:
+	if inputs.is_empty():
 		inputs_waiting_for = [
 			"ui_accept",
 			"ui_cancel",
@@ -319,6 +315,9 @@ func inputs_clear(inputs = null) -> void:
 			"ui_left",
 			"ui_right"
 		]
+	else:
+		inputs_waiting_for = inputs as Array[String]
+
 	var can_move_on
 	
 	for awaited_input in inputs_waiting_for:
@@ -328,193 +327,6 @@ func inputs_clear(inputs = null) -> void:
 				can_move_on = true
 			await get_tree().create_timer(0.05).timeout
 
-#region Move
-func declare_move() -> void:
-	print("stage0")
-	var valid_dir := [] # "Up", etc
-	for dir in directional_facing: # directional_facing: ui_up -> Up
-		var valid_target := true
-		var tile_detection_check := (dir_inputs[dir] * Globals.grid_size * 1) + position + kitty_center_offset
-		if !tile_detection.moveonable(tile_detection_check):
-			valid_target = false
-		if valid_target:
-			valid_dir.append(directional_facing[dir])
-	
-	if !valid_dir.is_empty():
-		# In Combat
-		if Globals.game_mode == 2:
-			move_hint(valid_dir, true)
-		attempt_move(valid_dir)
-	
-	# No valid movement
-	else:
-		Debug.say("No valid movement")
-		await get_tree().create_timer(0.1).timeout
-		can_move = false
-		FinishedMove.emit()
-
-
-
-func attempt_move(valid_dir) -> void:
-	# Exploration
-	if Globals.game_mode == 1:
-		for dir in dir_inputs.keys():
-			if Input.is_action_pressed(dir):
-				# Make sure we're not trying to move in two directions at once
-				var is_multiple_buttons := false
-				for dir2 in dir_inputs.keys():
-					if (dir != dir2) and Input.is_action_pressed(dir2):
-						is_multiple_buttons = true
-				if !is_multiple_buttons:
-					## Attempt move
-					facing = directional_facing[dir]
-					if directional_facing[dir] in valid_dir:
-						can_move = false
-						sprite.animation = directional_walk_animations[dir]
-						move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
-					else:
-						Debug.say("Invalid move")
-						await get_tree().create_timer(0.15).timeout
-						FinishedMove.emit()
-						break
-				else:
-					# Won't let player move two ways at once
-					await get_tree().create_timer(0.15).timeout
-					FinishedMove.emit()
-					break
-
-
-	#Combat
-	elif Globals.game_mode == 2:
-		Globals.ui.move_combat_hover()
-		var can_process_move := false
-		var should_move := false
-		var confirmMove = false
-		var confirmMove2 = false
-		var facing2 
-		
-		while !can_process_move and !confirmMove:
-			if Input.is_action_pressed("ui_cancel"):
-				print("skip")
-				move_hint([], false)
-				can_move = false
-				can_process_move = true
-				confirmMove = false
-				FinishedMove.emit()
-			for dir in dir_inputs.keys():
-				if Input.is_action_pressed(dir) and valid_dir.has(directional_facing[dir]):
-					# face correct direction, update move_hint
-					sprite.animation = directional_walk_animations[dir]
-					facing = directional_facing[dir]
-					facing2 = dir 
-					move_hint(valid_dir, true)
-					confirmMove = true
-					print("stage1: " + dir)
-					#await get_tree().create_timer(0.05).timeout
-					
-			for dir in dir_inputs.keys():
-				if Input.is_action_just_released(dir):
-					print(dir)
-				
-		
-			# pressing (A) while facing a valid direction
-			#if Input.is_action_pressed("ui_accept") and facing in valid_dir:
-			#for dir in dir_inputs.keys():
-				#if Input.is_action_pressed(dir) and facing in valid_dir:
-			
-			
-			
-			
-			await get_tree().create_timer(0.1).timeout
-		await inputs_clear()
-		
-		
-		while confirmMove == true and should_move == false:
-			if Input.is_action_pressed("ui_cancel"):
-				print("skip")
-				can_process_move = true
-				confirmMove = false
-				move_hint([], false)
-				can_move = false
-				FinishedMove.emit()
-			for dir in dir_inputs.keys():
-				if Input.is_action_pressed(dir) and facing2 == dir and valid_dir.has(directional_facing[dir]):
-					#hide the combat move UI
-						should_move = true
-						can_process_move = true
-						confirmMove = false
-						confirmMove2 = false
-						facing2 = null
-						print("stage2 success:" + dir)
-						#await get_tree().create_timer(0.05).timeout
-						move_hint([], false)
-						can_move = false
-						if should_move:
-							move(dir_inputs[directional_facing.find_key(facing)] * Globals.grid_size * 1)
-						else:
-							FinishedMove.emit()
-				elif Input.is_action_pressed(dir) and facing2 != dir:
-						print("stage2 fail" + dir)
-						facing2 = null
-						should_move = false
-						can_process_move = false
-						confirmMove = false
-						#confirmMove2 = false
-						move_hint([], false)
-						can_move = false
-						declare_move()
-				# pressing (B) skips movement
-			
-						
-						
-			await get_tree().create_timer(0.1).timeout
-		await inputs_clear()
-		
-		
-	
-	else:
-		
-		push_error("Impossible state in attempt_move")
-
-
-func move_hint(valid_dir: Array, shouldload: bool) -> void:
-	var move_ui := "Targetting/Move/"
-	if shouldload:
-		var directions := ["Up", "Right", "Down", "Left"]
-		for dir in directions:
-			if valid_dir.has(dir):
-				if facing == dir:
-					get_node(move_ui + dir + "Focused").show()
-					get_node(move_ui + dir + "Unfocused").hide()
-				else:
-					get_node(move_ui + dir + "Unfocused").show()
-					get_node(move_ui + dir + "Focused").hide()
-			else:
-				get_node(move_ui + dir + "Focused").hide()
-				get_node(move_ui + dir + "Unfocused").hide()
-		# Reveal after processing visibility of sub-layers
-		get_node(move_ui).show()
-	else:
-		get_node(move_ui).hide()
-
-func move(vector_pos: Vector2):
-	if Globals.game_mode == 1:
-		can_action = false
-	sprite.animation = directional_walk_animations[directional_facing.find_key(facing)]
-	var frame_target = sprite.frame
-	frame_target += 1
-	frame_target %= 4
-	sprite.frame = frame_target
-	position += 0.5 * vector_pos
-	await get_tree().create_timer(0.15).timeout
-	frame_target += 1
-	frame_target %= 4
-	sprite.frame = frame_target
-	position += 0.5 * vector_pos
-	await get_tree().create_timer(0.15).timeout
-	check_for_tile_damage()
-	FinishedMove.emit()
-#endregion
 
 #region Slash
 func declare_slash() -> void:

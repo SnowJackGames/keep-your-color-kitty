@@ -44,7 +44,7 @@ func next_turn () -> void:
 		
 	#region Player Phases
 	calc_ai_array() # in case any AI died during their turn
-	if !ai_array:
+	if !ai_array or ai_array.is_empty():
 		Globals.game_mode = 1
 	else:
 		Globals.game_mode = 2
