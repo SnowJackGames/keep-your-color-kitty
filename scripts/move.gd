@@ -4,7 +4,6 @@ extends Node
 @onready var tile_detection : Marker2D
 
 
-
 func declare_move() -> void:
 	print("stage0")
 	var valid_dir := [] # "Up", etc
@@ -85,7 +84,7 @@ func attempt_move(valid_dir) -> void:
 					move_hint(valid_dir, true)
 					confirmMove = true
 					print("stage1: " + dir)
-					#await get_tree().create_timer(0.05).timeout
+					#await player.get_tree().create_timer(0.05).timeout
 					
 			for dir in player.dir_inputs.keys():
 				if Input.is_action_just_released(dir):

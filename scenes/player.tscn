@@ -765,7 +765,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_31cv2")
 }],
 "loop": 1,
-"name": &"swipe down",
+"name": &"slash down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -782,7 +782,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_wnwbv")
 }],
 "loop": 1,
-"name": &"swipe left",
+"name": &"slash left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -799,7 +799,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bj30b")
 }],
 "loop": 1,
-"name": &"swipe right",
+"name": &"slash right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -816,7 +816,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_j2b1d")
 }],
 "loop": 1,
-"name": &"swipe up",
+"name": &"slash up",
 "speed": 5.0
 }, {
 "frames": [{
@@ -943,7 +943,7 @@ shape = SubResource("RectangleShape2D_nish5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=655308639]
 position = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_nish5")
-animation = &"pounce up exploration"
+animation = &"slash up"
 
 [node name="TileDetection" parent="." unique_id=195151570 instance=ExtResource("6_y4r1p")]
 position = Vector2(8, 8)
