@@ -39,8 +39,6 @@ var max_health : int
 signal FinishedTurn
 signal FinishedMove
 signal FinishedAction
-signal InputsClear
-signal MoveInputsClear
 
 #region Input Dictionaries
 static var dir_inputs : Dictionary[String, Vector2] = {
@@ -224,8 +222,7 @@ func _process (_delta: float) -> void:
 				end_turn()
 			else:
 				await FinishedAction
-			await_inputs_clear()
-			await InputsClear
+			await inputs_clear()
 			set_process(true)
 			
 			# check if thing was destroyed
@@ -240,9 +237,8 @@ func _process (_delta: float) -> void:
 		FinishedTurn.emit()
 
 func attack_selection() -> Callable:
-	await_inputs_clear()
+	await inputs_clear()
 	Globalaudio.play_FX(menu_fx1)
-	await InputsClear
 	var chose_option := false
 	var selection_just_changed := true
 	while !chose_option:
@@ -281,8 +277,7 @@ func attack_selection() -> Callable:
 		# Reduce speed of loop waiting for key release
 		await get_tree().create_timer(0.1).timeout
 	# Wait for "let go" of other buttons
-	await_inputs_clear()
-	await InputsClear
+	await inputs_clear()
 	Globals.ui.hide_all()
 	# Run selection selected from menu
 	# Slash
@@ -298,13 +293,40 @@ func attack_selection() -> Callable:
 	else:
 		return end_turn
 
-func await_inputs_clear() -> void:
-	var can_move_on = false
-	while !can_move_on:
-		if !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-			can_move_on = true
-		await get_tree().create_timer(0.05).timeout
-	InputsClear.emit()
+## When given an [Array] of [String]s containing inputs [br](ex. [enum "ui_accept"], [enum "ui_cancel"] etc.),
+## [br]waits for those inputs to be [i]not[/i] being pressed down [br](i.e. being "clear") before continuing.
+## [br][br]If not given a particular list, defaults to: [br][[br] [enum "ui_accept"][br] [enum "ui_cancel"]
+## [br] [enum "ui_up"][br] [enum "ui_down"][br] [enum "ui_left"][br] [enum "ui_right"][br]]
+func inputs_clear(inputs = null) -> void:
+	# Type checking
+	if inputs is not Array or null:
+		push_error("await_inputs_clear() not given null or an Array")
+	if inputs is Array:
+		pass
+		for input in inputs:
+			if inputs is not String:
+				push_error("item in Array given to await_inputs_clear() was not a string")
+
+	var inputs_waiting_for : Array[String]
+	if inputs != null:
+		inputs_waiting_for = inputs
+	else:
+		inputs_waiting_for = [
+			"ui_accept",
+			"ui_cancel",
+			"ui_up",
+			"ui_down",
+			"ui_left",
+			"ui_right"
+		]
+	var can_move_on
+	
+	for awaited_input in inputs_waiting_for:
+		can_move_on = false
+		while !can_move_on:
+			if !Input.is_action_pressed(awaited_input):
+				can_move_on = true
+			await get_tree().create_timer(0.05).timeout
 
 #region Move
 func declare_move() -> void:
@@ -331,16 +353,6 @@ func declare_move() -> void:
 		can_move = false
 		FinishedMove.emit()
 
-
-
-
-func await_move_inputs_clear() -> void:
-	var can_move_on = false
-	while !can_move_on:
-		if !Input.is_action_pressed("ui_up") and !Input.is_action_pressed("ui_down") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
-			can_move_on = true
-		await get_tree().create_timer(0.05).timeout
-	MoveInputsClear.emit()
 
 
 func attempt_move(valid_dir) -> void:
@@ -414,10 +426,7 @@ func attempt_move(valid_dir) -> void:
 			
 			
 			await get_tree().create_timer(0.1).timeout
-		await_inputs_clear()
-		await InputsClear
-		await_move_inputs_clear()
-		await MoveInputsClear
+		await inputs_clear()
 		
 		
 		while confirmMove == true and should_move == false:
@@ -459,10 +468,7 @@ func attempt_move(valid_dir) -> void:
 						
 						
 			await get_tree().create_timer(0.1).timeout
-		await_inputs_clear()
-		await InputsClear
-		await_move_inputs_clear()
-		await MoveInputsClear
+		await inputs_clear()
 		
 		
 	
@@ -552,8 +558,7 @@ func declare_slash() -> void:
 		Debug.say("No valid slash target!")
 		# Animate shake head
 		await get_tree().create_timer(0.2).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		FinishedAction.emit()
 
 func attempt_slash(valid_dir: Array) -> void:
@@ -595,8 +600,7 @@ func attempt_slash(valid_dir: Array) -> void:
 					slash_hint(valid_dir, true)
 					break
 			await get_tree().create_timer(0.08).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		if go_back:
 			slash_hint([], false)
 			FinishedAction.emit()
@@ -739,8 +743,7 @@ func declare_pounce() -> void:
 		Debug.say("No valid pounce target!")
 		# Animate shake head
 		await get_tree().create_timer(0.2).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		FinishedAction.emit()
 
 func attempt_pounce(valid_dir: Array) -> void:
@@ -782,8 +785,7 @@ func attempt_pounce(valid_dir: Array) -> void:
 						pounce_hint(valid_dir, true)
 						break
 			await get_tree().create_timer(0.08).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		if go_back:
 			pounce_hint([], false)
 			FinishedAction.emit()
@@ -926,8 +928,7 @@ func declare_knight() -> void:
 		Debug.say("No valid knight target!")
 		# Animate shake head
 		await get_tree().create_timer(0.2).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		FinishedAction.emit()
 	pass
 
@@ -1034,8 +1035,7 @@ func attempt_knight(valid_dir: Array) -> void:
 						push_error("somehow invalid direction given in attempt_knight")
 					break
 			await get_tree().create_timer(0.1).timeout
-		await_inputs_clear()
-		await InputsClear
+		await inputs_clear()
 		if go_back:
 			knight_hint([], false)
 			FinishedAction.emit()
