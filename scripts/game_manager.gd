@@ -9,7 +9,9 @@ extends Node2D
 @onready var ai_array : Array[CharacterBody2D] = []
 
 @onready var game_over_player = $GameOverSequence
-@onready var pause_menu = $PauseMenu
+@onready var pause_menu = $PauseMenu/CanvasLayer
+@onready var pause_menu_node = $PauseMenu
+@onready var paused = false
 
 const steppin = preload("res://sound/music/Side Steppin'.mp3")
 const blurr = preload("res://sound/music/Blurr.mp3")
@@ -99,8 +101,7 @@ func next_turn () -> void:
 	next_turn()
 
 func reload_level():
-	unpause($Levels)
-	unpause($Player)
+	unpause_game()
 	current_level.visible = false
 	player_character.reset_status()
 	print("reset")
@@ -109,7 +110,20 @@ func reload_level():
 	current_level.visible = true
 	#enemies need to be reset, too
 
-
+func pause_game():
+	paused = true
+	pause($Levels)
+	pause($Player)
+	unpause(pause_menu_node)
+	pause_menu.show()
+	
+func unpause_game():
+	await get_tree().create_timer(.1).timeout
+	paused = false
+	unpause($Levels)
+	unpause($Player)
+	pause_menu.hide()
+	pause(pause_menu_node)
 
 func increment_active_level() -> void:
 	player_character.reset_status()
@@ -204,13 +218,13 @@ func _ready() -> void:
 	Globals.player = $Player
 	Globals.ui = $UI
 	Globals.GameManager = self
+	pause_menu.hide()
+	pause(pause_menu_node)
 	show()
 	levels_scene.show()
 	player_character.show()
 	increment_active_level()
 	next_turn()
-	pause_menu.hide()
-	pause(pause_menu)
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -230,16 +244,9 @@ func _process(_delta: float) -> void:
 			game_over_player.load_room.connect(reload_level)
 		await get_tree().create_timer(0.1).timeout 
 		set_process(true)
-	# Close
 	elif Input.is_action_just_pressed("ui_close_dialog"):
-		print("pause!")
-		pause($Levels)
-		pause($Player)
-		unpause(pause_menu)
-		pause_menu.show()
-		pause_menu.load_room.connect(reload_level)
-		if pause_menu.resume_game.connect():
-			unpause($Levels)
-			unpause($Player)
-			pause(pause_menu)
-			pause_menu.hide()
+		if paused == false:
+			pause_game()
+	pause_menu_node.game_resume.connect(unpause_game)
+	pause_menu_node.reload_room.connect(reload_level)
+	# Close

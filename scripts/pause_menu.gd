@@ -2,19 +2,19 @@ extends Control
 
 
 @onready var menu_index = 0
-@onready var atlas = $menu.texture
+@onready var atlas = $CanvasLayer/menu.texture
 
 #signals when it's time to resume active play
 signal game_resume
 
 #signals when it's time to reload the room
-signal load_room
+signal reload_room
 
 #signals when it's time to open the title menu
 signal quit_game
 
 func _ready():
-	$controls.hide()
+	$CanvasLayer/controls.hide()
 
 #this keeps track of which button you're hovering over
 func menu_navigation():
@@ -27,7 +27,7 @@ func menu_navigation():
 	elif menu_index == 3:
 		atlas.region = Rect2(480, 0, 0, 0)
 	elif menu_index == 4:
-		$controls.show()
+		$CanvasLayer/controls.show()
 	else:
 		menu_index = 0
 		menu_navigation()
@@ -48,25 +48,25 @@ func _process(_delta:float):
 		menu_navigation()
 	elif Input.is_action_just_pressed("ui_cancel"):
 		menu_index = 0
-		$controls.hide()
+		$CanvasLayer/controls.hide()
 		menu_navigation()
 	elif Input.is_action_just_pressed("ui_close_dialog"):
 		menu_index = 0
-		$controls.hide()
+		$CanvasLayer/controls.hide()
 		menu_navigation()
 	elif Input.is_action_just_pressed("ui_accept"):
 		if menu_index == 0:
 			game_resume.emit()
 		elif menu_index == 1:
 			menu_index = 4
-			$controls.show()
+			$CanvasLayer/controls.show()
 		elif menu_index == 2:
-			load_room.emit()
+			reload_room.emit()
 		elif menu_index == 3:
 			quit_game.emit()
 		elif menu_index == 4:
 			menu_index = 0
-			$controls.hide()
+			$CanvasLayer/controls.hide()
 			menu_navigation()
 		else:
 			print("something weird happened")
