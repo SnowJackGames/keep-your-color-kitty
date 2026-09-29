@@ -51,9 +51,12 @@ func _process(_delta:float):
 		$CanvasLayer/controls.hide()
 		menu_navigation()
 	elif Input.is_action_just_pressed("ui_close_dialog"):
-		menu_index = 0
-		$CanvasLayer/controls.hide()
-		menu_navigation()
+		if menu_index != 0:
+			menu_index = 0
+			$CanvasLayer/controls.hide()
+			menu_navigation()
+		else:
+			game_resume.emit()
 	elif Input.is_action_just_pressed("ui_accept"):
 		if menu_index == 0:
 			game_resume.emit()

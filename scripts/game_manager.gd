@@ -111,6 +111,7 @@ func reload_level():
 	#enemies need to be reset, too
 
 func pause_game():
+	await get_tree().create_timer(.05).timeout 
 	paused = true
 	pause($Levels)
 	pause($Player)
@@ -218,6 +219,8 @@ func _ready() -> void:
 	Globals.player = $Player
 	Globals.ui = $UI
 	Globals.GameManager = self
+	pause_menu_node.game_resume.connect(unpause_game)
+	pause_menu_node.reload_room.connect(reload_level)
 	pause_menu.hide()
 	pause(pause_menu_node)
 	show()
@@ -247,6 +250,3 @@ func _process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("ui_close_dialog"):
 		if paused == false:
 			pause_game()
-	pause_menu_node.game_resume.connect(unpause_game)
-	pause_menu_node.reload_room.connect(reload_level)
-	# Close
