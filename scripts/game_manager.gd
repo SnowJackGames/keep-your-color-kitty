@@ -21,9 +21,12 @@ const opening = preload("res://sound/music/Opening.mp3")
 const spurr = preload("res://sound/music/Spurr.mp3")
 const teeter = preload("res://sound/music/Teeter.mp3")
 
+var abandon_turn : bool
+
 
 func next_turn () -> void:
 	Debug.say("starting turn")
+	abandon_turn = false
 	
 	#region Enemy Phases
 	# Check to see if there's any ai_enemys (enemies). put them in ai_array based on position
@@ -38,6 +41,7 @@ func next_turn () -> void:
 					ai.begin_turn()
 					await ai.FinishedPhase
 					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
+					
 		Debug.say("AI completed phase one")
 	else:
 		# Combat
