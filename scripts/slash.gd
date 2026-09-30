@@ -52,54 +52,60 @@ func declare_slash() -> void:
 		Debug.say("No valid slash target!")
 		# Animate shake head
 		await player.get_tree().create_timer(0.2).timeout
-		await player.inputs_clear()
+		await Globals.inputs_clear()
 		player.FinishedAction.emit()
 
 func attempt_slash(valid_dir: Array) -> void:
 	# Exploration
 	if Globals.game_mode == 1:
 		# Until "ui_accept" is no longer being pressed
-		while Input.is_action_pressed('ui_accept'):
+		while Input.is_action_pressed('ui_accept') and !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
 			# Updating direction
 			for dir in player.dir_inputs.keys():
 				if Input.is_action_pressed(dir):
-					if player.directional_facing[dir] in valid_dir:
+					if player.directional_facing[dir] + "Far" or player.directional_facing[dir] + "Near" in valid_dir:
 						player.facing = player.directional_facing[dir]
 						player.sprite.animation = player.directional_walk_animations[dir]
 						slash_hint(valid_dir, true)
 						break
 			# Reduce speed of loop waiting for key release
 			await player.get_tree().create_timer(0.08).timeout
-		enact_slash(valid_dir)
-		
+		if !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
+			enact_slash(valid_dir)
+		else:
+			slash_hint([], false)
+			player.FinishedAction.emit()
+
 	# Combat
 	elif Globals.game_mode == 2:
 		Globals.ui.attack_combat_return_hover()
 		var chose_option := false
-		var go_back := false
-		while !chose_option:
-			for dir in player.dir_inputs.keys():
-				# (A) accept
-				if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-					chose_option = true
-					break
-				# (B) cancel
-				elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
-					chose_option = true
-					go_back = true
-					break
-				elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept")and !Input.is_action_pressed("ui_cancel"):
-					player.facing = player.directional_facing[dir]
-					player.sprite.animation = player.directional_walk_animations[dir]
-					slash_hint(valid_dir, true)
-					break
+		while !chose_option and !Globals.GameManager.should_abandon_turn():
+			# Don't process while paused
+			if Globals.GameManager.paused:
+				pass
+			else:
+				for dir in player.dir_inputs.keys():
+					# (A) accept
+					if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+						chose_option = true
+						break
+					# (B) cancel
+					elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
+						chose_option = true
+						break
+					elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept")and !Input.is_action_pressed("ui_cancel"):
+						player.facing = player.directional_facing[dir]
+						player.sprite.animation = player.directional_walk_animations[dir]
+						slash_hint(valid_dir, true)
+						break
 			await player.get_tree().create_timer(0.08).timeout
-		await player.inputs_clear()
-		if go_back:
+		if chose_option:
+			await Globals.inputs_clear()
+			enact_slash(valid_dir)
+		else:
 			slash_hint([], false)
 			player.FinishedAction.emit()
-		else:
-			enact_slash(valid_dir)
 	
 	else:
 		push_error("Impossible state in attempt_slash")

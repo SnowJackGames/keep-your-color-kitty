@@ -54,14 +54,14 @@ func declare_pounce() -> void:
 		Debug.say("No valid pounce target!")
 		# Animate shake head
 		await player.get_tree().create_timer(0.2).timeout
-		await player.inputs_clear()
+		await Globals.inputs_clear()
 		player.FinishedAction.emit()
 
 func attempt_pounce(valid_dir: Array) -> void:
 	# Exploration
 	if Globals.game_mode == 1:
-		# Until "ui_cancel" is no longer being pressed
-		while Input.is_action_pressed('ui_cancel'):
+		# Until "ui_cancel" is no longer being pressed, or until we press pause
+		while Input.is_action_pressed('ui_cancel') and !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
 			# Updating direction
 			for dir in player.dir_inputs: # player.dir_inputs: ui_up -> Vector2.up -> walk up
 				if Input.is_action_pressed(dir):
@@ -69,39 +69,46 @@ func attempt_pounce(valid_dir: Array) -> void:
 						player.facing = player.directional_facing[dir]
 						player.sprite.animation = player.directional_walk_animations[dir]
 						pounce_hint(valid_dir, true)
+						break
 			# Reduce speed of loop waiting for key release
 			await player.get_tree().create_timer(0.05).timeout
-		enact_pounce()
+		if !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
+			enact_pounce()
+		else:
+			pounce_hint([], false)
+			player.FinishedAction.emit()
 
 	# Combat
 	elif Globals.game_mode == 2:
 		Globals.ui.attack_combat_return_hover()
 		var chose_option := false
-		var go_back := false
-		while !chose_option:
-			for dir in player.dir_inputs.keys():
-				# (A) accept
-				if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-					chose_option = true
-					break
-				# (B) cancel
-				elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
-					chose_option = true
-					go_back = true
-					break
-				elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-					if player.directional_facing[dir] in valid_dir:
-						player.facing = player.directional_facing[dir]
-						player.sprite.animation = player.directional_walk_animations[dir]
-						pounce_hint(valid_dir, true)
+		while !chose_option and !Globals.GameManager.should_abandon_turn():
+			# Don't process while paused
+			if Globals.GameManager.paused:
+				pass
+			else:
+				for dir in player.dir_inputs.keys():
+					# (A) accept
+					if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+						chose_option = true
 						break
+					# (B) cancel
+					elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
+						chose_option = true
+						break
+					elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+						if player.directional_facing[dir] in valid_dir:
+							player.facing = player.directional_facing[dir]
+							player.sprite.animation = player.directional_walk_animations[dir]
+							pounce_hint(valid_dir, true)
+							break
 			await player.get_tree().create_timer(0.08).timeout
-		await player.inputs_clear()
-		if go_back:
+		if chose_option:
+			await Globals.inputs_clear()
+			enact_pounce()
+		else:
 			pounce_hint([], false)
 			player.FinishedAction.emit()
-		else:
-			enact_pounce()
 
 	else:
 		push_error("Impossible state in attempt_pounce")

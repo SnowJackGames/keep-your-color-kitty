@@ -5,7 +5,6 @@ extends Node
 
 
 func declare_move() -> void:
-	print("stage0")
 	var valid_dir := [] # "Up", etc
 	for dir in player.directional_facing: # player.directional_facing: ui_up -> Up
 		var valid_target := true
@@ -100,7 +99,7 @@ func attempt_move(valid_dir) -> void:
 			
 			
 			await player.get_tree().create_timer(0.1).timeout
-		await player.inputs_clear()
+		await Globals.inputs_clear()
 		
 		
 		while confirmMove == true and should_move == false:
@@ -140,7 +139,7 @@ func attempt_move(valid_dir) -> void:
 						
 						
 			await player.get_tree().create_timer(0.1).timeout
-		await player.inputs_clear()
+		await Globals.inputs_clear()
 		
 		
 	

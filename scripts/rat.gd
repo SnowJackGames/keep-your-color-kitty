@@ -136,34 +136,39 @@ func phase_one() -> void:
 		# declare initial position, then move position halfway towards player?
 		if push_target:
 			await move(declared_move_pos)
-			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
-			sprite.frame = 0
-			await get_tree().create_timer(0.05).timeout
-			sprite.frame = 1
-			await get_tree().create_timer(0.05).timeout
-			sprite.frame = 2
-			await get_tree().create_timer(0.05).timeout
-			sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
-			await player.take_damage(bump_slash_damage)
-			player.pushed_onto(push_target - rat_center_offset)
-			$AttackHint.hide()
+			if !Globals.GameManager.should_abandon_turn():
+				await Globals.not_paused()
+				sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
+				sprite.frame = 0
+				await get_tree().create_timer(0.05).timeout
+				sprite.frame = 1
+				await get_tree().create_timer(0.05).timeout
+				sprite.frame = 2
+				await get_tree().create_timer(0.05).timeout
+				sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
+				await player.take_damage(bump_slash_damage)
+				player.pushed_onto(push_target - rat_center_offset)
+				$AttackHint.hide()
 		else:
 			$AttackHint.global_position = declared_move_pos
 			$AttackHint.show()
-			await get_tree().create_timer(0.1).timeout
-			sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
-			sprite.frame = 0
-			await get_tree().create_timer(0.10).timeout
-			sprite.frame = 1
-			await get_tree().create_timer(0.10).timeout
-			sprite.frame = 2
-			await get_tree().create_timer(0.10).timeout
-			sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
-			await player.take_damage(player.cornered_damage)
-			await player.take_damage(bump_slash_damage)
-			$AttackHint.hide()
-		# Then they damage themselves
-		take_damage(bump_slash_damage)
+			if !Globals.GameManager.should_abandon_turn():
+				await Globals.not_paused()
+				await get_tree().create_timer(0.1).timeout
+				sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
+				sprite.frame = 0
+				await get_tree().create_timer(0.10).timeout
+				sprite.frame = 1
+				await get_tree().create_timer(0.10).timeout
+				sprite.frame = 2
+				await get_tree().create_timer(0.10).timeout
+				sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
+				await player.take_damage(player.cornered_damage)
+				await player.take_damage(bump_slash_damage)
+				$AttackHint.hide()
+		if !Globals.GameManager.should_abandon_turn():
+			# Then they damage themselves
+			take_damage(bump_slash_damage)
 	else:
 		# Move towards player
 		var closest_tile_to_player := position
@@ -178,9 +183,9 @@ func phase_one() -> void:
 					distance_to_player = tile_detection_check.distance_to(player.position)
 		declared_move_pos = closest_tile_to_player
 		await move(declared_move_pos)
-		# Declare attack
-		declare_attack()
-	await get_tree().create_timer(0.1).timeout
+		if !Globals.GameManager.should_abandon_turn():
+			# Declare attack
+			declare_attack()
 	FinishedPhase.emit()
 
 func declare_attack() -> void:
@@ -233,53 +238,55 @@ func attack_hint() -> void:
 		if declared_attack_pos_far:
 			$AttackHint2.global_position = declared_attack_pos_far
 			$AttackHint2.show()
-			await get_tree().create_timer(0.1).timeout
 
 func attack() -> void:
-	Globalaudio.play_FX(ratattack)
-	sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
-	sprite.frame = 0
-	await get_tree().create_timer(0.10).timeout
-	sprite.frame = 1
-	await get_tree().create_timer(0.10).timeout
-	sprite.frame = 2
-	await get_tree().create_timer(0.10).timeout
-	if declared_attack:
-		for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
-			if attack_spot != null:
-				if tile_detection.player_on_tile(attack_spot):
-					await player.take_damage(quick_attack_damage)
-	
-	$AttackHint.hide()
-	$AttackHint2.hide()
-	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
-	FinishedPhase.emit()
+	if !Globals.GameManager.should_abandon_turn():
+		await Globals.not_paused()
+		Globalaudio.play_FX(ratattack)
+		sprite.animation = direction_slash_animation[eight_direction_to_four_directions[facing]]
+		sprite.frame = 0
+		await get_tree().create_timer(0.10).timeout
+		sprite.frame = 1
+		await get_tree().create_timer(0.10).timeout
+		sprite.frame = 2
+		await get_tree().create_timer(0.10).timeout
+		if declared_attack:
+			for attack_spot in [declared_attack_pos_near, declared_attack_pos_far]:
+				if attack_spot != null:
+					if tile_detection.player_on_tile(attack_spot):
+						await player.take_damage(quick_attack_damage)
 		
+		$AttackHint.hide()
+		$AttackHint2.hide()
+		sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
+		FinishedPhase.emit()
+
 func move(pos: Vector2):
-	Globalaudio.play_FX(ratsteps)
-	sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
-	$MoveHint.global_position = pos
-	$MoveHint.show()
-	if bump_attacking:
-		$AttackHint.global_position = pos
-		$AttackHint.show()
-	await get_tree().create_timer(0.10).timeout
-	var frame_target = sprite.frame
-	var movement_vector = pos - position
-	frame_target += 1
-	frame_target %= 4
-	sprite.frame = frame_target
-	$MoveHint.hide()
-	$AttackHint.hide()
-	position += 0.5 * movement_vector
-	await get_tree().create_timer(0.10).timeout
-	frame_target += 1
-	frame_target %= 4
-	sprite.frame = frame_target
-	position += 0.5 * movement_vector
-	await get_tree().create_timer(0.10).timeout
-	check_for_tile_damage()
-	
+	if !Globals.GameManager.should_abandon_turn():
+		await Globals.not_paused()
+		Globalaudio.play_FX(ratsteps)
+		sprite.animation = directional_walk_animations[eight_direction_to_four_directions[facing]]
+		$MoveHint.global_position = pos
+		$MoveHint.show()
+		if bump_attacking:
+			$AttackHint.global_position = pos
+			$AttackHint.show()
+		await get_tree().create_timer(0.10).timeout
+		var frame_target = sprite.frame
+		var movement_vector = pos - position
+		frame_target += 1
+		frame_target %= 4
+		sprite.frame = frame_target
+		$MoveHint.hide()
+		$AttackHint.hide()
+		position += 0.5 * movement_vector
+		await get_tree().create_timer(0.10).timeout
+		frame_target += 1
+		frame_target %= 4
+		sprite.frame = frame_target
+		position += 0.5 * movement_vector
+		await get_tree().create_timer(0.10).timeout
+		check_for_tile_damage()
 
 func check_for_tile_damage() -> void:
 	# If moved onto damaging tile, take damage
@@ -362,7 +369,7 @@ func take_damage (damage : int):
 	if cur_health <= 0:
 		Globalaudio.play_FX(ratdeath)
 		is_alive = false
-		print("DIED")
+		Debug.say("rat died")
 		queue_free()
 		
 	else:

@@ -104,6 +104,7 @@ func begin_turn():
 	turn_over = false
 	can_move = true
 	can_action = true
+	just_took_damage = false
 	main_turn_loop()
 
 func end_turn():
@@ -113,6 +114,7 @@ func end_turn():
 		check_for_tile_damage()
 	can_move = false
 	can_action = false
+	just_took_damage = false
 	
 func reset_status() -> void:
 	cur_health = 15
@@ -154,15 +156,15 @@ func main_turn_loop() -> void:
 				for given_input in key_inputs:
 					# Prioritize pressing an action first
 					if action_inputs.has(given_input):
-						if Input.is_action_pressed(given_input):
+						if Input.is_action_pressed(given_input) and !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
 							action_inputs[given_input].call()
 							await FinishedAction
 							turn_over = true
 							break
 					
 					# Then movement
-					if dir_inputs.has(given_input):
-						if Input.is_action_pressed(given_input):
+					elif dir_inputs.has(given_input):
+						if Input.is_action_pressed(given_input) and !Globals.GameManager.paused and !Globals.GameManager.should_abandon_turn():
 							move.declare_move()
 							await FinishedMove
 							turn_over = true
@@ -176,12 +178,12 @@ func main_turn_loop() -> void:
 
 				elif can_action == true:
 					var selected : Callable = await attack_selection()
-					if selected == end_turn:
+					if  !selected or selected == end_turn:
 						turn_over = true
 					else:
 						selected.call()
 						await FinishedAction
-					await inputs_clear()
+						can_action = false
 					
 				else:
 					turn_over = true
@@ -194,14 +196,20 @@ func main_turn_loop() -> void:
 	# After the main_turn_loop, emit that we've finished
 	FinishedTurn.emit()
 
+
 func attack_selection() -> Callable:
-	await inputs_clear()
+	await Globals.inputs_clear()
 	Globalaudio.play_FX(menu_fx1)
 	var chose_option := false
 	var selection_just_changed := true
 	while !chose_option:
+		if Globals.GameManager.should_abandon_turn():
+			chose_option = true
+		# Ignore inputs if we're in pause menu
+		elif Globals.GameManager.paused:
+			pass
 		# Left
-		if Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+		elif Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
 			Globalaudio.play_FX(menu_fx2)
 			if combat_attack_selection_index == 0:
 				combat_attack_selection_index = 3
@@ -210,20 +218,21 @@ func attack_selection() -> Callable:
 			selection_just_changed = true
 			await get_tree().create_timer(0.05).timeout
 		# Right
-		if Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+		elif Input.is_action_pressed("ui_right") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
 			Globalaudio.play_FX(menu_fx2)
 			combat_attack_selection_index += 1
 			combat_attack_selection_index %= 4
 			selection_just_changed = true
 			await get_tree().create_timer(0.05).timeout
 		# (A) select
-		if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+		elif Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
 			Globalaudio.play_FX(menu_fx2)
 			chose_option = true
 		# (B) skip
-		if Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
+		elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_left") and !Input.is_action_pressed("ui_right"):
 			Globalaudio.play_FX(menu_fx2)
 			combat_attack_selection_index = 3
+			selection_just_changed = true
 			chose_option = true
 		# Show the correct UI version
 		if selection_just_changed:
@@ -232,10 +241,13 @@ func attack_selection() -> Callable:
 				Globals.ui.attack_combat_hover(combat_attack_selection_index)
 			else:
 				push_error("Impossible selection index")
-		# Reduce speed of loop waiting for key release
-		await get_tree().create_timer(0.1).timeout
+			# more time btwn loops if we just pressed something
+			await get_tree().create_timer(0.1).timeout
+		else:
+			# Reduce speed of loop waiting for key release
+			await get_tree().create_timer(0.05).timeout
 	# Wait for "let go" of other buttons
-	await inputs_clear()
+	await Globals.inputs_clear()
 	Globals.ui.hide_all()
 	# Run selection selected from menu
 	# Slash
@@ -251,36 +263,7 @@ func attack_selection() -> Callable:
 	else:
 		return end_turn
 
-## When given an [Array] of [String]s containing inputs [br](ex. [enum "ui_accept"], [enum "ui_cancel"] etc.),
-## [br]waits for those inputs to be [i]not[/i] being pressed down [br](i.e. being "clear") before continuing.
-## [br][br]If not given a particular list, defaults to: [br][[br] [enum "ui_accept"][br] [enum "ui_cancel"]
-## [br] [enum "ui_up"][br] [enum "ui_down"][br] [enum "ui_left"][br] [enum "ui_right"][br]]
-func inputs_clear(inputs : Array[String] = []) -> void:
-	for input in inputs:
-		if input is not String:
-			push_error("item in Array given to await_inputs_clear() was not a string")
 
-	var inputs_waiting_for : Array[String]
-	if inputs.is_empty():
-		inputs_waiting_for = [
-			"ui_accept",
-			"ui_cancel",
-			"ui_up",
-			"ui_down",
-			"ui_left",
-			"ui_right"
-		]
-	else:
-		inputs_waiting_for = inputs as Array[String]
-
-	var can_move_on
-	
-	for awaited_input in inputs_waiting_for:
-		can_move_on = false
-		while !can_move_on:
-			if !Input.is_action_pressed(awaited_input):
-				can_move_on = true
-			await get_tree().create_timer(0.05).timeout
 
 
 #region World And Entity Interactions

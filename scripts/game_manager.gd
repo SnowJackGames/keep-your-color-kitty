@@ -13,6 +13,8 @@ extends Node2D
 @onready var pause_menu_node = $PauseMenu
 @onready var paused = false
 
+signal FinishedTurnCycle
+
 const steppin = preload("res://sound/music/Side Steppin'.mp3")
 const blurr = preload("res://sound/music/Blurr.mp3")
 const emerald = preload("res://sound/music/Emerald Gold.mp3")
@@ -20,88 +22,150 @@ const magenta = preload("res://sound/music/Magenta.mp3")
 const opening = preload("res://sound/music/Opening.mp3")
 const spurr = preload("res://sound/music/Spurr.mp3")
 const teeter = preload("res://sound/music/Teeter.mp3")
+var reloading : bool
 
-var abandon_turn : bool
-
-
-func next_turn () -> void:
+## Main loop for the turn cycle, containing player and enemy phases.
+## [br]Attempts to abandon running any phases or moving automatically to next turn
+## [br] if player health <= 0, or if we sent a signal to restart the level.
+func next_turn() -> void:
 	Debug.say("starting turn")
-	abandon_turn = false
 	
 	#region Enemy Phases
-	calc_ai_array()
-	if ai_array:
-		# Combat
-		Globals.game_mode = 2
-		await get_tree().create_timer(0.2).timeout
-		for ai in ai_array:
-			if "is_alive" in ai:
-				if ai.is_alive:
-					ai.begin_turn()
-					await ai.FinishedPhase
-					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
-		
-		Debug.say("AI completed phase one")
+	if !should_abandon_turn():
+		calc_ai_array()
+		if ai_array:
+			Globals.game_mode = 2
+			await enemy_phase_one()
+		else:
+			# Exploration
+			Globals.game_mode = 1
 	else:
-		# Exploration
-		Globals.game_mode = 1
+		Debug.say("abandoning turn\n--------")
+		await get_tree().create_timer(0.01).timeout
+		FinishedTurnCycle.emit()
+		return
 	#endregion
 		
 	#region Player Phases
-	calc_ai_array() # in case any AI died during their turn
-	if ai_array:
-		Globals.game_mode = 2
-	else:
-		Globals.game_mode = 1
+	if !should_abandon_turn():
+		calc_ai_array() # in case any AI died during their turn
+		if ai_array:
+			Globals.game_mode = 2
+		else:
+			Globals.game_mode = 1
 	
-	# Player turn
-	player_character.begin_turn()
-	await player_character.FinishedTurn
-	await player_character.end_turn()
+		# Player turn
+		player_character.begin_turn()
+		await player_character.FinishedTurn
+		player_character.end_turn()
+	else:
+		Debug.say("abandoning turn\n--------")
+		await get_tree().create_timer(0.01).timeout
+		FinishedTurnCycle.emit()
+		return
 	#endregion
 
 	#region Next Enemy Phases
-	# Recalc array after player turn
-	calc_ai_array()
-	if ai_array:
-		# Disable player UI
-		# ENEMY ATTACK
-		for ai in ai_array:
-			if "declared_attack" and "is_alive" in ai:
-				if ai.declared_attack and ai.is_alive:
-					#ai enacts attack
-					ai.attack()
-					await ai.FinishedPhase
-					ai.end_turn()
-					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # random slight delay btwn enemies
-		await get_tree().create_timer(0.1).timeout # after finished
+	if !should_abandon_turn():
+		# Recalc array after player turn
+		calc_ai_array()
+		if ai_array:
+			await enemy_phase_two()
+		else:
+			Globals.game_mode = 1
 	else:
-		Globals.game_mode = 1
+		Debug.say("abandoning turn\n--------")
+		await get_tree().create_timer(0.01).timeout
+		FinishedTurnCycle.emit()
+		return
 	#endregion
-	
-	# Unlock stairs
-	if Globals.game_mode == 1:
-		if current_level.get_node("Elements/Stairs"):
-			current_level.get_node("Elements/Stairs").unlock()
+	#region End of Turn Handling
+	if !should_abandon_turn():
+		# Unlock stairs
+		calc_ai_array()
+		if !ai_array:
+			if current_level.get_node("Elements/Stairs"):
+				current_level.get_node("Elements/Stairs").unlock()
 
-	if player_character.on_level_exit:
-		increment_active_level()
+		if player_character.on_level_exit:
+			increment_active_level()
+	else:
+		Debug.say("abandoning turn\n--------")
+		await get_tree().create_timer(0.01).timeout
+		FinishedTurnCycle.emit()
+		return
 
 	Debug.say("finished turn\n--------")
-	next_turn()
+	await get_tree().create_timer(0.01).timeout
+	FinishedTurnCycle.emit()
+	#endregion
+	
+	#region Next Turn Handling
+	if !should_abandon_turn():
+		next_turn()
+	#endregion
+
+## Initial movements and bump-slash
+func enemy_phase_one() -> void:
+	for ai in ai_array:
+		await Globals.not_paused()
+		
+		if should_abandon_turn():
+			return
+		elif "is_alive" in ai:
+			if ai.is_alive:
+					ai.begin_turn()
+					await ai.FinishedPhase
+					# If player dies or we're restarting, abandon turn
+					if should_abandon_turn():
+						return
+					else:
+						await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
+
+## Enacting declared attack
+func enemy_phase_two() -> void:
+	for ai in ai_array:
+		await Globals.not_paused()
+		
+		if should_abandon_turn():
+			return
+		elif "declared_attack" and "is_alive" in ai:
+			if ai.declared_attack and ai.is_alive:
+				#ai enacts attack
+				ai.attack()
+				await ai.FinishedPhase
+				ai.end_turn()
+				# If player dies or we're restarting, abandon turn
+				if should_abandon_turn():
+					return
+				else:
+					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # random slight delay btwn enemy turns
 
 func reload_level():
-	unpause_game()
+	await unpause_game()
+	player_character.just_took_damage = false
+	reloading = true
+	# Wait for current turn to be cleaned up
+	await FinishedTurnCycle
+	# Now, reload things
+	Debug.say("resetting")
+	game_over_player.play_game_over()
+	# Wait until fade to black before moving stuff around
+	await get_tree().create_timer(1).timeout
 	current_level.visible = false
 	player_character.reset_status()
-	print("reset")
 	player_character.position = current_level.player_start_position
 	update_camera_target()
+	# Finished reloading, now resume process
 	current_level.visible = true
+	reloading = false
+	# Wait until fade back in
+	await get_tree().create_timer(1).timeout
+	next_turn()
 	#enemies need to be reset, too
 
 func pause_game():
-	await get_tree().create_timer(.05).timeout 
+	await get_tree().create_timer(.05).timeout
 	paused = true
 	pause($Levels)
 	pause($Player)
@@ -109,7 +173,7 @@ func pause_game():
 	pause_menu.show()
 	
 func unpause_game():
-	await get_tree().create_timer(.1).timeout
+	await Globals.inputs_clear()
 	paused = false
 	unpause($Levels)
 	unpause($Player)
@@ -176,7 +240,11 @@ func update_camera_target() -> void:
 	else: 
 		push_error("Current level " + current_level.name + " does not contain Camera2D")
 
-
+func should_abandon_turn() -> bool:
+	if (player_character.cur_health <= 0) or reloading:
+		player_character.turn_over = true
+		return true
+	return false
 
 # calculate ai_array
 func calc_ai_array() -> void:
@@ -209,6 +277,7 @@ func _ready() -> void:
 	Globals.player = $Player
 	Globals.ui = $UI
 	Globals.GameManager = self
+	reloading = false
 	pause_menu_node.game_resume.connect(unpause_game)
 	pause_menu_node.reload_room.connect(reload_level)
 	pause_menu.hide()
@@ -222,8 +291,8 @@ func _ready() -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	# Player Damage
-	if player_character.just_took_damage:
+	# Player Damage. Want to make sure we aren't in a situation where mid-reset we "die"
+	if player_character.just_took_damage and !Globals.GameManager.should_abandon_turn():
 		set_process(false)
 		player_character.just_took_damage = false
 		Debug.say("Health: %s / %s" % [player_character.cur_health, player_character.max_health])
@@ -231,12 +300,12 @@ func _process(_delta: float) -> void:
 		if player_character.cur_health <= 0:
 			pause($Levels)
 			pause($Player)
-			await get_tree().create_timer(1.5).timeout 
+			await get_tree().create_timer(1.5).timeout
 			game_over_player.play_game_over()
 			print("You Died!")
 			game_over_player.load_room.connect(reload_level)
 		await get_tree().create_timer(0.1).timeout 
 		set_process(true)
-	elif Input.is_action_just_pressed("ui_close_dialog"):
+	elif Input.is_action_just_pressed("ui_close_dialog") and !Globals.GameManager.should_abandon_turn():
 		if paused == false:
 			pause_game()

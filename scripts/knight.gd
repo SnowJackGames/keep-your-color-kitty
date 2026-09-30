@@ -119,7 +119,7 @@ func declare_knight() -> void:
 		Debug.say("No valid knight target!")
 		# Animate shake head
 		await player.get_tree().create_timer(0.2).timeout
-		await player.inputs_clear()
+		await Globals.inputs_clear()
 		player.FinishedAction.emit()
 	pass
 
@@ -128,110 +128,112 @@ func attempt_knight(valid_dir: Array) -> void:
 	if Globals.game_mode == 2:
 		Globals.ui.attack_combat_return_hover()
 		var chose_option := false
-		var go_back := false
-		while !chose_option:
-			for dir in player.dir_inputs.keys():
-				# (A) accept
-				if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-					chose_option = true
-					break
-				# (B) cancel
-				elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
-					chose_option = true
-					go_back = true
-					break
-				# If a direction is pressed, *flip* which of the two knight moves is being selected
-				elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
-					# set the knight_direction
-					if dir == "ui_up":
-						if knight_spot_dictionary.has("UpUpLeft"):
-							if knight_spot_dictionary.has("UpUpRight"):
-								# if has right AND left, swap or go left
-								if knight_direction == "UpUpLeft":
-									knight_direction = "UpUpRight"
+		while !chose_option and !Globals.GameManager.should_abandon_turn():
+			# Don't process while paused
+			if Globals.GameManager.paused:
+				pass
+			else:
+				for dir in player.dir_inputs.keys():
+					# (A) accept
+					if Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+						chose_option = true
+						break
+					# (B) cancel
+					elif Input.is_action_pressed("ui_cancel") and !Input.is_action_pressed("ui_accept"):
+						chose_option = true
+						break
+					# If a direction is pressed, *flip* which of the two knight moves is being selected
+					elif Input.is_action_pressed(dir) and !Input.is_action_pressed("ui_accept") and !Input.is_action_pressed("ui_cancel"):
+						# set the knight_direction
+						if dir == "ui_up":
+							if knight_spot_dictionary.has("UpUpLeft"):
+								if knight_spot_dictionary.has("UpUpRight"):
+									# if has right AND left, swap or go left
+									if knight_direction == "UpUpLeft":
+										knight_direction = "UpUpRight"
+									else:
+										knight_direction = "UpUpLeft"
+								# left but no right
 								else:
 									knight_direction = "UpUpLeft"
-							# left but no right
-							else:
-								knight_direction = "UpUpLeft"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-						# right but no left
-						elif knight_spot_dictionary.has("UpUpRight"):
-							knight_direction = "UpUpRight"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-					elif dir == "ui_down":
-						if knight_spot_dictionary.has("DownDownLeft"):
-							if knight_spot_dictionary.has("DownDownRight"):
-								if knight_direction == "DownDownLeft":
-									knight_direction = "DownDownRight"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+							# right but no left
+							elif knight_spot_dictionary.has("UpUpRight"):
+								knight_direction = "UpUpRight"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+						elif dir == "ui_down":
+							if knight_spot_dictionary.has("DownDownLeft"):
+								if knight_spot_dictionary.has("DownDownRight"):
+									if knight_direction == "DownDownLeft":
+										knight_direction = "DownDownRight"
+									else:
+										knight_direction = "DownDownLeft"
 								else:
 									knight_direction = "DownDownLeft"
-							else:
-								knight_direction = "DownDownLeft"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-						elif knight_spot_dictionary.has("DownDownRight"):
-							knight_direction = "DownDownRight"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-					elif dir == "ui_left":
-						if knight_spot_dictionary.has("LeftLeftUp"):
-							if knight_spot_dictionary.has("LeftLeftDown"):
-								if knight_direction == "LeftLeftUp":
-									knight_direction = "LeftLeftDown"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+							elif knight_spot_dictionary.has("DownDownRight"):
+								knight_direction = "DownDownRight"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+						elif dir == "ui_left":
+							if knight_spot_dictionary.has("LeftLeftUp"):
+								if knight_spot_dictionary.has("LeftLeftDown"):
+									if knight_direction == "LeftLeftUp":
+										knight_direction = "LeftLeftDown"
+									else:
+										knight_direction = "LeftLeftUp"
 								else:
 									knight_direction = "LeftLeftUp"
-							else:
-								knight_direction = "LeftLeftUp"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-						elif knight_spot_dictionary.has("LeftLeftDown"):
-							knight_direction = "LeftLeftDown"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-					elif dir == "ui_right":
-						if knight_spot_dictionary.has("RightRightUp"):
-							if knight_spot_dictionary.has("RightRightDown"):
-								if knight_direction == "RightRightUp":
-									knight_direction = "RightRightDown"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+							elif knight_spot_dictionary.has("LeftLeftDown"):
+								knight_direction = "LeftLeftDown"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+						elif dir == "ui_right":
+							if knight_spot_dictionary.has("RightRightUp"):
+								if knight_spot_dictionary.has("RightRightDown"):
+									if knight_direction == "RightRightUp":
+										knight_direction = "RightRightDown"
+									else:
+										knight_direction = "RightRightUp"
 								else:
 									knight_direction = "RightRightUp"
-							else:
-								knight_direction = "RightRightUp"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-						elif knight_spot_dictionary.has("RightRightDown"):
-							knight_direction = "RightRightDown"
-							knight_spot = knight_spot_dictionary[knight_direction]
-							player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
-							player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
-							knight_hint(valid_dir, true)
-					else:
-						push_error("somehow invalid direction given in attempt_knight")
-					break
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+							elif knight_spot_dictionary.has("RightRightDown"):
+								knight_direction = "RightRightDown"
+								knight_spot = knight_spot_dictionary[knight_direction]
+								player.sprite.animation = knight_direction_to_walk_animation[knight_direction]
+								player.facing = player.directional_facing[player.directional_walk_animations.find_key(knight_direction_to_walk_animation[knight_direction])]
+								knight_hint(valid_dir, true)
+						else:
+							push_error("somehow invalid direction given in attempt_knight")
+						break
 			await player.get_tree().create_timer(0.1).timeout
-		await player.inputs_clear()
-		if go_back:
+		if chose_option:
+			await Globals.inputs_clear()
+			enact_knight()
+		else:
 			knight_hint([], false)
 			player.FinishedAction.emit()
-		else:
-			enact_knight()
 	else:
 		push_error("can only Knight in combat")
 	
