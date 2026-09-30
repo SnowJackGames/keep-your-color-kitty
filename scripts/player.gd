@@ -11,6 +11,7 @@ var knight = load("res://scripts/knight.gd").new()
 
 const kitty_center_offset := Vector2(8,8)
 
+var turn_over : bool
 var combat_attack_selection_index : int
 var object_destroyed_name : String
 var facing := "Up"
@@ -42,6 +43,15 @@ signal FinishedMove
 signal FinishedAction
 
 #region Input Dictionaries
+static var key_inputs := [
+	"ui_accept",
+	"ui_cancel",
+	"ui_up",
+	"ui_down",
+	"ui_left",
+	"ui_right",
+]
+
 static var dir_inputs : Dictionary[String, Vector2] = {
 	'ui_up': Vector2.UP,
 	'ui_down': Vector2.DOWN,
@@ -91,8 +101,10 @@ func begin_turn():
 	combat_attack_selection_index = 0
 	pos_at_start_of_turn = position
 	knight.reset()
+	turn_over = false
 	can_move = true
 	can_action = true
+	main_turn_loop()
 
 func end_turn():
 	# If you end your turn in a damaging tile
@@ -116,6 +128,7 @@ func _ready() -> void:
 	$Targetting/Move.hide()
 	$Targetting/Knight.hide()
 	facing = ""
+	turn_over = true
 	move.player = self
 	move.tile_detection = tile_detection
 	slash.player = self
@@ -125,61 +138,61 @@ func _ready() -> void:
 	knight.player = self
 	knight.tile_detection = tile_detection
 
-func _process (_delta: float) -> void:
-	if can_move == true:
-		# Exploration
-		if Globals.game_mode == 1:
-			for dir in dir_inputs.keys():
-				if Input.is_action_pressed(dir):
-						set_process(false)
-						move.declare_move()
-						await FinishedMove
-						print(position)
-						set_process(true)
-						break
-		# Combat
-		elif Globals.game_mode == 2:
-			set_process(false)
-			move.declare_move()
-			await FinishedMove
-			set_process(true)
-		
-		else:
-			push_error("Impossible game_mode state")
-		
-	if can_action == true:
-		# Exploration
-		if Globals.game_mode == 1:
-			for action in action_inputs.keys():
-				if Input.is_action_pressed(action):
-					set_process(false)
-					action_inputs[action].call()
-					await FinishedAction
-					set_process(true)
-					break
-
-		# Combat
-		elif Globals.game_mode == 2:
-			set_process(false)
-			var selected : Callable = await attack_selection()
-			selected.call()
-			if selected == end_turn:
-				end_turn()
-			else:
-				await FinishedAction
-			await inputs_clear()
-			set_process(true)
-			
-			# check if thing was destroyed
-			# if so, object_destroyed_name = that
-		else:
-			push_error("Impossible game_mode state")
-	
-	if (can_move == false) and (can_action == false):
+func main_turn_loop() -> void:
+	while !turn_over:
+		# Immediately exit if we're on the stairs
 		if tile_detection.objectnamesatspot(position + kitty_center_offset).has("Stairs"):
 			on_level_exit = true
 			Debug.say("on the exit")
-		FinishedTurn.emit()
+			turn_over = true
+		
+		# Otherwise, handle turn normally
+		else:
+			# Exploration
+			if Globals.game_mode == 1:
+				# Iterate over all the inputs we care about
+				for given_input in key_inputs:
+					# Prioritize pressing an action first
+					if action_inputs.has(given_input):
+						if Input.is_action_pressed(given_input):
+							action_inputs[given_input].call()
+							await FinishedAction
+							turn_over = true
+							break
+					
+					# Then movement
+					if dir_inputs.has(given_input):
+						if Input.is_action_pressed(given_input):
+							move.declare_move()
+							await FinishedMove
+							turn_over = true
+							break
+			
+			# Combat
+			elif Globals.game_mode == 2:
+				if can_move == true:
+					move.declare_move()
+					await FinishedMove
+
+				elif can_action == true:
+					var selected : Callable = await attack_selection()
+					if selected == end_turn:
+						turn_over = true
+					else:
+						selected.call()
+						await FinishedAction
+					await inputs_clear()
+					
+				else:
+					turn_over = true
+			
+			else:
+				push_error("Impossible game_mode state")
+		# Delay to slow down while loop
+		await get_tree().create_timer(0.01).timeout
+		
+	# After the main_turn_loop, emit that we've finished
+	FinishedTurn.emit()
 
 func attack_selection() -> Callable:
 	await inputs_clear()
