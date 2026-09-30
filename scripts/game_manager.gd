@@ -29,10 +29,9 @@ func next_turn () -> void:
 	abandon_turn = false
 	
 	#region Enemy Phases
-	# Check to see if there's any ai_enemys (enemies). put them in ai_array based on position
 	calc_ai_array()
 	if ai_array:
-		# Exploration
+		# Combat
 		Globals.game_mode = 2
 		await get_tree().create_timer(0.2).timeout
 		for ai in ai_array:
@@ -41,37 +40,24 @@ func next_turn () -> void:
 					ai.begin_turn()
 					await ai.FinishedPhase
 					await get_tree().create_timer(randf_range(0.1, 0.2)).timeout # stagger time btwn enemy turns
-					
+		
 		Debug.say("AI completed phase one")
 	else:
-		# Combat
+		# Exploration
 		Globals.game_mode = 1
 	#endregion
 		
 	#region Player Phases
 	calc_ai_array() # in case any AI died during their turn
-	if !ai_array or ai_array.is_empty():
-		Globals.game_mode = 1
-	else:
+	if ai_array:
 		Globals.game_mode = 2
+	else:
+		Globals.game_mode = 1
 	
-	# PLAYER MOVE, PLAYER ATTACK
+	# Player turn
 	player_character.begin_turn()
-	## Exploration
-	#if Globals.game_mode == 1:
-		#pass
-		## If UI is up, hide it
-	## Combat
-	#elif Globals.game_mode == 2:
-		## If UI is not up, show it
-		#pass
-	#else:
-		#push_error("Impossible state in game_manager player phase")
-	update_camera_target()
 	await player_character.FinishedTurn
-	# Current enemy in ai_array takes player_character.damage_dealt
-	
-	# redefine ai_array
+	await player_character.end_turn()
 	#endregion
 
 	#region Next Enemy Phases
@@ -81,8 +67,8 @@ func next_turn () -> void:
 		# Disable player UI
 		# ENEMY ATTACK
 		for ai in ai_array:
-			if "declared_attack" in ai:
-				if ai.declared_attack:
+			if "declared_attack" and "is_alive" in ai:
+				if ai.declared_attack and ai.is_alive:
 					#ai enacts attack
 					ai.attack()
 					await ai.FinishedPhase

@@ -308,5 +308,4 @@ func enact_knight() -> void:
 	# If pounced onto damaging spot, take damage
 	player.sprite.animation = player.directional_walk_animations[player.directional_facing.find_key(player.facing)]
 	player.check_for_tile_damage()
-	player.end_turn()
 	player.FinishedAction.emit()

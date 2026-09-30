@@ -171,5 +171,4 @@ func enact_pounce() -> void:
 		await tile_detection.damage_enemy(damage_spot, player.pounce_damage)
 		player.sprite.animation = player.directional_walk_animations[player.directional_facing.find_key(player.facing)]
 	player.check_for_tile_damage()
-	player.end_turn()
 	player.FinishedAction.emit()

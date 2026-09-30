@@ -195,5 +195,4 @@ func enact_slash(valid_dir: Array) -> void:
 	
 	else:
 		push_error("Asked to slash this direction but cannot")
-	player.end_turn()
 	player.FinishedAction.emit()
