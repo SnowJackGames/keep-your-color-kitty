@@ -35,6 +35,7 @@ const teeter = preload("res://sound/music/Teeter.mp3")
 	$Level17,
 	$Level18,
 	
+	
 ]
 
 # Disable all levels at first
@@ -43,3 +44,13 @@ func _ready() -> void:
 	for level in level_order:
 		level.visible = false
 		level.process_mode = PROCESS_MODE_DISABLED
+		
+		#Disable Wall collision
+		var collisionDisable = get_node(str(level))
+		var collisionDisable2 = str(collisionDisable.name)
+		print(collisionDisable2 + "/Elements/WallTiles")
+		var collisionDisable3 = get_node(collisionDisable2 + "/Elements/WallTiles")
+		
+		if collisionDisable3 != null:
+			collisionDisable3.collision_enabled = false 
+		

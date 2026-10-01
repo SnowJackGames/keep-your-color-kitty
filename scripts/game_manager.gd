@@ -158,6 +158,9 @@ func reload_level():
 	update_camera_target()
 	# Finished reloading, now resume process
 	current_level.visible = true
+	var walls = get_node("Levels/" + levels_scene.level_order[current_level_index].name + "/Elements/WallTiles")
+	if walls != null:
+		walls.collision_enabled = true
 	reloading = false
 	# Wait until fade back in
 	await get_tree().create_timer(1).timeout
@@ -184,6 +187,14 @@ func increment_active_level() -> void:
 	player_character.reset_status()
 
 	if current_level != null:
+		#print(levels_scene.level_order[current_level_index].name)
+		#print("Levels/" + levels_scene.level_order[current_level_index].name + "/Elements/WallTiles")
+		var walls = get_node("Levels/" + levels_scene.level_order[current_level_index].name + "/Elements/WallTiles")
+		if walls != null:
+			walls.collision_enabled = false
+	
+		
+
 		current_level.visible = false
 		current_level.process_mode = Node.PROCESS_MODE_DISABLED
 	
@@ -196,6 +207,9 @@ func increment_active_level() -> void:
 	else:
 		current_level = get_node("Levels/" + str(levels_scene.level_order[current_level_index]))
 		current_level.visible = true
+		var walls = get_node("Levels/" + levels_scene.level_order[current_level_index].name + "/Elements/WallTiles")
+		if walls != null:
+			walls.collision_enabled = true
 		current_level.process_mode = Node.PROCESS_MODE_INHERIT
 		
 		# Move player to starting position of level
