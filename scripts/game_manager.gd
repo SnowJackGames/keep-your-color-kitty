@@ -18,7 +18,7 @@ signal FinishedTurnCycle
 var bus_name: String
 var bus_index: int
 
-
+const ambience1 = preload("res://sound/ambience/Ambience 1.mp3")
 
 const steppin = preload("res://sound/music/Side Steppin'.mp3")
 const blurr = preload("res://sound/music/Blurr.mp3")
@@ -228,14 +228,28 @@ func increment_active_level() -> void:
 	update_camera_target()
 	if current_level.name == "Tutorial1": 
 		Globalaudio.playVolume(0.35)
+		Globalaudio.fadeInTime(8.0)
 		Globalaudio.play_music_level_random_start(fell,-10.0)
-		
+		Globalambienceplayer.playVolume(0.75)
+		Globalambienceplayer.play_music_level_random_start(ambience1)
 	if current_level.name == "Level1": 
-		Globalaudio.playVolume(1.0)
-		Globalaudio.play_music_level(steppin)
+		Globalaudio.fadeInTime(0.5)
+		Globalambienceplayer.fadeInTime(15.0)
+		Globalaudio.toggle()
+		Globalambienceplayer.toggle()
+		#Globalcombatmusic.playVolume(0.7)
+		#Globalcombatmusic.fadeInTime(4)
+		Globalcombatmusic.fadeInTime(0.0)
+		Globalcombatmusic.play_music_level(steppin)
 		
 	if current_level.name == "Level5": 
-		Globalaudio.play_music_level(spurr)
+		Globalaudio.playVolume(0.35)
+		Globalaudio.fadeInTime(8.0)
+		Globalaudio.play_music_level_random_start(spurr,-10.0)
+		Globalaudio.fadeInTime(0.1)
+		Globalambienceplayer.playVolume(0.75)
+		Globalambienceplayer.play_music_level_random_start(ambience1)
+		
 	if current_level.name == "Level6": 
 		Globalaudio.play_music_level(teeter)
 	if current_level.name == "Exploration2": 

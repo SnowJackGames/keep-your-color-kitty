@@ -14,6 +14,7 @@ func playVolume(vol) -> void:
 func fadeInTime(seconds) -> void:
 	duration = seconds
 	
+	
 ## Toggles the volume to fade in/out
 func toggle(randomstart = 0.0) -> void:
 	if _tween and _tween.is_running():
