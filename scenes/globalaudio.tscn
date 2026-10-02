@@ -5,4 +5,5 @@
 
 [node name="Globalaudio" type="AudioStreamPlayer" unique_id=927855227]
 stream = ExtResource("1_p0q5j")
+bus = &"Music"
 script = ExtResource("1_57bhw")

@@ -15,6 +15,11 @@ extends Node2D
 
 signal FinishedTurnCycle
 
+var bus_name: String
+var bus_index: int
+
+
+
 const steppin = preload("res://sound/music/Side Steppin'.mp3")
 const blurr = preload("res://sound/music/Blurr.mp3")
 const emerald = preload("res://sound/music/Emerald Gold.mp3")
@@ -22,6 +27,12 @@ const magenta = preload("res://sound/music/Magenta.mp3")
 const opening = preload("res://sound/music/Opening.mp3")
 const spurr = preload("res://sound/music/Spurr.mp3")
 const teeter = preload("res://sound/music/Teeter.mp3")
+
+const deeperred = preload("res://sound/music/9 - 29 - 26 Deeper Red.mp3")
+const fell = preload("res://sound/music/9-29-26 Fell.mp3")
+const underriser = preload("res://sound/music/9-29-26 Underriser.mp3")
+const receivingsignals = preload("res://sound/music/9-29-2026 Receiving Signals.mp3")
+const sendingsignals = preload("res://sound/music/9-29-2026 Sending Signals.mp3")
 var reloading : bool
 
 ## Main loop for the turn cycle, containing player and enemy phases.
@@ -215,10 +226,14 @@ func increment_active_level() -> void:
 		# Move player to starting position of level
 		player_character.position = current_level.player_start_position
 	update_camera_target()
-	if current_level.name == "Exploration0": 
-		Globalaudio.play_music_level(spurr)
+	if current_level.name == "Tutorial1": 
+		Globalaudio.playVolume(0.35)
+		Globalaudio.play_music_level_random_start(fell,-10.0)
+		
 	if current_level.name == "Level1": 
+		Globalaudio.playVolume(1.0)
 		Globalaudio.play_music_level(steppin)
+		
 	if current_level.name == "Level5": 
 		Globalaudio.play_music_level(spurr)
 	if current_level.name == "Level6": 
@@ -288,6 +303,7 @@ func unpause(branch : Node):
 	branch.process_mode = PROCESS_MODE_INHERIT
 
 func _ready() -> void:
+	bus_index = AudioServer.get_bus_index(bus_name)
 	Globals.player = $Player
 	Globals.ui = $UI
 	Globals.GameManager = self

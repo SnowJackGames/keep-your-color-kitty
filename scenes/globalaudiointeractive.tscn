@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dt3klngxeaahc"]
+
+[ext_resource type="AudioStream" uid="uid://dep4w2mlayt3j" path="res://sound/music/9-29-26 Fell.mp3" id="1_idla4"]
+[ext_resource type="AudioStream" uid="uid://cy7mdd8xkg1jf" path="res://sound/music/9 - 29 - 26 Deeper Red.mp3" id="2_nr08o"]
+[ext_resource type="AudioStream" uid="uid://bed7whejxvaj7" path="res://sound/music/9-29-2026 Receiving Signals.mp3" id="3_ecnbb"]
+[ext_resource type="AudioStream" uid="uid://b4f75ralnd72m" path="res://sound/music/9-29-2026 Sending Signals.mp3" id="4_pqsq5"]
+[ext_resource type="AudioStream" uid="uid://ckrfy48rfskj3" path="res://sound/music/9-29-26 Underriser.mp3" id="5_dba6v"]
+[ext_resource type="Script" uid="uid://bytnhwcfqscvv" path="res://scenes/globalaudiointeractive.gd" id="6_qsvfq"]
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_mrigs"]
+clip_count = 5
+clip_0/name = &"fell"
+clip_0/stream = ExtResource("1_idla4")
+clip_0/auto_advance = 0
+clip_1/name = &"deeperred"
+clip_1/stream = ExtResource("2_nr08o")
+clip_1/auto_advance = 0
+clip_2/name = &"receivingsignals"
+clip_2/stream = ExtResource("3_ecnbb")
+clip_2/auto_advance = 0
+clip_3/name = &"sendingsignals"
+clip_3/stream = ExtResource("4_pqsq5")
+clip_3/auto_advance = 0
+clip_4/name = &"underriser"
+clip_4/stream = ExtResource("5_dba6v")
+clip_4/auto_advance = 0
+_transitions = {
+Vector2i(0, 0): {
+"fade_beats": 1.0,
+"fade_mode": 1,
+"from_time": 0,
+"to_time": 0
+},
+Vector2i(0, 1): {
+"fade_beats": 1.0,
+"fade_mode": 2,
+"from_time": 0,
+"to_time": 0
+}
+}
+
+[node name="Globalaudiointeractive" type="AudioStreamPlayer" unique_id=1459149573]
+stream = SubResource("AudioStreamInteractive_mrigs")
+script = ExtResource("6_qsvfq")
