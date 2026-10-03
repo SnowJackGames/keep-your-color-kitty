@@ -172,6 +172,7 @@ func main_turn_loop() -> void:
 			
 			# Combat
 			elif Globals.game_mode == 2:
+				await Globals.inputs_clear()
 				if can_move == true:
 					move.declare_move()
 					await FinishedMove

@@ -12,6 +12,7 @@ const teeter = preload("res://sound/music/Teeter.mp3")
 
 @onready var level_order = [
 	
+	
 	$Tutorial1,
 	$Exploration0,
 	$Level1,
@@ -36,7 +37,6 @@ const teeter = preload("res://sound/music/Teeter.mp3")
 	$Level17,
 	$Level18,
 	
-	
 ]
 
 # Disable all levels at first
@@ -50,6 +50,7 @@ func _ready() -> void:
 		var collisionDisable = get_node(str(level))
 		var collisionDisable2 = str(collisionDisable.name)
 		print(collisionDisable2 + "/Elements/WallTiles")
+		
 		var collisionDisable3 = get_node(collisionDisable2 + "/Elements/WallTiles")
 		
 		if collisionDisable3 != null:
